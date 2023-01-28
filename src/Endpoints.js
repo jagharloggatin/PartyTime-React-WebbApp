@@ -1,4 +1,6 @@
-export const ENDPOINTS =
+const ENDPOINTS =
 {
     
 };
+
+export default ENDPOINTS;
