@@ -1,6 +1,6 @@
 import { GoogleMap, useLoadScript } from '@react-google-maps/api';
 import { useMemo } from 'react';
-import classes from './styles/Map.module.css';
+import classes from './styles/AppMap.module.scss';
 
 import React from 'react';
 import gridIcon from '../icons/grid.svg';

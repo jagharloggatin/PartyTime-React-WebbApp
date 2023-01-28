@@ -1,15 +1,19 @@
+import { AppBar, Toolbar } from '@mui/material';
 import React from 'react';
 import AppAvatar from './AppAvatar';
 import AppLogo from './AppLogo';
 import AppMenu from './AppMenu';
+import styles from './styles/AppHeader.module.scss';
 
 const AppHeader = (props) => {
   return (
-    <div className="header">
-      <AppMenu />
-      <AppLogo />
-      <AppAvatar />
-    </div>
+    <AppBar position="sticky">
+      <Toolbar className={styles.header}>
+        <AppMenu />
+        <AppLogo />
+        <AppAvatar />
+      </Toolbar>
+    </AppBar>
   );
 };
 
