@@ -38,6 +38,8 @@ export default function AppAvatar() {
         <List>
           <AppMenuItem icon={<MailIcon></MailIcon>} name="Profile" url="/profile"></AppMenuItem>
           <AppMenuItem name="Settings" url="/settings"></AppMenuItem>
+          <AppMenuItem name="Log in" url="/login"></AppMenuItem>
+          <AppMenuItem name="Sign up" url="/signup"></AppMenuItem>
         </List>
         <Divider />
         <List>
