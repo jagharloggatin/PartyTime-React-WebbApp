@@ -1,16 +1,23 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
-import HomeRoute from './Routes/HomeRoute';
+import HomeRoute from "./routes/HomeRoute";
+import MapRoute from "./routes/MapRoute";
 
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Menu from "components/Menu";
+import React from "react";
 
-function App()
-{
+function App() {
   return (
-    <Routes>
-      <Route path='/' element={<HomeRoute />}/>
-    </Routes>
+    <div className="page">
+      <div className="header">
+        <Menu></Menu>
+      </div>
+      <Routes>
+        <Route path="/" element={<HomeRoute />} />
+        <Route path="/map" element={<MapRoute />} />
+      </Routes>
+    </div>
   );
 }
 

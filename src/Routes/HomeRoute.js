@@ -1,11 +1,7 @@
 import React from "react";
-import { Map } from '../Components/Map';
 
-function HomeRoute()
-{
-    return (
-        <Map></Map>
-    );
+function HomeRoute() {
+  return <div>Home</div>;
 }
 
 export default HomeRoute;
