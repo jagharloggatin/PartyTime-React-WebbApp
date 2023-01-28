@@ -1,8 +1,8 @@
-import React from "react";
-import { Map } from "../components/Map";
+import AppMap from 'components/AppMap';
+import React from 'react';
 
 function MapRoute() {
-  return <Map></Map>;
+  return <AppMap></AppMap>;
 }
 
 export default MapRoute;

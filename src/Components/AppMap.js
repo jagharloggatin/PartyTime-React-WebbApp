@@ -6,7 +6,7 @@ import React from 'react';
 import gridIcon from '../icons/grid.svg';
 import plusIcon from '../icons/plus.svg';
 import searchIcon from '../icons/search.svg';
-import Logo from './Logo';
+import Logo from './AppLogo';
 
 const Core = () => {
   const center = useMemo(() => ({ lat: 59.32, lng: 18.06 }), []);
@@ -48,7 +48,7 @@ const Button = (props) => {
   );
 };
 
-export const Map = () => {
+const AppMap = () => {
   const { isLoaded } = useLoadScript({ googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY });
 
   if (!isLoaded) return <div>Loading...</div>;
@@ -76,3 +76,5 @@ export const Map = () => {
     </div>
   );
 };
+
+export default AppMap;

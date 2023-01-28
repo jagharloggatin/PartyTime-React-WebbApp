@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MenuItem = ({ url, name }) => {
+const AppMenuItem = ({ url, name }) => {
   return (
     <li>
       <a href={url}>{name}</a>
@@ -8,4 +8,4 @@ const MenuItem = ({ url, name }) => {
   );
 };
 
-export default MenuItem;
+export default AppMenuItem;
