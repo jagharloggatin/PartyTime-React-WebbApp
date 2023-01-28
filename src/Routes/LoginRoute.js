@@ -1,7 +1,13 @@
+import AppLogin from 'components/AppLogin';
 import React from 'react';
 
 function LoginRoute() {
-  return <div>Log in here</div>;
+  return (
+    <div className="page">
+      <h1>Login</h1>
+      <AppLogin></AppLogin>
+    </div>
+  );
 }
 
 export default LoginRoute;

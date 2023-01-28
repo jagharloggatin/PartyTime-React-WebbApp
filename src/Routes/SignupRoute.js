@@ -1,11 +1,11 @@
-import AppSignUp from 'components/AppSignUp';
+import AppSignup from 'components/AppSignup';
 import React from 'react';
 
 function SignupRoute() {
   return (
     <div className="page">
-      <h1>Sign Up</h1>
-      <AppSignUp></AppSignUp>
+      <h1>Signup</h1>
+      <AppSignup></AppSignup>
     </div>
   );
 }
