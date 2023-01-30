@@ -4,7 +4,7 @@ import LoginRoute from 'routes/LoginRoute';
 import ProfileRoute from 'routes/ProfileRoute';
 import { default as SigninRoute, default as SignupRoute } from 'routes/SignupRoute';
 import './App.scss';
-import AppHeader from './components/AppHeader';
+import AppHeader from './Components/AppHeader';
 import HomeRoute from './routes/HomeRoute';
 import MapRoute from './routes/MapRoute';
 

@@ -1,4 +1,4 @@
-import AppLogin from 'components/AppLogin';
+import AppLogin from 'Components/AppLogin';
 import React from 'react';
 
 function LoginRoute() {
