@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import UserList from 'routes/apiTest';
 import './App.scss';
 import AppHeader from './components/AppHeader';
 import HomeRoute from './routes/HomeRoute';
@@ -11,9 +12,11 @@ import { default as SigninRoute, default as SignupRoute } from './routes/SignupR
 function App() {
   return (
     <div className="wrapper">
+      <p>{}</p>
       <AppHeader></AppHeader>
       <Routes>
         <Route path="/" element={<HomeRoute />} />
+        <Route path="/api" element={<UserList />} />
         <Route path="/map" element={<MapRoute />} />
         <Route path="/profile" element={<ProfileRoute />} />
         <Route path="/login" element={<LoginRoute />} />
