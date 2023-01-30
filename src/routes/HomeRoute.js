@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField';
-import List from 'Components/List';
+import List from 'components/List';
 import React, { useState } from 'react';
 
 function HomeRoute() {
