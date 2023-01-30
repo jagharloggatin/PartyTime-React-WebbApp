@@ -13,7 +13,6 @@ function HomeRoute() {
 
   return (
     <div className="page">
-      <h1>PartyTime Destinations</h1>
       <div className="search">
         <TextField
           id="outlined-basic"
