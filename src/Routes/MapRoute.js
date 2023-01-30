@@ -1,4 +1,4 @@
-import AppMap from 'Components/AppMap';
+import AppMap from 'components/AppMap';
 import React from 'react';
 
 function MapRoute() {

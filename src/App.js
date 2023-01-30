@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import LoginRoute from 'routes/LoginRoute';
+import ProfileRoute from 'routes/ProfileRoute';
+import { default as SigninRoute, default as SignupRoute } from 'routes/SignupRoute';
 import './App.scss';
-import AppHeader from './Components/AppHeader';
-import HomeRoute from './Routes/HomeRoute';
-import LoginRoute from './Routes/LoginRoute';
-import MapRoute from './Routes/MapRoute';
-import ProfileRoute from './Routes/ProfileRoute';
-import { default as SignupRoute } from './Routes/SignupRoute';
+import AppHeader from './components/AppHeader';
+import HomeRoute from './routes/HomeRoute';
+import MapRoute from './routes/MapRoute';
 
 function App() {
   return (
