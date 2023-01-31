@@ -32,26 +32,13 @@ export default function AppSignup() {
         <ErrorAlert ref={errorAlertRef}></ErrorAlert>
         <SuccessAlert ref={successAlertRef}></SuccessAlert>
         <Box>
-          <TextField
-            helperText="Please enter your username"
-            id="username"
-            label="Username"
-            margin="dense"
-            fullWidth={true}
-          />
+          <TextField id="username" label="Username" margin="normal" fullWidth={true} />
         </Box>
         <Box>
-          <TextField
-            type="password"
-            helperText="Please enter your password"
-            id="password"
-            label="Password"
-            margin="dense"
-            fullWidth={true}
-          />
+          <TextField type="password" id="password" label="Password" margin="normal" fullWidth={true} />
         </Box>
         <Box>
-          <Button variant="contained" type="submit">
+          <Button variant="contained" type="submit" size="large" sx={{ mt: 2 }}>
             Login
           </Button>
         </Box>

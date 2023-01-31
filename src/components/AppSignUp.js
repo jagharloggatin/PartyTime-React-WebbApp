@@ -1,54 +1,70 @@
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import ENDPOINTS from 'Endpoints';
 import * as React from 'react';
+import { useState } from 'react';
+import { getRequest } from 'RequestService';
 import ErrorAlert from './ErrorAlert';
 
 function AppSignup() {
+  const [usnCheck, setUsnCheck] = useState(false);
+
   const handleLogin = () => {};
+
+  const checkUsername = async (e) => {
+    const username = e.target.value;
+
+    if (!username) return;
+
+    let resp = await (await getRequest(ENDPOINTS.checkUsername(username))).json();
+    if (resp.taken) setUsnCheck(true);
+    else setUsnCheck(false);
+  };
 
   return (
     <>
       <form>
         <Box>
-          <TextField id="demo-helper-text-misaligned" label="User name" margin="dense" fullWidth={true} />
+          <TextField
+            error={usnCheck}
+            helperText={usnCheck ? 'Username already in use' : ''}
+            id="username"
+            label="User name"
+            margin="normal"
+            onChange={checkUsername}
+            fullWidth
+          />
         </Box>
         <Box>
-          <TextField id="demo-helper-text-misaligned" label="First name" margin="dense" fullWidth={true} />
+          <TextField id="first" label="First name" margin="normal" fullWidth />
         </Box>
         <Box>
-          <TextField id="demo-helper-text-misaligned" label="Last name" margin="dense" fullWidth={true} />
+          <TextField id="last" label="Last name" margin="normal" fullWidth />
         </Box>
         <Box>
           <TextField
-            id="date"
-            margin="dense"
+            id="birthday"
+            margin="normal"
             label="Birthday"
             type="date"
-            fullWidth={true}
-            sx={{ width: 220 }}
             InputLabelProps={{
               shrink: true,
             }}
+            fullWidth
           />
         </Box>
         <Box>
-          <TextField id="demo-helper-text-misaligned" label="Email" margin="dense" fullWidth={true} />
+          <TextField id="email" label="Email" margin="normal" fullWidth />
         </Box>
         <Box>
-          <TextField id="demo-helper-text-misaligned" label="Verify email" margin="dense" fullWidth={true} />
+          <TextField id="email" label="Verify email" margin="normal" fullWidth />
         </Box>
         <Box>
-          <TextField
-            id="demo-helper-text-misaligned"
-            label="Password"
-            type="password"
-            margin="dense"
-            fullWidth={true}
-          />
+          <TextField id="password" label="Password" type="password" margin="normal" fullWidth />
         </Box>
         <Box>
-          <Button variant="contained" onClick={handleLogin}>
+          <Button variant="contained" type="submit" size="large" sx={{ mt: 2 }} onSubmit={handleLogin}>
             Register
           </Button>
         </Box>

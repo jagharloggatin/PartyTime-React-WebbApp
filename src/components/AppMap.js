@@ -54,13 +54,6 @@ const AppMap = () => {
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <div>
-      <div className={classes.overlay}>
-        <div></div>
-        <div className={classes['logo-holder']}>
-          <Logo style={{ width: '135px', height: 'auto', marginTop: '20px' }} />
-        </div>
-        <div></div>
-      </div>
       <div className={classes['control-container']}>
         <Button size={60}>
           <img src={gridIcon} alt={'grid-view'} />

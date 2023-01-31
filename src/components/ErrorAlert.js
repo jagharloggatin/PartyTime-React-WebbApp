@@ -23,9 +23,9 @@ const ErrorAlert = forwardRef((props, ref) => {
 
   return (
     <Snackbar
-      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       open={open}
-      autoHideDuration={6000}
+      autoHideDuration={2000}
       onClose={handleClose}
     >
       <Alert variant="filled" onClose={handleClose} severity="error" sx={{ width: '100%' }}>

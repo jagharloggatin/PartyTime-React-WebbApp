@@ -25,7 +25,7 @@ const SuccessAlert = forwardRef((props, ref) => {
     <Snackbar
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       open={open}
-      autoHideDuration={6000}
+      autoHideDuration={2000}
       onClose={handleClose}
     >
       <Alert variant="filled" onClose={handleClose} severity="success" sx={{ width: '100%' }}>

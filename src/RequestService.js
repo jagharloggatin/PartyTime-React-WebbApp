@@ -5,4 +5,6 @@ const postRequest = async (endpoint, body) =>
     body: JSON.stringify(body),
   });
 
-module.exports = { postRequest };
+const getRequest = async (endpoint) => await fetch(endpoint);
+
+module.exports = { postRequest, getRequest };
