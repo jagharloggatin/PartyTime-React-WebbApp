@@ -12,7 +12,6 @@ import { default as SigninRoute, default as SignupRoute } from './routes/SignupR
 function App() {
   return (
     <div className="wrapper">
-      <p>{}</p>
       <AppHeader></AppHeader>
       <Routes>
         <Route path="/" element={<HomeRoute />} />
