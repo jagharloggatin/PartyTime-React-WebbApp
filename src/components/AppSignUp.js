@@ -2,42 +2,30 @@ import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import * as React from 'react';
+import ErrorAlert from './ErrorAlert';
 
-export default function AppSignup() {
+function AppSignup() {
+  const handleLogin = () => {};
+
   return (
     <>
       <form>
         <Box>
-          <TextField
-            helperText="Please enter your user name"
-            id="demo-helper-text-misaligned"
-            label="User name"
-            margin="dense"
-          />
+          <TextField id="demo-helper-text-misaligned" label="User name" margin="dense" fullWidth={true} />
         </Box>
         <Box>
-          <TextField
-            helperText="Please enter your first name"
-            id="demo-helper-text-misaligned"
-            label="First name"
-            margin="dense"
-          />
+          <TextField id="demo-helper-text-misaligned" label="First name" margin="dense" fullWidth={true} />
         </Box>
         <Box>
-          <TextField
-            helperText="Please enter your last name"
-            id="demo-helper-text-misaligned"
-            label="Last name"
-            margin="dense"
-          />
+          <TextField id="demo-helper-text-misaligned" label="Last name" margin="dense" fullWidth={true} />
         </Box>
         <Box>
           <TextField
             id="date"
             margin="dense"
-            helperText="Please enter your birthday"
             label="Birthday"
             type="date"
+            fullWidth={true}
             sx={{ width: 220 }}
             InputLabelProps={{
               shrink: true,
@@ -45,32 +33,22 @@ export default function AppSignup() {
           />
         </Box>
         <Box>
-          <TextField
-            helperText="Please enter your email"
-            id="demo-helper-text-misaligned"
-            label="Email"
-            margin="dense"
-          />
+          <TextField id="demo-helper-text-misaligned" label="Email" margin="dense" fullWidth={true} />
+        </Box>
+        <Box>
+          <TextField id="demo-helper-text-misaligned" label="Verify email" margin="dense" fullWidth={true} />
         </Box>
         <Box>
           <TextField
-            helperText="Please verify your email"
-            id="demo-helper-text-misaligned"
-            label="Verify email"
-            margin="dense"
-          />
-        </Box>
-        <Box>
-          <TextField
-            helperText="Please enter your password"
             id="demo-helper-text-misaligned"
             label="Password"
             type="password"
             margin="dense"
+            fullWidth={true}
           />
         </Box>
         <Box>
-          <Button variant="contained" type="submit">
+          <Button variant="contained" onClick={handleLogin}>
             Register
           </Button>
         </Box>
@@ -78,3 +56,5 @@ export default function AppSignup() {
     </>
   );
 }
+
+export default AppSignup;

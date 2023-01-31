@@ -1,5 +1,5 @@
-import AppSignup from 'components/AppSignup';
 import React from 'react';
+import AppSignup from '../Components/AppSignUp';
 
 function SignupRoute() {
   return (

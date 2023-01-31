@@ -1,5 +1,5 @@
-import AppMap from 'components/AppMap';
 import React from 'react';
+import AppMap from '../Components/AppMap';
 
 function MapRoute() {
   return <AppMap></AppMap>;
