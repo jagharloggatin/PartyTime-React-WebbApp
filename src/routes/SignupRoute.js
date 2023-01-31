@@ -5,6 +5,7 @@ function SignupRoute() {
   return (
     <div className="page">
       <h1>Signup</h1>
+
       <AppSignup></AppSignup>
     </div>
   );
