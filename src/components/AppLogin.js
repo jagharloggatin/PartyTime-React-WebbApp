@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import * as React from 'react';
 
-export default function AppSignup() {
+export default function AppLogin() {
   return (
     <>
       <form>
