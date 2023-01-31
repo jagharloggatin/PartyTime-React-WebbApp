@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import UserList from 'routes/apiTest';
 import './App.scss';
-import AppHeader from './Components/AppHeader';
+import AppHeader from './components/AppHeader';
 import HomeRoute from './routes/HomeRoute';
 import LoginRoute from './routes/LoginRoute';
 import MapRoute from './routes/MapRoute';

@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
-import List from '../Components/List';
+import List from '../components/List';
 
 function HomeRoute() {
   const [inputText, setInputText] = useState('');
