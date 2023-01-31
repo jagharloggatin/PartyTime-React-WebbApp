@@ -1,3 +1,5 @@
+import { AccountBox, AddLocationAlt } from '@mui/icons-material';
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton, List, SwipeableDrawer } from '@mui/material';
@@ -22,7 +24,7 @@ const AppMenu = (props) => {
       <div className={styles.drawer}>
         <List>
           <AppMenuItem icon={<HomeIcon />} name="Home" url="/"></AppMenuItem>
-          <AppMenuItem name="Map" url="/map"></AppMenuItem>
+          <AppMenuItem icon={<AddLocationAlt />} name="Map" url="/map"></AppMenuItem>
         </List>
       </div>
     </SwipeableDrawer>

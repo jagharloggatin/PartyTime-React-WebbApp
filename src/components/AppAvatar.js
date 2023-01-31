@@ -1,5 +1,10 @@
-import MailIcon from '@mui/icons-material/Mail';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 import InboxIcon from '@mui/icons-material/MoveToInbox';
+import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { Avatar, Divider, List, SwipeableDrawer } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -36,14 +41,14 @@ export default function AppAvatar() {
     <SwipeableDrawer anchor="right" open={open} onClose={handleClose} onOpen={handleOpen}>
       <div className={styles.drawer}>
         <List>
-          <AppMenuItem icon={<MailIcon></MailIcon>} name="Profile" url="/profile"></AppMenuItem>
-          <AppMenuItem name="Settings" url="/settings"></AppMenuItem>
-          <AppMenuItem name="Log in" url="/login"></AppMenuItem>
-          <AppMenuItem name="Sign up" url="/signup"></AppMenuItem>
+          <AppMenuItem icon={<PersonIcon />} name="Profile" url="/profile"></AppMenuItem>
+          <AppMenuItem icon={<SettingsIcon />} name="Settings" url="/settings"></AppMenuItem>
+          <AppMenuItem icon={<LoginIcon />} name="Log in" url="/login"></AppMenuItem>
+          <AppMenuItem icon={<FastfoodIcon />} name="Sign up" url="/signup"></AppMenuItem>
         </List>
         <Divider />
         <List>
-          <AppMenuItem name="Logout" onClick={logout}></AppMenuItem>
+          <AppMenuItem icon={<LogoutIcon />} name="Logout" onClick={logout}></AppMenuItem>
         </List>
       </div>
     </SwipeableDrawer>

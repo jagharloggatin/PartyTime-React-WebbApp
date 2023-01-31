@@ -67,3 +67,13 @@ code {
     transform: rotate(360deg);
   }
 }
+
+.profile-background {
+  padding: 150px 50px;
+  background-image: url('../public/assets/Images/tokyo.png');
+  background-size: cover;
+  background-position: center;
+  height: 100px;
+  margin: 10px 0;
+  border-radius: 20px;
+}
