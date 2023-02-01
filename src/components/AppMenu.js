@@ -7,6 +7,10 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import AppMenuItem from './AppMenuItem';
 import styles from './styles/AppMenu.module.scss';
+import AppAllActivities from './activities/AppAllActivities';
+import AppNewActivity from './activities/AppNewActivity';
+import AppFavorites from './activities/AppFavorites';
+import ActivitiesRoute from '../routes/ActivitiesRoute';
 
 const AppMenu = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -25,6 +29,9 @@ const AppMenu = (props) => {
         <List>
           <AppMenuItem icon={<HomeIcon />} name="Home" url="/"></AppMenuItem>
           <AppMenuItem icon={<AddLocationAlt />} name="Map" url="/map"></AppMenuItem>
+          <AppMenuItem icon={<AddLocationAlt />} name="Activities" url="/activities"></AppMenuItem>
+          <AppMenuItem icon={<AddLocationAlt />} name="New Activity" url="/new-activity"></AppMenuItem>
+          <AppMenuItem icon={<AddLocationAlt />} name="Favorites" url="/favorites"></AppMenuItem>
         </List>
       </div>
     </SwipeableDrawer>
