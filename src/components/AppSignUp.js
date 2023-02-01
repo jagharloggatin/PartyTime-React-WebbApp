@@ -3,14 +3,51 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import ENDPOINTS from 'Endpoints';
 import * as React from 'react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { getRequest } from 'RequestService';
 import ErrorAlert from './ErrorAlert';
 
 function AppSignup() {
+  const [firstCheck, setFirstCheck] = useState(false);
+  const [lastCheck, setLastCheck] = useState(false);
+  const [bdayCheck, setBdayCheck] = useState(false);
+  const [emailCheck, setEmailCheck] = useState(false);
   const [usnCheck, setUsnCheck] = useState(false);
+  const [pwdCheck, setPwdCheck] = useState(false);
 
-  const handleLogin = () => {};
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const usn = e.target.username.value;
+    const first = e.target.first.value;
+    const last = e.target.last.value;
+    const birth = e.target.birthday.value;
+    const email = e.target.email.value;
+    const pwd = e.target.password.value;
+    const verify = e.target.verify.value;
+
+    // Input validation
+
+    if (usnCheck) return;
+
+    if (!first) setFirstCheck(true);
+    else setFirstCheck(false);
+
+    if (!last) setLastCheck(true);
+    else setLastCheck(false);
+
+    if (!birth) setBdayCheck(true);
+    else setBdayCheck(false);
+
+    if (!email) setEmailCheck(true);
+    else setEmailCheck(false);
+
+    if (!pwd || pwd !== verify) setPwdCheck(true);
+    else setPwdCheck(false);
+
+    if (firstCheck || lastCheck || bdayCheck || emailCheck || usnCheck || pwdCheck) return;
+
+    alert('Registered!');
+  };
 
   const checkUsername = async (e) => {
     const username = e.target.value;
@@ -24,11 +61,11 @@ function AppSignup() {
 
   return (
     <>
-      <form>
+      <form onSubmit={handleRegister}>
         <Box>
           <TextField
             error={usnCheck}
-            helperText={usnCheck ? 'Username already in use' : ''}
+            helperText={usnCheck ? 'Username Already in Use' : ''}
             id="username"
             label="User name"
             margin="normal"
@@ -37,14 +74,15 @@ function AppSignup() {
           />
         </Box>
         <Box>
-          <TextField id="first" label="First name" margin="normal" fullWidth />
+          <TextField id="first" error={firstCheck} label="First name" margin="normal" fullWidth />
         </Box>
         <Box>
-          <TextField id="last" label="Last name" margin="normal" fullWidth />
+          <TextField id="last" error={lastCheck} label="Last name" margin="normal" fullWidth />
         </Box>
         <Box>
           <TextField
             id="birthday"
+            error={bdayCheck}
             margin="normal"
             label="Birthday"
             type="date"
@@ -55,16 +93,24 @@ function AppSignup() {
           />
         </Box>
         <Box>
-          <TextField id="email" label="Email" margin="normal" fullWidth />
+          <TextField id="email" error={emailCheck} label="Email" margin="normal" fullWidth />
         </Box>
         <Box>
-          <TextField id="email" label="Verify email" margin="normal" fullWidth />
+          <TextField
+            id="password"
+            error={pwdCheck}
+            helperText={pwdCheck ? 'Passwords do not match!' : ''}
+            label="Password"
+            type={'password'}
+            margin="normal"
+            fullWidth
+          />
         </Box>
         <Box>
-          <TextField id="password" label="Password" type="password" margin="normal" fullWidth />
+          <TextField id="verify" error={pwdCheck} label="Verify Password" type="password" margin="normal" fullWidth />
         </Box>
         <Box>
-          <Button variant="contained" type="submit" size="large" sx={{ mt: 2 }} onSubmit={handleLogin}>
+          <Button variant="contained" type="submit" size="large" sx={{ mt: 2 }}>
             Register
           </Button>
         </Box>
