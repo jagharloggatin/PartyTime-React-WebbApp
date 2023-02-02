@@ -24,7 +24,7 @@ export default function ProfileTabs() {
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
             <LinkTab value="1" icon={<PersonPinIcon />} label="Activity page" to="/profile" />
-            <LinkTab value="2" icon={<FavoriteIcon />} label="Favorites" to="/profile/activities" />
+            <LinkTab value="2" icon={<FavoriteIcon />} label="Favorites" to="/profile/favorites" />
             <LinkTab value="3" icon={<CommentIcon />} label="Comments" to="/profile/comments" />
             <LinkTab value="4" icon={<ReviewsIcon />} label="Reviews" to="/profile/review" />
           </TabList>
