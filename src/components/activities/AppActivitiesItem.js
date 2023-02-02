@@ -1,8 +1,8 @@
-import classes from '../styles/AppActivitiesItem.module.css';
-import { useContext } from 'react';
-import FavoritesContext from '../../store/ActivitiesContext';
-import AppCard from '../ui/AppCard';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import FavoritesContext from '../../store/ActivitiesContext';
+import classes from '../styles/AppActivitiesItem.module.css';
+import AppCard from '../ui/AppCard';
 
 function MeetupItem(props) {
   const favoritesCtx = useContext(FavoritesContext);
@@ -41,7 +41,7 @@ function MeetupItem(props) {
   return (
     <li className={classes.item}>
       <AppCard>
-          <li className={classes.innerItem} onClick={goToActivity}>
+        <li className={classes.innerItem} onClick={goToActivity}>
           <div className={classes.image}>
             <img src={props.image} alt={props.title} />
           </div>
@@ -51,11 +51,9 @@ function MeetupItem(props) {
             <p>City: {props.city}</p>
             <p> Description: {props.description}</p>
           </div>
-          </li>
+        </li>
         <div className={classes.actions}>
-          <button onClick={toggleFavoriteStatusHandler}>
-            {itemIsFavorite ? '♥' : '♡'}
-          </button>
+          <button onClick={toggleFavoriteStatusHandler}>{itemIsFavorite ? '♥' : '♡'}</button>
           {/*<button onClick={goToActivity}>Go To Activity</button>*/}
         </div>
       </AppCard>
