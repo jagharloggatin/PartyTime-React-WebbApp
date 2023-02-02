@@ -23,7 +23,7 @@ function NewMeetupForm(props) {
           'Content-Type': 'application/json',
         },
       },
-    ).then(() => navigateTo('/activities'));
+    ).then(() => navigateTo('/events'));
   };
 
   function submitHandler(event) {
@@ -70,6 +70,7 @@ function NewMeetupForm(props) {
         <textarea id='description' required rows='5'
                   ref={descriptionInputRef} />
       </div>
+
       <div className={classes.actions}>
         <button>Add Meetup</button>
       </div>

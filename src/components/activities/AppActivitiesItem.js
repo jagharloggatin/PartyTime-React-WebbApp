@@ -20,7 +20,7 @@ function MeetupItem(props) {
       address: props.address,
       city: props.city,
     });
-    navigateTo('/events/id');
+    navigateTo('/event');
   };
 
   function toggleFavoriteStatusHandler() {

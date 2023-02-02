@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import classes from '../styles/Headlines.module.css';
 
+//'https://testagain-d4b54-default-rtdb.firebaseio.com/comments.json
+
 function AppGetComments() {
 
   const[isLoading, setIsLoading] = useState(true);
