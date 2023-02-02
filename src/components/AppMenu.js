@@ -27,9 +27,10 @@ const AppMenu = (props) => {
         <List>
           <AppMenuItem icon={<HomeIcon />} name="Home" url="/"></AppMenuItem>
           <AppMenuItem icon={<AddLocationAlt />} name="Map" url="/map"></AppMenuItem>
-          <AppMenuItem icon={<AddLocationAlt />} name="Activities" url="/activities"></AppMenuItem>
-          <AppMenuItem icon={<AddLocationAlt />} name="New Activity" url="/new-activity"></AppMenuItem>
+          <AppMenuItem icon={<AddLocationAlt />} name="Activities" url="/events"></AppMenuItem>
+          <AppMenuItem icon={<AddLocationAlt />} name="New Activity" url="/new-events"></AppMenuItem>
           <AppMenuItem icon={<AddLocationAlt />} name="Favorites" url="/favorites"></AppMenuItem>
+          <AppMenuItem icon={<AddLocationAlt />} name="Activity" url="/events/id"></AppMenuItem>
         </List>
       </div>
     </SwipeableDrawer>

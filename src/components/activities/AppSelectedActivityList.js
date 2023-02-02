@@ -1,10 +1,10 @@
 import classes from '../styles/AppActivitiesList.module.css'
-import MeetupItem from './AppActivitiesItem';
+import AppSelectedActivityItem from './AppSelectedActivityItem';
 
-function MeetupList(props) {
+function AppSelectedActivityList(props) {
   return <ul className={classes.list}>
     {props.meetups.map(meetup => (
-      <MeetupItem
+      <AppSelectedActivityItem
         key={meetup.id} id={meetup.id}
         image={meetup.image}
         title={meetup.title}
@@ -16,4 +16,4 @@ function MeetupList(props) {
   </ul>
 }
 
-export default MeetupList;
+export default AppSelectedActivityList;

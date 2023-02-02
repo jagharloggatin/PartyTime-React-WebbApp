@@ -9,7 +9,8 @@ function NewMeetupForm(props) {
   const imageInputRef = useRef(null);
   const addressInputRef = useRef(null);
   const descriptionInputRef = useRef(null);
-  const history = useNavigate();
+  const cityInputRef = useRef(null);
+  const navigateTo = useNavigate();
   const addMeetupHandler = meetupData => {
     // console.log(meetupData)
 
@@ -22,7 +23,7 @@ function NewMeetupForm(props) {
           'Content-Type': 'application/json',
         },
       },
-    ).then(() => history('/activities'));
+    ).then(() => navigateTo('/activities'));
   };
 
   function submitHandler(event) {
@@ -32,12 +33,14 @@ function NewMeetupForm(props) {
     const enteredImage = imageInputRef.current.value;
     const enteredAddress = addressInputRef.current.value;
     const enteredDescription = descriptionInputRef.current.value;
+    const enteredCity = cityInputRef.current.value;
 
     const meetupData = {
       title: enteredTitle,
       image: enteredImage,
       address: enteredAddress,
       description: enteredDescription,
+      city: enteredCity,
     };
     addMeetupHandler(meetupData);
     // props.onAddMeetup(meetupData);
@@ -53,6 +56,10 @@ function NewMeetupForm(props) {
       <div className={classes.control}>
         <label htmlFor='image'>Image</label>
         <input type='url' required id='image' ref={imageInputRef} />
+      </div>
+      <div className={classes.control}>
+        <label htmlFor='city'>City</label>
+        <input type='text' required id='city' ref={cityInputRef} />
       </div>
       <div className={classes.control}>
         <label htmlFor='address'>Address</label>

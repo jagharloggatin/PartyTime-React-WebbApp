@@ -11,6 +11,7 @@ import { default as SigninRoute, default as SignupRoute } from './routes/SignupR
 import ActivitiesRoute from './routes/ActivitiesRoute';
 import AppNewActivityForm from './components/activities/AppNewActivityForm';
 import AppFavorites from './components/activities/AppFavorites';
+import SelectedActivityRoute from './routes/SelectedActivityRoute';
 
 function App() {
   return (
@@ -23,9 +24,10 @@ function App() {
         <Route path="/profile" element={<ProfileRoute />} />
         <Route path="/login" element={<LoginRoute />} />
         <Route path="/signup" element={<SignupRoute />} />
-        <Route path="/activities" element={<ActivitiesRoute />} />
-        <Route path="/new-activity" element={<AppNewActivityForm />} />
+        <Route path="/events" element={<ActivitiesRoute />} />
+        <Route path="/new-events" element={<AppNewActivityForm />} />
         <Route path="/favorites" element={<AppFavorites />} />
+        <Route path="/events/id" element={<SelectedActivityRoute />} />
       </Routes>
     </div>
   );
