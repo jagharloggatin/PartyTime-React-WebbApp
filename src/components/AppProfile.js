@@ -3,24 +3,36 @@ import { deepOrange } from '@mui/material/colors';
 import { style } from '@mui/system';
 import ENDPOINTS from 'Endpoints';
 import React, { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import { getRequest } from 'RequestService';
+import ProfileTabs from './ProfileTabs';
 import styles from './styles/AppProfile.module.scss';
 
 export default function AppProfile() {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const id = 7;
 
     async function fetchData() {
-      const res = await getRequest(ENDPOINTS.getUser(id));
-      console.log('här är mitt res', res);
-      const data = await res.json();
+      try {
+        setIsLoading(true);
+        const res = await getRequest(ENDPOINTS.getUser(id));
+        console.log('här är mitt res', res);
+        const data = await res.json();
 
-      setUser(data);
+        setUser(data);
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchData();
   }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   if (!user) {
     return <div>No user</div>;
@@ -45,6 +57,11 @@ export default function AppProfile() {
           </h2>
           <h3>@{user.username}</h3>
         </div>
+      </div>
+      <div></div>
+
+      <div className="test">
+        <ProfileTabs></ProfileTabs>
       </div>
     </div>
   );
