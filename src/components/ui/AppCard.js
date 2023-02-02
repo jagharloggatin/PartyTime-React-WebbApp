@@ -1,9 +1,7 @@
 import classes from '../styles/AppCard.module.css'
-import AppLayout from './AppLayout';
-import { FavoritesContextProvider } from '../../store/FavoriteContext';
+import Layout from './AppLayout';
 
-function AppCard(props){
-
-    return <AppLayout><div className={classes.card}>{props.children}</div></AppLayout>
+function Card(props){
+  return <Layout><div className={classes.card}>{props.children}</div></Layout>
 }
-export default AppCard;
+export default Card;

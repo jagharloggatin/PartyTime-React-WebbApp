@@ -1,7 +1,7 @@
 import React from 'react'
 import {useContext} from "react";
-import MeetupList from "./AppActivitiesList";
 import FavoritesContext from '../../store/FavoriteContext';
+import MeetupList from './AppActivitiesList';
 
 function Favorites(){
   const favoritesCtx = useContext(FavoritesContext);

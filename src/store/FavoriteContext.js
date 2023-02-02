@@ -25,6 +25,7 @@ export function FavoritesContextProvider(props){
     });
   }
   function itemIsFavoriteHandler(meetupId){
+    // console.log(meetupId)
     // let myBool =
     // console.log(myBool)
     return userFavorites.some(meetup => meetup.id === meetupId);

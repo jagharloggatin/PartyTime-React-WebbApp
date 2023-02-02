@@ -1,5 +1,5 @@
 import classes from '../styles/AppActivitiesList.module.css'
-import MeetupItem from "./AppActivitiesItem";
+import MeetupItem from './AppActivitiesItem';
 
 function MeetupList(props) {
   return <ul className={classes.list}>

@@ -1,6 +1,6 @@
-import classes from '../styles/AppActivitiesItem.module.css';
-import { useContext } from 'react';
-import FavoritesContext from 'store/FavoriteContext';
+import classes from '../styles/AppActivitiesItem.module.css'
+import {useContext} from "react";
+import FavoritesContext from "../../store/FavoriteContext";
 import AppCard from '../ui/AppCard';
 
 function MeetupItem(props) {
@@ -9,12 +9,12 @@ function MeetupItem(props) {
 
   function toggleFavoriteStatusHandler() {
     // console.log(props.id)
-    // console.log('exist in favorites:' + itemIsFavorite);
+    // console.log("exist in favorites:" + itemIsFavorite)
     if (itemIsFavorite) {
-      // console.log(itemIsFavorite)
-      favoritesCtx.removeFavorite(props.id);
+      // console.log("1")
+      favoritesCtx.removeFavorite(props.id)
     } else {
-      // console.log(itemIsFavorite)
+      // console.log("0")
       favoritesCtx.addFavorite({
         id: props.id,
         title: props.title,
@@ -29,7 +29,7 @@ function MeetupItem(props) {
     <li className={classes.item}>
       <AppCard>
         <div className={classes.image}>
-          <img src={props.image} alt={props.title} />
+          <img src={props.image} alt={props.title}/>
         </div>
         <div className={classes.content}>
           <h3>{props.title}</h3>
@@ -43,7 +43,6 @@ function MeetupItem(props) {
         </div>
       </AppCard>
     </li>
-
   );
 }
 

@@ -1,15 +1,31 @@
 import classes from '../styles/AppNewActivityForm.module.css';
 import { useRef } from 'react';
 import AppCard from '../ui/AppCard';
+import { useNavigate } from 'react-router-dom';
 
-function NewMeetupForm(props){
+function NewMeetupForm(props) {
 
-  const titleInputRef = useRef();
-  const imageInputRef = useRef();
-  const addressInputRef = useRef();
-  const descriptionInputRef = useRef();
+  const titleInputRef = useRef(null);
+  const imageInputRef = useRef(null);
+  const addressInputRef = useRef(null);
+  const descriptionInputRef = useRef(null);
+  const history = useNavigate();
+  const addMeetupHandler = meetupData => {
+    // console.log(meetupData)
 
-  function submitHandler(event){
+    fetch(
+      'https://testagain-d4b54-default-rtdb.firebaseio.com/meetups.json',
+      {
+        method: 'POST',
+        body: JSON.stringify(meetupData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    ).then(() => history('/activities'));
+  };
+
+  function submitHandler(event) {
     event.preventDefault();
 
     const enteredTitle = titleInputRef.current.value;
@@ -21,35 +37,37 @@ function NewMeetupForm(props){
       title: enteredTitle,
       image: enteredImage,
       address: enteredAddress,
-      description: enteredDescription
-    }
-    props.onAddActivity(meetupData);
-
+      description: enteredDescription,
+    };
+    addMeetupHandler(meetupData);
+    // props.onAddMeetup(meetupData);
     // console.log(meetupData)
   }
 
   return <AppCard>
     <form className={classes.form} onSubmit={submitHandler}>
       <div className={classes.control}>
-        <label htmlFor='title'>Meetup Title</label>
-        <input type='text' required id='title' ref={titleInputRef}/>
+        <label htmlFor='title'>Title</label>
+        <input type='text' required id='title' ref={titleInputRef} />
       </div>
       <div className={classes.control}>
-        <label htmlFor='image'>Meetup Image</label>
-        <input type='url' required id='image' ref={imageInputRef}/>
+        <label htmlFor='image'>Image</label>
+        <input type='url' required id='image' ref={imageInputRef} />
       </div>
       <div className={classes.control}>
         <label htmlFor='address'>Address</label>
-        <input type='text' required id='address' ref={addressInputRef}/>
+        <input type='text' required id='address' ref={addressInputRef} />
       </div>
       <div className={classes.control}>
         <label htmlFor='description'>Description</label>
-        <textarea id='description' required rows='5' ref={descriptionInputRef}/>
+        <textarea id='description' required rows='5'
+                  ref={descriptionInputRef} />
       </div>
       <div className={classes.actions}>
         <button>Add Meetup</button>
       </div>
     </form>
-  </AppCard>
+  </AppCard>;
 }
+
 export default NewMeetupForm;
