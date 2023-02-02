@@ -1,6 +1,6 @@
 import React from 'react'
 import {useContext} from "react";
-import FavoritesContext from '../../store/FavoriteContext';
+import FavoritesContext from '../../store/ActivitiesContext';
 import MeetupList from './AppActivitiesList';
 
 function Favorites(){
