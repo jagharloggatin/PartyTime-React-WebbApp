@@ -7,6 +7,7 @@ const ENDPOINTS = {
   register: `https://${HOST}:${PORT}/user`,
   checkUsername: (un) => `https://${HOST}:${PORT}/check/username/${un}`,
   getUser: (id) => `${URL}/users/${id}`,
+  editUser: (id) => `${URL}/users/${id}`,
 };
 
 export default ENDPOINTS;
