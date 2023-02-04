@@ -3,13 +3,14 @@ import { useRef } from 'react';
 import AppCard from '../ui/AppCard';
 import { useNavigate } from 'react-router-dom';
 
-function NewMeetupForm(props) {
+function NewMeetupForm() {
 
   const titleInputRef = useRef(null);
   const imageInputRef = useRef(null);
   const addressInputRef = useRef(null);
   const descriptionInputRef = useRef(null);
   const cityInputRef = useRef(null);
+  const ratingInputRef = useRef(null);
   const navigateTo = useNavigate();
   const addMeetupHandler = meetupData => {
     // console.log(meetupData)
@@ -34,6 +35,8 @@ function NewMeetupForm(props) {
     const enteredAddress = addressInputRef.current.value;
     const enteredDescription = descriptionInputRef.current.value;
     const enteredCity = cityInputRef.current.value;
+    const enteredRating = ratingInputRef.current.value;
+    // const rating = undefined;
 
     const meetupData = {
       title: enteredTitle,
@@ -41,6 +44,9 @@ function NewMeetupForm(props) {
       address: enteredAddress,
       description: enteredDescription,
       city: enteredCity,
+      rating: enteredRating,
+      comments: [],
+      // id: 1,
     };
     addMeetupHandler(meetupData);
     // props.onAddMeetup(meetupData);
@@ -70,7 +76,10 @@ function NewMeetupForm(props) {
         <textarea id='description' required rows='5'
                   ref={descriptionInputRef} />
       </div>
-
+      <div className={classes.control}>
+        <label htmlFor='rating'>Rating(1-5)</label>
+        <input type='number' required id='number' ref={ratingInputRef} />
+      </div>
       <div className={classes.actions}>
         <button>Add Meetup</button>
       </div>

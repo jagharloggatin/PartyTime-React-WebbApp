@@ -3,6 +3,7 @@ import {createContext, useState} from "react";
 const FavoritesContext = createContext({
   favorites: [],
   activity: [],
+  comments: [],
   totalFavorites: 0,
   addFavorite: (favoriteMeetup) => {},
   removeFavorite: (meetupId) => {},

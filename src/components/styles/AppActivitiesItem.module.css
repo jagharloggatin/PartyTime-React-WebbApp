@@ -1,5 +1,6 @@
 .item, .innerItem {
     margin: 1rem 0;
+    list-style: none;
 }
 
 .innerItem:hover{
@@ -33,6 +34,15 @@
     text-align: center;
 }
 
+.commentsContainer button {
+    font: inherit;
+    cursor: pointer;
+    color: #77002e;
+    border: 2px solid #77002e;
+    background-color: transparent;
+    border-radius: 4px;
+}
+
 .actions button {
     font: inherit;
     font-size: large;
@@ -44,11 +54,18 @@
     border-radius: 4px;
 }
 
-.actions button:hover,
-.actions button:active {
+.actions button:hover, .commentsContainer button:hover,
+.actions button:active, .commentsContainer button:active {
     background-color: #ffe2ed;
 }
 
 .comments {
     text-align: center;
+}
+
+.commentsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
 }

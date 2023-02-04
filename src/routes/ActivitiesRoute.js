@@ -2,6 +2,9 @@ import {useState, useEffect} from "react";
 import MeetupList from '../components/activities/AppActivitiesList';
 import classes from '../components/styles/Headlines.module.css'
 
+
+//https://testagain-d4b54-default-rtdb.firebaseio.com/meetups
+
 function AllMeetups() {
 
   const[isLoading, setIsLoading] = useState(true);
