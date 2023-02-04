@@ -11,6 +11,7 @@ const ENDPOINTS = {
   checkUsername: (un) => `https://${HOST}:${PORT}/check/username/${un}`,
   getEvents: () => `https://${HOST}:${PORT}/events`,
   getUser: (id) => `${URL}/users/${id}`,
+  editUser: (id) => `${URL}/users/${id}`,
 };
 
 export default ENDPOINTS;

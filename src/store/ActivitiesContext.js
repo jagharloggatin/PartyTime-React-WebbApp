@@ -1,4 +1,4 @@
-import {createContext, useState} from "react";
+import React, { createContext, useState } from 'react';
 
 const FavoritesContext = createContext({
   favorites: [],
@@ -8,7 +8,7 @@ const FavoritesContext = createContext({
   addFavorite: (favoriteMeetup) => {},
   removeFavorite: (meetupId) => {},
   itemIsFavorite: (meetupId) => {},
-  activitySelected: (selectedActivity) => {}
+  activitySelected: (selectedActivity) => {},
 });
 
 // export const SelectedActivityContext = createContext({
@@ -16,8 +16,7 @@ const FavoritesContext = createContext({
 //   activitySelected: (selectedActivity) => {}
 // });
 
-export function FavoritesContextProvider(props){
-
+export function FavoritesContextProvider(props) {
   const [userFavorites, setUserFavorites] = useState([]);
   const [userActivity, setActivity] = useState([]);
 
@@ -27,18 +26,18 @@ export function FavoritesContextProvider(props){
     });
   }
 
-  function addFavoriteHandler(favoriteMeetup){
+  function addFavoriteHandler(favoriteMeetup) {
     setUserFavorites((prevUserFavorites) => {
       return prevUserFavorites.concat(favoriteMeetup);
     });
   }
-  function removeFavoriteHandler(meetupId){
+  function removeFavoriteHandler(meetupId) {
     setUserFavorites((prevUserFavorites) => {
-      return prevUserFavorites.filter(meetup => meetup.id !== meetupId);
+      return prevUserFavorites.filter((meetup) => meetup.id !== meetupId);
     });
   }
-  function itemIsFavoriteHandler(meetupId){
-    return userFavorites.some(meetup => meetup.id === meetupId);
+  function itemIsFavoriteHandler(meetupId) {
+    return userFavorites.some((meetup) => meetup.id === meetupId);
   }
 
   const context = {
@@ -51,11 +50,7 @@ export function FavoritesContextProvider(props){
     activitySelected: selectedUserActivity,
   };
 
-
-  return <FavoritesContext.Provider value={context}>
-    {props.children}
-  </FavoritesContext.Provider>
+  return <FavoritesContext.Provider value={context}>{props.children}</FavoritesContext.Provider>;
 }
 
 export default FavoritesContext;
-
