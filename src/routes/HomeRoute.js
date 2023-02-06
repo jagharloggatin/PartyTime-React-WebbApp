@@ -1,4 +1,7 @@
+import { Card } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import AppActionAreaCard from 'components/AppActionAreaCard';
+import AppCard from 'components/ui/AppCard';
 import React, { useState } from 'react';
 import List from '../components/List';
 
@@ -12,19 +15,24 @@ function HomeRoute() {
   };
 
   return (
-    <div className="page">
-      <div className="search">
-        <TextField
-          id="outlined-basic"
-          onChange={inputHandler}
-          variant="filled"
-          color="primary"
-          fullWidth
-          label="Where to?"
-        />
+    <>
+      <div className="page">
+        <div className="search">
+          <TextField
+            id="outlined-basic"
+            onChange={inputHandler}
+            variant="filled"
+            color="primary"
+            fullWidth
+            label="Where to?"
+          />
+        </div>
+        <List input={inputText} />
       </div>
-      <List input={inputText} />
-    </div>
+      <div>
+        <AppActionAreaCard></AppActionAreaCard>
+      </div>
+    </>
   );
 }
 

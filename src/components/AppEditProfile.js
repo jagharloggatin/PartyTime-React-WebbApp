@@ -15,7 +15,7 @@ export default function AppEditProfile() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const id = 7;
+    const id = 1;
 
     async function fetchData() {
       try {

@@ -14,6 +14,7 @@ const ENDPOINTS = {
   postFavorite: () => `https://${HOST}:${PORT}/favorites/:id`,
   getUser: (id) => `${URL}/users/${id}`,
   editUser: (id) => `${URL}/users/${id}`,
+  changePassword: `${URL}/users/password`,
 };
 
 export default ENDPOINTS;
