@@ -3,15 +3,14 @@ import { useContext } from 'react';
 import FavoritesContext from '../../store/ActivitiesContext';
 import AppCard from '../ui/AppCard';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import RequestService from '../../RequestService';
 
 function AppActivitiesItem(props) {
   const favoritesCtx = useContext(FavoritesContext);
   const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
   const navigateTo = useNavigate();
 
-
   const goToEvent = () => {
-    // console.log(props.id);
     navigateTo(`/events/${props.id}`);
   }
 
@@ -37,16 +36,8 @@ function AppActivitiesItem(props) {
         city: props.city,
       });
     }
-    await fetch(
-      'https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json',
-      {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    )
+    await RequestService.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`, data);
+
   }
   //○●
   //☆★

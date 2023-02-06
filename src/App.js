@@ -17,6 +17,7 @@ import MapRoute from './routes/MapRoute';
 import ProfileRoute from './routes/ProfileRoute';
 import SelectedActivityRoute from './routes/SelectedActivityRoute';
 import { default as SigninRoute, default as SignupRoute } from './routes/SignupRoute';
+import FavoritesRoute from './routes/FavoritesRoute';
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
         <Route path="/signup" element={<SignupRoute />} />
         <Route path="/events" element={<ActivitiesRoute />} />
         <Route path="/new-events" element={<AppNewActivityForm />} />
-        <Route path="/favorites" element={<AppFavorites />} />
+        <Route path="/favorites" element={<FavoritesRoute />} />
         <Route path="/events/:id" element={<SelectedActivityRoute />} />
       </Routes>
     </div>

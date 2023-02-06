@@ -4,6 +4,8 @@ import classes from '../styles/AppActivitiesItem.module.css';
 import AppCard from '../ui/AppCard';
 import AppRating from './AppRating';
 import { useParams } from 'react-router-dom';
+import RequestService from '../../RequestService';
+import AppGetComments from './AppGetComments';
 
 function AppSelectedActivityItem({props}) {
   const favoritesCtx = useContext(FavoritesContext);
@@ -12,14 +14,11 @@ function AppSelectedActivityItem({props}) {
   const [comment, setComment] = useState();
   const [comments, setComments] = useState([]);
   const Params = useParams();
+  const userId = 3;
 
-  const onCommentSubmit = async(e) => {
+  async function onCommentSubmit(e) {
     e.preventDefault();
     setComments((comments) => [...comments, comment]);
-    const max = 100;
-    const min = 1;
-
-    const userId = Math.random() * (max - min) + min;
     // console.log(Params.id);
 
     const data = {
@@ -27,24 +26,15 @@ function AppSelectedActivityItem({props}) {
       uId: userId,
       eId: Params.id
     }
-    await fetch(
-      `https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      },
-    );
-  };
+    await RequestService.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`, data);
+  }
 
   const onCommentChange = (e) =>{
     e.preventDefault()
     setComment(e.target.value);
   }
 
-  const toggleFavoriteStatusHandler = () => {
+  const toggleFavoriteStatusHandler = async() => {
     if (itemIsFavorite) {
       favoritesCtx.removeFavorite(props.id);
     } else {
@@ -58,6 +48,12 @@ function AppSelectedActivityItem({props}) {
         rating: props.rating,
       });
     }
+    const data = {
+      uId: userId,
+      eId: Params.id,
+      eventIsNotFavorite: itemIsFavorite
+    }
+    await RequestService.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`, data);
   };
   return (
     <li className={classes.item}>
@@ -83,17 +79,17 @@ function AppSelectedActivityItem({props}) {
             <h4>Comments</h4>
             {comments.map((text) => { return <div>{text}</div>; })}
 
-            <form onSubmit={onCommentSubmit}>
-              <div className={classes.commentsContainer}>
-                <div>
+            {/*<AppGetComments/>*/}
+
+            <div className={classes.commentsContainer}>
+              <div>
                   <textarea
-                  value={comment}
-                  onChange={onCommentChange}
+                    value={comment}
+                    onChange={onCommentChange}
                   />
-                </div>
-                <button>Submit Comment</button>
               </div>
-            </form>
+              <button onClick={(e) => {return onCommentSubmit(e)}}>Submit Comment</button>
+            </div>
           </div> : null
         }
         <li>
@@ -110,3 +106,15 @@ function AppSelectedActivityItem({props}) {
 }
 
 export default AppSelectedActivityItem;
+
+
+/* await fetch(
+      `https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      },
+    );*/

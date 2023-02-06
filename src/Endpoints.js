@@ -10,6 +10,8 @@ const ENDPOINTS = {
   events: `https://${HOST}:${PORT}/events`,
   checkUsername: (un) => `https://${HOST}:${PORT}/check/username/${un}`,
   getEvents: () => `https://${HOST}:${PORT}/events`,
+  postEvent: () => `https://${HOST}:${PORT}/events/:id`,
+  postFavorite: () => `https://${HOST}:${PORT}/favorites/:id`,
   getUser: (id) => `${URL}/users/${id}`,
   editUser: (id) => `${URL}/users/${id}`,
 };
