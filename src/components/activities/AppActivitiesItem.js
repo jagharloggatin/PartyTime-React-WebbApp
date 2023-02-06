@@ -37,12 +37,9 @@ function AppActivitiesItem(props) {
       });
     }
     await RequestService.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`, data);
-
   }
   //○●
   //☆★
-  //onClick={goToActivity}
-  //<SelectedActivityRoute id={true}/>
   return (
     <li className={classes.item}>
       <AppCard>
@@ -55,7 +52,7 @@ function AppActivitiesItem(props) {
             <address>Address: {props.address}</address>
             <p>City: {props.city}</p>
             <p> Description: {props.description}</p>
-            <p> Rating: {props.rating}</p>
+            {/*<p> Rating: {props.rating}</p>*/}
           </div>
         </li>
         <div className={classes.actions}>

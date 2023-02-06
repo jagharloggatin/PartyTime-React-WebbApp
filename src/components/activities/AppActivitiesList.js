@@ -1,9 +1,9 @@
 import classes from '../styles/AppActivitiesList.module.css'
 import AppActivitiesItem from './AppActivitiesItem';
 
-function MeetupList(props) {
+function MeetupList({ loadedData }) {
   return <ul className={classes.list}>
-    {props.meetups.map(meetup => (
+    {loadedData.map(meetup => (
       <AppActivitiesItem
         key={meetup.id} id={meetup.id}
         image={meetup.image}
@@ -11,7 +11,6 @@ function MeetupList(props) {
         city={meetup.city}
         address={meetup.address}
         description={meetup.description}
-        rating={meetup.rating}
         comment={[meetup.comments]}
       />
     ))}

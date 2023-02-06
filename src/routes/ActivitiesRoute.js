@@ -1,6 +1,8 @@
 import {useState, useEffect} from "react";
 import MeetupList from '../components/activities/AppActivitiesList';
 import classes from '../components/styles/Headlines.module.css'
+import useData from '../components/activities/hooks/useData';
+import AppActivitiesItem from '../components/activities/AppActivitiesItem';
 
 
 //https://testagain-d4b54-default-rtdb.firebaseio.com/meetups
@@ -30,14 +32,35 @@ function AllMeetups() {
     });
   }, []);
 
-  if(isLoading){
-    return <div className={classes.wrapper}>
-      <h2 className={classes.content}>Loading...</h2>
-    </div>
+  const [data, query, setQuery, error, loading] = useData();
+
+  const handleQueryChange = event => {
+    setQuery(event.target.value || "");
+  };
+
+  let empty = false;
+
+  if(data.length === 0) {
+    empty = true;
   }
+
+  console.log(data);
+
+  // console.log(loadedMeetups);
+
+  // if(isLoading){
+  //   return <div className={classes.wrapper}>
+  //     <h2 className={classes.content}>Loading...</h2>
+  //   </div>
+  // }
   return <div className={classes.wrapper}>
     <h1 className={classes.content}>All Activities</h1>
-    <MeetupList meetups={loadedMeetups}/>
+
+    {error && <div> `There was an error: ${error}`</div>}
+    {loading && <div> Loading...</div>}
+    {empty && <div> empty...</div>}
+
+    <MeetupList loadedData={data}/>
   </div>;
 }
 
