@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, TextField } from '@mui/material';
+import { Avatar, Box, Button, Stack, TextField } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
 import { style } from '@mui/system';
 import ENDPOINTS from 'Endpoints';
@@ -32,6 +32,11 @@ export default function AppEditProfile() {
     }
     fetchData();
   }, []);
+
+  const onCancel = async (e) => {
+    e.preventDefault();
+    setTempUser(user);
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -110,11 +115,15 @@ export default function AppEditProfile() {
           />
         </Box>
 
-        <Box>
-          <Button variant="contained" type="submit" size="large" sx={{ mt: 2 }}>
+        <Stack direction="row" spacing={2}>
+          <Button variant="contained" type="submit">
             Save changes
           </Button>
-        </Box>
+
+          <Button onClick={onCancel} variant="outlined" type="button">
+            Cancel
+          </Button>
+        </Stack>
       </form>
     </>
   );

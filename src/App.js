@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import UserList from 'routes/apiTest';
+import CityRoute from 'routes/CityRoute';
 import ProfileRewievsTab from 'routes/ProfieRewievsTab';
 import ProfileActivitiesTab from 'routes/ProfileActivitiesTab';
 import { default as ProfileCommentsTab, default as ProfileHomeTab } from 'routes/ProfileCommentsTab';
@@ -11,13 +12,13 @@ import AppFavorites from './components/activities/AppFavorites';
 import AppNewActivityForm from './components/activities/AppNewActivityForm';
 import AppHeader from './components/AppHeader';
 import ActivitiesRoute from './routes/ActivitiesRoute';
+import FavoritesRoute from './routes/FavoritesRoute';
 import HomeRoute from './routes/HomeRoute';
 import LoginRoute from './routes/LoginRoute';
 import MapRoute from './routes/MapRoute';
 import ProfileRoute from './routes/ProfileRoute';
 import SelectedActivityRoute from './routes/SelectedActivityRoute';
 import { default as SigninRoute, default as SignupRoute } from './routes/SignupRoute';
-import FavoritesRoute from './routes/FavoritesRoute';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/new-events" element={<AppNewActivityForm />} />
         <Route path="/favorites" element={<FavoritesRoute />} />
         <Route path="/events/:id" element={<SelectedActivityRoute />} />
+        <Route path="/cities/:id" element={<CityRoute />} />
       </Routes>
     </div>
   );

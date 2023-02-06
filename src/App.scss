@@ -81,11 +81,12 @@ code {
 .card-wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
-.card {
+.card-homepage {
   flex-direction: row;
   flex-grow: 1;
   display: flex;
