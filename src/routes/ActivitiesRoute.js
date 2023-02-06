@@ -1,50 +1,14 @@
-import {useState, useEffect} from "react";
-import MeetupList from '../components/activities/AppActivitiesList';
-import classes from '../components/styles/Headlines.module.css'
-import useData from '../components/activities/hooks/useData';
+import React, { useEffect, useState } from 'react';
 import AppActivitiesItem from '../components/activities/AppActivitiesItem';
-
+import MeetupList from '../components/activities/AppActivitiesList';
+import useData from '../components/activities/hooks/useData';
+import classes from '../components/styles/Headlines.module.css';
 
 //https://testagain-d4b54-default-rtdb.firebaseio.com/meetups
 
 function AllMeetups() {
-
-  const[isLoading, setIsLoading] = useState(true);
-  const[loadedMeetups, setLoadedMeetups] = useState([]);
-  useEffect(() => {
-    setIsLoading(true);
-    fetch(
-      'https://testagain-d4b54-default-rtdb.firebaseio.com/meetups.json',
-    ).then(response => {
-      return response.json();
-    }).then(data => {
-      const meetups = [];
-
-      for(const key in data){
-        const meetup = {
-          id:key,
-          ...data[key]
-        };
-        meetups.push(meetup);
-      }
-      setIsLoading(false);
-      setLoadedMeetups(meetups);
-    });
-  }, []);
-
-  const [data, query, setQuery, error, loading] = useData();
-
-  const handleQueryChange = event => {
-    setQuery(event.target.value || "");
-  };
-
-  let empty = false;
-
-  if(data.length === 0) {
-    empty = true;
-  }
-
-  console.log(data);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadedMeetups, setLoadedMeetups] = useState([]);
 
   // console.log(loadedMeetups);
 
@@ -53,15 +17,13 @@ function AllMeetups() {
   //     <h2 className={classes.content}>Loading...</h2>
   //   </div>
   // }
-  return <div className={classes.wrapper}>
-    <h1 className={classes.content}>All Activities</h1>
+  return (
+    <div className={classes.wrapper}>
+      <h1 className={classes.content}>All Activities</h1>
 
-    {error && <div> `There was an error: ${error}`</div>}
-    {loading && <div> Loading...</div>}
-    {empty && <div> empty...</div>}
-
-    <MeetupList loadedData={data}/>
-  </div>;
+      <MeetupList />
+    </div>
+  );
 }
 
 export default AllMeetups;

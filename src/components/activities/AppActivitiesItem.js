@@ -1,9 +1,9 @@
-import classes from '../styles/AppActivitiesItem.module.css';
-import { useContext } from 'react';
-import FavoritesContext from '../../store/ActivitiesContext';
-import AppCard from '../ui/AppCard';
+import React, { useContext } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import RequestService from '../../RequestService';
+import FavoritesContext from '../../store/ActivitiesContext';
+import classes from '../styles/AppActivitiesItem.module.css';
+import AppCard from '../ui/AppCard';
 
 function AppActivitiesItem(props) {
   const favoritesCtx = useContext(FavoritesContext);
@@ -12,20 +12,19 @@ function AppActivitiesItem(props) {
 
   const goToEvent = () => {
     navigateTo(`/events/${props.id}`);
-  }
+  };
 
   async function toggleFavoriteStatusHandler() {
-    const userId = 3
+    const userId = 3;
 
     const data = {
       uId: userId,
       eId: props.id,
-      eventIsNotFavorite: itemIsFavorite
-    }
+      eventIsNotFavorite: itemIsFavorite,
+    };
 
     if (itemIsFavorite) {
       favoritesCtx.removeFavorite(props.id);
-
     } else {
       favoritesCtx.addFavorite({
         id: props.id,
@@ -43,7 +42,7 @@ function AppActivitiesItem(props) {
   return (
     <li className={classes.item}>
       <AppCard>
-        <li className={classes.innerItem} >
+        <li className={classes.innerItem}>
           <div className={classes.image}>
             <img src={props.image} alt={props.title} />
           </div>
@@ -56,9 +55,7 @@ function AppActivitiesItem(props) {
           </div>
         </li>
         <div className={classes.actions}>
-          <button onClick={toggleFavoriteStatusHandler}>
-            {itemIsFavorite ? '♥' : '♡'}
-          </button>
+          <button onClick={toggleFavoriteStatusHandler}>{itemIsFavorite ? '♥' : '♡'}</button>
           <button onClick={goToEvent}>Go To Activity</button>
         </div>
       </AppCard>
@@ -67,7 +64,6 @@ function AppActivitiesItem(props) {
 }
 
 export default AppActivitiesItem;
-
 
 //
 // const goToActivity = () => {
