@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import FavoritesContext from '../../store/ActivitiesContext';
 import classes from '../styles/AppActivitiesItem.module.css';
 import AppCard from '../ui/AppCard';
@@ -29,9 +29,18 @@ function AppSelectedActivityItem({props}) {
     await RequestService.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`, data);
   }
 
+  const getComments = () => {
+    setShow(!show)
+
+    const com = AppGetComments
+
+    console.log(com);
+  }
+
   const onCommentChange = (e) =>{
     e.preventDefault()
     setComment(e.target.value);
+
   }
 
   const toggleFavoriteStatusHandler = async() => {
@@ -45,7 +54,7 @@ function AppSelectedActivityItem({props}) {
         image: props.image,
         address: props.address,
         city: props.city,
-        rating: props.rating,
+        // rating: props.rating,
       });
     }
     const data = {
@@ -70,7 +79,7 @@ function AppSelectedActivityItem({props}) {
               <address>Address: {props.address}</address>
               <p>City: {props.city}</p>
               <p> Description: {props.description}</p>
-              <p> Rating: {props.rating}</p>
+              {/*<p> Rating: {props.rating}</p>*/}
             </div>
           </li> : null
         }
@@ -78,8 +87,6 @@ function AppSelectedActivityItem({props}) {
           !show ? <div className={classes.comments}>
             <h4>Comments</h4>
             {comments.map((text) => { return <div>{text}</div>; })}
-
-            {/*<AppGetComments/>*/}
 
             <div className={classes.commentsContainer}>
               <div>
@@ -98,12 +105,13 @@ function AppSelectedActivityItem({props}) {
           <button onClick={toggleFavoriteStatusHandler}>
             {itemIsFavorite ? '♥' : '♡'}
           </button>
-          <button onClick={() => setShow(!show)}>Comments</button>
+          <button onClick={getComments}>Comments</button>
         </div>
       </AppCard>
     </li>
   );
 }
+// setShow(!show)
 
 export default AppSelectedActivityItem;
 

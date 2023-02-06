@@ -1,44 +1,29 @@
-import {useState, useEffect} from "react";
+import React, { useEffect, useState } from 'react';
+import AppActivitiesItem from '../components/activities/AppActivitiesItem';
 import MeetupList from '../components/activities/AppActivitiesList';
-import classes from '../components/styles/Headlines.module.css'
-
+import useData from '../components/activities/hooks/useData';
+import classes from '../components/styles/Headlines.module.css';
 
 //https://testagain-d4b54-default-rtdb.firebaseio.com/meetups
 
 function AllMeetups() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadedMeetups, setLoadedMeetups] = useState([]);
 
-  const[isLoading, setIsLoading] = useState(true);
-  const[loadedMeetups, setLoadedMeetups] = useState([]);
-  useEffect(() => {
-    setIsLoading(true);
-    fetch(
-      'https://testagain-d4b54-default-rtdb.firebaseio.com/meetups.json',
-    ).then(response => {
-      return response.json();
-    }).then(data => {
-      const meetups = [];
+  // console.log(loadedMeetups);
 
-      for(const key in data){
-        const meetup = {
-          id:key,
-          ...data[key]
-        };
-        meetups.push(meetup);
-      }
-      setIsLoading(false);
-      setLoadedMeetups(meetups);
-    });
-  }, []);
+  // if(isLoading){
+  //   return <div className={classes.wrapper}>
+  //     <h2 className={classes.content}>Loading...</h2>
+  //   </div>
+  // }
+  return (
+    <div className={classes.wrapper}>
+      <h1 className={classes.content}>All Activities</h1>
 
-  if(isLoading){
-    return <div className={classes.wrapper}>
-      <h2 className={classes.content}>Loading...</h2>
+      <MeetupList />
     </div>
-  }
-  return <div className={classes.wrapper}>
-    <h1 className={classes.content}>All Activities</h1>
-    <MeetupList meetups={loadedMeetups}/>
-  </div>;
+  );
 }
 
 export default AllMeetups;

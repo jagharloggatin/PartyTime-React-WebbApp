@@ -1,21 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import classes from '../styles/Headlines.module.css';
-import MeetupList from './AppActivitiesList';
 import RequestService from '../../RequestService';
 
-function AppGetComments () {
+async function AppGetComments() {
 
-  const appGetComments = async() => {
-    const data = await RequestService.getRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/review`)
-    return data;
-  };
+  // const data = await RequestService.getRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`)
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadedMeetups, setLoadedMeetups] = useState([]);
 
-  const reviews = appGetComments();
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(
+      'https://testagain-d4b54-default-rtdb.firebaseio.com/review.json',
+    ).then(response => {
+      return response.json();
+    }).then(data => {
+      const meetups = [];
 
-  for (const reviewsKey in reviews) {
-    console.log(reviewsKey);
+      for (const key in data) {
+        const meetup = {
+          id: key,
+          ...data[key],
+        };
+        meetups.push(meetup);
+      }
+      setIsLoading(false);
+      setLoadedMeetups(meetups);
+    });
+  }, []);
+
+  if (isLoading) {
+    return <div className={classes.wrapper}>
+      <h2 className={classes.content}>Loading...</h2>
+    </div>;
   }
-  return <div>{reviews}</div>
+  return <div className={classes.wrapper}>
+  </div>;
 }
 
 export default AppGetComments;
