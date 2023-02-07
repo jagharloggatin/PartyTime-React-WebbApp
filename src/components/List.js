@@ -43,7 +43,7 @@ const data = [
   },
 ];
 
-function List(props) {
+function CityList(props) {
   //create a new array by filtering the original array
   const filteredData = data.filter((el) => {
     //if no input the return the original
@@ -64,4 +64,4 @@ function List(props) {
   );
 }
 
-export default List;
+export default CityList;

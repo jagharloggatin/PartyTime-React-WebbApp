@@ -77,3 +77,20 @@ code {
   margin: 10px 0;
   border-radius: 20px;
 }
+
+.card-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.card-homepage {
+  flex-direction: row;
+  flex-grow: 1;
+  display: flex;
+  min-width: 200px;
+  width: calc(50% - 2em);
+  margin: 1em;
+}

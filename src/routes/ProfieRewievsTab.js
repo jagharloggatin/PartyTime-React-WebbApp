@@ -1,8 +1,9 @@
+import { Card } from '@mui/material';
 import AppProfile from 'components/AppProfile';
 import React from 'react';
 
 function ProfileRewievsTab() {
-  return <div className="tab">hej jag e rating</div>;
+  return <Card></Card>;
 }
 
 export default ProfileRewievsTab;
