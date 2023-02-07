@@ -1,4 +1,3 @@
-import AllMeetups from './routes/ActivitiesRoute';
 
 const HOST = 'localhost';
 const PORT = 7215;
@@ -10,8 +9,11 @@ const ENDPOINTS = {
   events: `https://${HOST}:${PORT}/events`,
   checkUsername: (un) => `https://${HOST}:${PORT}/check/username/${un}`,
   getEvents: () => `https://${HOST}:${PORT}/events`,
-  postEvent: () => `https://${HOST}:${PORT}/events/:id`,
-  postFavorite: () => `https://${HOST}:${PORT}/favorites/:id`,
+  getLocationEvents: (location, locationId) => `https://${HOST}:${PORT}/events/${location}/${locationId}`,
+  postEvent: () => `https://${HOST}:${PORT}/events`,
+  putEvent: (id) => `https://${HOST}:${PORT}/events/${id}`,
+  deleteEvent: (id) => `https://${HOST}:${PORT}/events/${id}`,
+  // postFavorite: () => `https://${HOST}:${PORT}/favorites/:id`,
   getUser: (id) => `${URL}/users/${id}`,
   editUser: (id) => `${URL}/users/${id}`,
 };

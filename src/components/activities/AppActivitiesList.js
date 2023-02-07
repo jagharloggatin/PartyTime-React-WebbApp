@@ -3,9 +3,9 @@ import uniqId from '../../uniq';
 import classes from '../styles/AppActivitiesList.module.css';
 import AppActivitiesItem from './AppActivitiesItem';
 
-function MeetupList(props) {
-  const [data, setData] = useState([]);
+function MeetupList() {
 
+  const [data, setData] = useState([]);
   useEffect(() => {
     const getData = async () => {
       try {
@@ -21,16 +21,16 @@ function MeetupList(props) {
 
   return (
     <ul className={classes.list}>
-      {data.map((meetup) => (
+      {data.map((event) => (
         <AppActivitiesItem
           key={uniqId()}
-          id={meetup.id}
-          image={meetup.image}
-          title={meetup.title}
-          city={meetup.city}
-          address={meetup.address}
-          description={meetup.description}
-          comment={[meetup.comments]}
+          id={event.id}
+          image={event.image}
+          title={event.title}
+          city={event.city}
+          address={event.address}
+          description={event.description}
+          comment={[event.comments]}
         />
       ))}
     </ul>

@@ -2,6 +2,10 @@ import classes from '../styles/AppNewActivityForm.module.css';
 import { useRef } from 'react';
 import AppCard from '../ui/AppCard';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import uniqId from '../../uniq';
+import RequestService, { postRequest, putRequest } from '../../RequestService';
+import ENDPOINTS from '../../Endpoints';
 
 function NewMeetupForm() {
 
@@ -13,19 +17,40 @@ function NewMeetupForm() {
   // const ratingInputRef = useRef(null);
   const navigateTo = useNavigate();
 
-  const addMeetupHandler = meetupData => {
-    // console.log(meetupData)
-    fetch(
-      'https://testagain-d4b54-default-rtdb.firebaseio.com/meetups.json',
-      {
-        method: 'POST',
-        body: JSON.stringify(meetupData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    ).then(() => navigateTo('/events'));
+  const addMeetupHandler = async meetupData => {
+
+    let resp = await postRequest(ENDPOINTS.postEvent(),
+      meetupData).then(() => navigateTo('/events'));
+
+    console.log(resp);
+
+    // let resp = await postRequest(ENDPOINTS.postEvent(meetupData)).then(() => navigateTo('/events'));
+    // console.log(resp);
+    //
+    // if (resp.ok) {
+    //   alert('OK');
+    // } else {
+    //   alert('NOT OK');
+    // }
   };
+
+
+  // const addMeetupHandler = meetupData => {
+  //   // console.log(meetupData)
+  //   fetch(
+  //     ENDPOINTS.postEvent(),
+  //     {
+  //       method: 'POST',
+  //       body: JSON.stringify(meetupData),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     },
+  //   ).then(() => navigateTo('/events'));
+  //
+  //   let resp = await postRequest(ENDPOINTS.postEvent(meetupData)).then(() => navigateTo('/events'));
+  //
+  // };
 
   function submitHandler(event) {
     event.preventDefault();
@@ -38,15 +63,22 @@ function NewMeetupForm() {
     // const enteredRating = ratingInputRef.current.value;
     // const rating = undefined;
 
+    // const loc = {
+    //   id: uniqId(),
+    //   name: "hej",
+    //   longitude: 0,
+    //   latitude: 0,
+    //   city: { id: uniqId(), name: enteredCity,  }
+    // }
+
     const meetupData = {
       title: enteredTitle,
       image: enteredImage,
-      address: enteredAddress,
       description: enteredDescription,
+      planned: Date.now(),
+      likes: 0,
       city: enteredCity,
       // rating: enteredRating,
-      comments: [],
-      // id: 1,
     };
     addMeetupHandler(meetupData);
     // props.onAddMeetup(meetupData);

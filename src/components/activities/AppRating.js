@@ -1,4 +1,5 @@
 import styles from '../styles/AppRating.module.css'
+import React from 'react';
 
 function AppRating() {
   return <div>

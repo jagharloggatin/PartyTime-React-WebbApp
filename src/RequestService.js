@@ -17,6 +17,16 @@ const putRequest = async (endpoint, body) =>
 const getRequest = async (endpoint) => await fetch(endpoint);
 
 
+// const getArrayRequest = async (endpoint) => {
+//   const getData = async () => {
+//     try {
+//       let res = await fetch('https://testagain-d4b54-default-rtdb.firebaseio.com/meetups.json');
+//       let json = await res.json();
+//       return json;
+//     } catch (e) {}
+//   };
+//   getData()
+// }
 
 
 module.exports = { postRequest, getRequest, putRequest };

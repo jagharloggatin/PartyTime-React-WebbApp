@@ -6,15 +6,19 @@ import AppRating from './AppRating';
 import { useParams } from 'react-router-dom';
 import RequestService from '../../RequestService';
 import AppGetComments from './AppGetComments';
+import React from 'react';
+import uniqId from '../../uniq';
 
-function AppSelectedActivityItem({props}) {
-  const favoritesCtx = useContext(FavoritesContext);
-  const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
+function AppSelectedActivityItem() {
+  // const favoritesCtx = useContext(FavoritesContext);
+  // const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
   const [show, setShow] = useState(true);
   const [comment, setComment] = useState();
   const [comments, setComments] = useState([]);
-  const Params = useParams();
+  // const Params = useParams();
   const userId = 3;
+  const selectedId = JSON.parse(localStorage.getItem("selectedId")) || []
+
 
   async function onCommentSubmit(e) {
     e.preventDefault();
@@ -24,61 +28,45 @@ function AppSelectedActivityItem({props}) {
     const data = {
       com: comment,
       uId: userId,
-      eId: Params.id
+      eId: selectedId.id
     }
     await RequestService.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`, data);
   }
 
   const getComments = () => {
     setShow(!show)
-
-    const com = AppGetComments
-
-    console.log(com);
+    const resp = <AppGetComments/>
+    console.log(resp.props);
   }
 
   const onCommentChange = (e) =>{
     e.preventDefault()
     setComment(e.target.value);
-
   }
 
   const toggleFavoriteStatusHandler = async() => {
-    if (itemIsFavorite) {
-      favoritesCtx.removeFavorite(props.id);
-    } else {
-      favoritesCtx.addFavorite({
-        id: props.id,
-        title: props.title,
-        description: props.description,
-        image: props.image,
-        address: props.address,
-        city: props.city,
-        // rating: props.rating,
-      });
-    }
+
     const data = {
       uId: userId,
-      eId: Params.id,
-      eventIsNotFavorite: itemIsFavorite
+      eId: selectedId.id,
+      // eventIsNotFavorite: itemIsFavorite
     }
     await RequestService.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`, data);
   };
   return (
     <li className={classes.item}>
       <AppCard>
-
         <div className={classes.image}>
-          <img src={props.image} alt={props.title} />
+          <img src={selectedId.image} alt={selectedId.title} />
 
         </div>
         {
           show ? <li className={classes.innerItem}>
             <div className={classes.content}>
-              <h3>Title: {props.title}</h3>
-              <address>Address: {props.address}</address>
-              <p>City: {props.city}</p>
-              <p> Description: {props.description}</p>
+              <h3>Title: {selectedId.title}</h3>
+              <address>Address: {selectedId.address}</address>
+              <p>City: {selectedId.city}</p>
+              <p> Description: {selectedId.description}</p>
               {/*<p> Rating: {props.rating}</p>*/}
             </div>
           </li> : null
@@ -103,7 +91,7 @@ function AppSelectedActivityItem({props}) {
         </li>
         <div className={classes.actions}>
           <button onClick={toggleFavoriteStatusHandler}>
-            {itemIsFavorite ? '♥' : '♡'}
+            {/*{itemIsFavorite ? '♥' : '♡'}*/}
           </button>
           <button onClick={getComments}>Comments</button>
         </div>
@@ -126,3 +114,17 @@ export default AppSelectedActivityItem;
         body: JSON.stringify(data),
       },
     );*/
+
+// if (itemIsFavorite) {
+//   favoritesCtx.removeFavorite(props.id);
+// } else {
+//   favoritesCtx.addFavorite({
+//     id: props.id,
+//     title: props.title,
+//     description: props.description,
+//     image: props.image,
+//     address: props.address,
+//     city: props.city,
+//     // rating: props.rating,
+//   });
+// }

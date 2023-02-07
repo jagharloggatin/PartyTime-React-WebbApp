@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios, { AxiosError } from 'axios';
+import React from 'react';
 
 function useData(endpoint, para1) {
 

@@ -40,7 +40,7 @@ function App() {
         <Route path="/events" element={<ActivitiesRoute />} />
         <Route path="/new-events" element={<AppNewActivityForm />} />
         <Route path="/favorites" element={<FavoritesRoute />} />
-        <Route path="/events/:id" element={<SelectedActivityRoute />} />
+        <Route path="/events/selected" element={<SelectedActivityRoute />} />
       </Routes>
     </div>
   );

@@ -1,26 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import AppActivitiesItem from '../components/activities/AppActivitiesItem';
 import MeetupList from '../components/activities/AppActivitiesList';
-import useData from '../components/activities/hooks/useData';
 import classes from '../components/styles/Headlines.module.css';
 
 //https://testagain-d4b54-default-rtdb.firebaseio.com/meetups
 
 function AllMeetups() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [loadedMeetups, setLoadedMeetups] = useState([]);
 
-  // console.log(loadedMeetups);
-
-  // if(isLoading){
-  //   return <div className={classes.wrapper}>
-  //     <h2 className={classes.content}>Loading...</h2>
-  //   </div>
-  // }
   return (
     <div className={classes.wrapper}>
       <h1 className={classes.content}>All Activities</h1>
-
       <MeetupList />
     </div>
   );
@@ -51,3 +38,13 @@ export default AllMeetups;
 
 //Key needs to be set to unique meetup.id
 //Renders the whole list above meetup.title
+// const [isLoading, setIsLoading] = useState(true);
+// const [loadedMeetups, setLoadedMeetups] = useState([]);
+//
+// // console.log(loadedMeetups);
+//
+// // if(isLoading){
+// //   return <div className={classes.wrapper}>
+// //     <h2 className={classes.content}>Loading...</h2>
+// //   </div>
+// // }

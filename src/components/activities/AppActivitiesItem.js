@@ -11,7 +11,10 @@ function AppActivitiesItem(props) {
   const navigateTo = useNavigate();
 
   const goToEvent = () => {
-    navigateTo(`/events/${props.id}`);
+    // console.log(props);
+    // navigateTo(`/events/${props.id}`);
+    localStorage.setItem('selectedId', JSON.stringify(props))
+    navigateTo(`/events/selected`);
   };
 
   async function toggleFavoriteStatusHandler() {
@@ -23,18 +26,6 @@ function AppActivitiesItem(props) {
       eventIsNotFavorite: itemIsFavorite,
     };
 
-    if (itemIsFavorite) {
-      favoritesCtx.removeFavorite(props.id);
-    } else {
-      favoritesCtx.addFavorite({
-        id: props.id,
-        title: props.title,
-        description: props.description,
-        image: props.image,
-        address: props.address,
-        city: props.city,
-      });
-    }
     await RequestService.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`, data);
   }
   //○●
@@ -79,3 +70,15 @@ export default AppActivitiesItem;
 //   });
 //   navigateTo('/event');
 // };
+// if (itemIsFavorite) {
+//   favoritesCtx.removeFavorite(props.id);
+// } else {
+//   favoritesCtx.addFavorite({
+//     id: props.id,
+//     title: props.title,
+//     description: props.description,
+//     image: props.image,
+//     address: props.address,
+//     city: props.city,
+//   });
+// }
