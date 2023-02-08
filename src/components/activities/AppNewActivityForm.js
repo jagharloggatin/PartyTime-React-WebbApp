@@ -20,19 +20,21 @@ function NewMeetupForm() {
   const addMeetupHandler = async meetupData => {
 
     let resp = await postRequest(ENDPOINTS.postEvent(),
-      meetupData).then(() => navigateTo('/events'));
-
+      meetupData)
     console.log(resp);
 
-    // let resp = await postRequest(ENDPOINTS.postEvent(meetupData)).then(() => navigateTo('/events'));
-    // console.log(resp);
-    //
-    // if (resp.ok) {
-    //   alert('OK');
-    // } else {
-    //   alert('NOT OK');
-    // }
+    if (resp.ok) {
+      alert('OK');
+    } else {
+      alert('NOT OK');
+    }
+
+    navigateTo('/events')
   };
+
+  // let resp = await postRequest(ENDPOINTS.postEvent(meetupData)).then(() => navigateTo('/events'));
+  // console.log(resp);
+  //
 
 
   // const addMeetupHandler = meetupData => {
@@ -61,31 +63,41 @@ function NewMeetupForm() {
     const enteredDescription = descriptionInputRef.current.value;
     const enteredCity = cityInputRef.current.value;
     // const enteredRating = ratingInputRef.current.value;
-    // const rating = undefined;
-
-    // const loc = {
-    //   id: uniqId(),
-    //   name: "hej",
-    //   longitude: 0,
-    //   latitude: 0,
-    //   city: { id: uniqId(), name: enteredCity,  }
-    // }
 
     const meetupData = {
       title: enteredTitle,
-      image: enteredImage,
       description: enteredDescription,
+      image: enteredImage,
       planned: Date.now(),
       likes: 0,
       city: enteredCity,
-      // rating: enteredRating,
-    };
-    addMeetupHandler(meetupData);
+      comments: [
+        {}
+      ],
+        location: {
+        id: 0,
+          name: "string",
+          address: "string",
+          latitude: 30,
+          longitude: 30,
+          city: {
+          id: 0,
+            name: "string",
+            country: {
+              id: 0,
+              name: "string",
+              countryCode: "string"
+            }
+          }
+        }
+    }
     // props.onAddMeetup(meetupData);
     // console.log(meetupData)
+    addMeetupHandler(meetupData);
   }
 
-  return <AppCard>
+
+    return <AppCard>
     <form className={classes.form} onSubmit={submitHandler}>
       <div className={classes.control}>
         <label htmlFor='title'>Title</label>
