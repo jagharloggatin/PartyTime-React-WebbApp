@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import UserList from 'routes/apiTest';
 import ProfileRewievsTab from 'routes/ProfieRewievsTab';
@@ -19,6 +19,13 @@ import SelectedActivityRoute from './routes/SelectedActivityRoute';
 import { default as SigninRoute, default as SignupRoute } from './routes/SignupRoute';
 
 function App() {
+
+  useEffect(() => {
+    window.initMap = function() {
+      console.log("apa")
+    }
+  }, [])
+
   return (
     <div className="wrapper">
       <AppHeader></AppHeader>
