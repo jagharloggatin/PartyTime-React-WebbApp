@@ -1,5 +1,5 @@
 import { Autocomplete, GoogleMap, useLoadScript } from '@react-google-maps/api';
-import { useContext, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classes from './styles/AppMap.module.scss';
 
 import { TextField } from '@mui/material';
@@ -9,39 +9,8 @@ import gridIcon from '../icons/grid.svg';
 import plusIcon from '../icons/plus.svg';
 import searchIcon from '../icons/search.svg';
 import Logo from './AppLogo';
-import AutoComplete from './AutoComplete';
 
-const Core = () => {
-  const center = useMemo(() => ({ lat: 59.32, lng: 18.06 }), []);
 
-  return (
-    <GoogleMap
-      zoom={12}
-      center={center}
-      mapContainerClassName={classes['map-container']}
-      options={{
-        disableDefaultUI: true,
-        styles: [
-          {
-            featureType: 'poi',
-            elementType: 'labels.text.fill',
-            stylers: [{ color: '#d59563' }],
-          },
-          {
-            featureType: 'poi.park',
-            elementType: 'geometry',
-            stylers: [{ color: '#F1F3F4' }],
-          },
-          {
-            featureType: 'poi.park',
-            elementType: 'labels.text.fill',
-            stylers: [{ color: '#6b9a76' }],
-          },
-        ],
-      }}
-    ></GoogleMap>
-  );
-};
 
 const Button = (props) => {
   return (
@@ -54,73 +23,93 @@ const Button = (props) => {
 const AppMap = () => {
     const reqCtx = useContext(RequestContext);
   const [showSuggestions, setshowSuggestions] = useState(false);
-  const [predictions, setPredictions] = useState({});
+  const [predictionsResult, setPredictionsResult] = useState([]);
   const [inputText, setInputText] = useState("");
+  const [mapState, setMapState] = useState({center:{lat: 59.330936, lng: 18.071644}, zoom: 15 });
+
+  const autoCompleteRef = useRef();
+  const inputRef = useRef();
+
+  const options = {
+    fields: ["address_components", "geometry", "icon", "name"],
+  }
 
   const API_KEY = "AIzaSyAY85IYZfPLkT6EyiauSREDkc7ZhYJCPys";
   const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${inputText}&key=${API_KEY}`;
 
-  const { isLoaded } = useLoadScript({ googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY });
-  
 
-    
-  //let res = getRequest(url);
-    
+  useEffect(() => {
+    const map = new window.google.maps.Map(document.getElementById("mapDiv"), {
+      zoom: mapState.zoom,
+      center: mapState.center
+    });
+    // The marker, positioned at Uluru
+    const marker = new window.google.maps.Marker({
+      position: mapState.center,
+      map: map,
+    });
+  }, [mapState])
+ 
+
+  
+  function getPredictions() {
+
+  }
+  const displaySuggestions = function (predictions, status) {
+    if (status != window.google.maps.places.PlacesServiceStatus.OK || !predictions) {
+      alert(status);
+      return;
+    }
+    console.log("WAWAWAWA");
+    console.log(predictions)
+    setPredictionsResult(predictions)
+  };
+
+  const service = new window.google.maps.places.AutocompleteService();
+
+
+      
 
   async function handleChange(value) {
-    let res = await reqCtx.getRequest(url);
-    let data = await res.json;
-
-    setPredictions(data);
-
-    if (value.length > 0) {
+    //setPredictions(data);
+    //console.log(autoCompleteRef)
+    if (value.length > 2) {
         setInputText(value)
         setshowSuggestions(true)
+        service.getQueryPredictions({ input: value }, displaySuggestions);
+
     } else {
         setshowSuggestions(false)
     }
   }
 
-    for (const key in predictions) {
 
-        console.log(`${key}: ${predictions[key]}`);
-    }
-
-  const predictionsarea = () => {
+  function Predictionsarea() {
     if (showSuggestions) {
-        return (
+      return(
         <div className={classes.autocompletepredictions}>
-            <div className={classes.autocompleteprediction}>
-                <p className={classes.predictionname}></p>
-            </div>  
-            <div className={classes.autocompleteprediction}>
-                <p className={classes.predictionname}>Stockholm</p>
-            </div> 
-            <div className={classes.autocompleteprediction}>
-                <p className={classes.predictionname}>Stockholm</p>
-            </div>   
+           {predictionsResult.map(x => {
+            return (<div className={classes.autocompletesingle}>{x.description}</div>)
+           })}
         </div>
-    )
+      ) 
     } else {
         return <div></div>
     }
   }
 
-  if (!isLoaded) return <div>Loading...</div>;
   return (
     <div>
         <div className={classes.autocompletewrapper}>
             <div className={classes.autocompleteinnerwrapper}>
-                <TextField
+                <input
                 id="outlined-basic"
-                color="primary"
-                fullWidth
-                label="Where to?"
                 className={classes.autocompleteinput}
                 onChange={e => handleChange(e.target.value)}
+                ref={inputRef}
                 />
 
-                {predictionsarea()}
+                <Predictionsarea/>
 
             </div>
           
@@ -136,7 +125,7 @@ const AppMap = () => {
           <img src={searchIcon} alt={'Search'} />
         </Button>
       </div>
-      <Core></Core>
+      <div id="mapDiv" className={classes.mapcontainer}></div>
     </div>
   );
 };
