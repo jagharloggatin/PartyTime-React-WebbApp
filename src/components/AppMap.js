@@ -41,17 +41,21 @@ const AppMap = () => {
   useEffect(() => {
     const map = new window.google.maps.Map(document.getElementById("mapDiv"), {
       zoom: mapState.zoom,
-      center: mapState.center
+      center: mapState.center,
+      disableDefaultUI: true,
+      mapId:'bd0bdf809da55ccb',
+
+
+      
     });
     // The marker, positioned at Uluru
     const marker = new window.google.maps.Marker({
       position: mapState.center,
       map: map,
+      icon: './assets/party.png'
     });
   }, [mapState])
- 
 
-  
   function getPredictions() {
 
   }
