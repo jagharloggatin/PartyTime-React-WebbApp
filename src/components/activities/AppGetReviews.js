@@ -1,39 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import {useContext} from "react";
+import React, { useContext, useEffect, useState } from 'react';
+import RequestContext from 'store/RequestContext';
 import FavoritesContext from '../../store/FavoritesContext';
-import AppEventsList from './AppEventsList';
+import uniqId from '../../uniq';
 import classes from '../styles/Headlines.module.css';
 import AppEventsItem from './AppEventsItem';
-import uniqId from '../../uniq';
+import AppEventsList from './AppEventsList';
 import AppSelectedEventItem from './AppSelectedEventItem';
 
 function AppGetReviews(){
 
+  const reqCtx = useContext(RequestContext)
   const[isLoading, setIsLoading] = useState(true);
   const[loadedFavorites, setLoadedFavorites] = useState([]);
 
   useEffect(() => {
-    setIsLoading(true);
-    fetch(
-      "https://localhost:7215/events/reviews/1"
-    ).then(response => {
-      return response.json();
-    }).then(data => {
-      const meetups = [];
-
-      for(const key in data){
-        const meetup = {
-          id:key,
-          ...data[key]
-        };
-        meetups.push(meetup);
-      }
+    const conv = async () => {
+      setIsLoading(true);
+      var response = await reqCtx.getRequest("https://localhost:7215/events/reviews/1")
+      console.log(response);
+      var converted = await reqCtx.convertResponse(response)
+      console.log(converted);
+      setLoadedFavorites(converted);
       setIsLoading(false);
-      setLoadedFavorites(meetups);
-    });
+    }
+    conv();
   }, []);
+  
+  console.log("HAR AER FALOAD");
 
   console.log(loadedFavorites);
+  console.log("HAR AER FALOAD");
   if(isLoading){
     return <div className={classes.wrapper}>
       <h2 className={classes.content}>Loading...</h2>
@@ -57,25 +53,6 @@ function AppGetReviews(){
       ))}
     </ul>
   );
-  //
-  // const content = <AppEventsList meetups={loadedFavorites}/>;
-  //
-  // return <section>
-  //   <h1>My Favorites</h1>
-  //   {content}
-  // </section>
 }
 
 export default AppGetReviews;
-
-
-
-// const favoritesCtx = useContext(FavoritesContext);
-//
-// let content;
-// if(favoritesCtx.totalFavorites === 0){
-//   content = <p>You got no favorites yet. Start adding some!</p>;
-// }
-// else {
-//   content = <AppEventsList meetups={favoritesCtx.favorites}/>;
-// }

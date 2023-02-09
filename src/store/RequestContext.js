@@ -5,7 +5,9 @@ import StorageContext from './StorageContext';
 const RequestContext = createContext({
     postRequest: null,
     putRequest: null,
-    getRequest: null
+    getRequest: null,
+    convertResponse: null,
+
 });
 
 export function RequestContextProvider(props) {
@@ -34,11 +36,28 @@ export function RequestContextProvider(props) {
     }
 
 
+    async function convertResponse(response) {
+      var json = await response.json();
+
+      const list = [];
+  
+        for(const key in json){
+          const meetup = {
+            id:key,
+            ...json[key]
+          };        
+          list.push(meetup);
+        }
+      return list
+    }
+
+
   //Reference methods in this object to be passed as value
   const context = {
     postRequest: postRequest,
     putRequest: putRequest,
-    getRequest: getRequest
+    getRequest: getRequest,
+    convertResponse: convertResponse
   };
 
   return <RequestContext.Provider value={context}>{props.children}</RequestContext.Provider>;
