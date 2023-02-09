@@ -1,13 +1,14 @@
 import React, { useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import RequestContext from 'store/RequestContext';
 import ENDPOINTS from '../../Endpoints';
+import RequestService, { postRequest, putRequest } from '../../RequestService';
+import StorageContext from '../../store/StorageContext';
 import uniqId from '../../uniq';
 import classes from '../styles/AppNewActivityForm.module.css';
 import AppCard from '../ui/AppCard';
 
 function NewMeetupForm() {
-    const reqCtx = useContext(RequestContext);
+
   const titleInputRef = useRef(null);
   const imageInputRef = useRef(null);
   const addressInputRef = useRef(null);
@@ -15,23 +16,26 @@ function NewMeetupForm() {
   const cityInputRef = useRef(null);
   // const ratingInputRef = useRef(null);
   const navigateTo = useNavigate();
+  const storageCtx = useContext(StorageContext);
+  const user = storageCtx.ReadJWT();
 
   const addMeetupHandler = async meetupData => {
 
-    let resp = await reqCtx.postRequest(ENDPOINTS.postEvent(),
-      meetupData).then(() => navigateTo('/events'));
-
-    console.log(resp);
-
-    // let resp = await postRequest(ENDPOINTS.postEvent(meetupData)).then(() => navigateTo('/events'));
+    let resp = await postRequest(ENDPOINTS.postEvent(),
+      meetupData);
     // console.log(resp);
-    //
-    // if (resp.ok) {
-    //   alert('OK');
-    // } else {
-    //   alert('NOT OK');
-    // }
+
+    if (resp.ok) {
+      alert('OK');
+    } else {
+      alert('NOT OK');
+    }
+    navigateTo('/events');
   };
+
+  // let resp = await postRequest(ENDPOINTS.postEvent(meetupData)).then(() => navigateTo('/events'));
+  // console.log(resp);
+  //
 
 
   // const addMeetupHandler = meetupData => {
@@ -59,29 +63,42 @@ function NewMeetupForm() {
     const enteredAddress = addressInputRef.current.value;
     const enteredDescription = descriptionInputRef.current.value;
     const enteredCity = cityInputRef.current.value;
-    // const enteredRating = ratingInputRef.current.value;
-    // const rating = undefined;
 
-    // const loc = {
-    //   id: uniqId(),
-    //   name: "hej",
-    //   longitude: 0,
-    //   latitude: 0,
-    //   city: { id: uniqId(), name: enteredCity,  }
-    // }
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed);
 
-    const meetupData = {
-      title: enteredTitle,
-      image: enteredImage,
-      description: enteredDescription,
-      planned: Date.now(),
-      likes: 0,
-      city: enteredCity,
-      // rating: enteredRating,
-    };
-    addMeetupHandler(meetupData);
+    console.log(today.toISOString());
+    const eventData =
+      {
+        title: enteredTitle,
+        description: enteredDescription,
+        image: enteredImage,
+        planned: today.toISOString(),
+        likes: 7,
+        city: enteredCity,
+        comments: [
+          {},
+        ],
+        location: {
+          id: 8,
+          name: 'string',
+          address: enteredAddress,
+          latitude: 30,
+          longitude: 30,
+          city: {
+            id: 4,
+            name: 'string',
+            country: {
+              id: 5,
+              name: 'string',
+              countryCode: 'string',
+            },
+          },
+        },
+      };
     // props.onAddMeetup(meetupData);
     // console.log(meetupData)
+    addMeetupHandler(eventData);
   }
 
   return <AppCard>
