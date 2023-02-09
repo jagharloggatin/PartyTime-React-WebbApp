@@ -47,6 +47,7 @@ function AppEventsItem(props) {
             <address>Address: {props.address}</address>
             <p>City: {props.city}</p>
             <p> Description: {props.description}</p>
+            {/*<p> comment: {props.comment}</p>*/}
             {/*<p> Rating: {props.rating}</p>*/}
           </div>
         </li>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ENDPOINTS from '../Endpoints';
 import classes from '../components/styles/Headlines.module.css';
-import AppSelectedActivityItem  from '../components/activities/AppSelectedActivityItem';
+import AppSelectedEventItem  from '../components/activities/AppSelectedEventItem';
 
 function SelectedActivityRoute(){
 
@@ -35,8 +35,8 @@ function SelectedActivityRoute(){
 
   return <section>
     <h1 className={classes.wrapper}>Selected Activity</h1>
-    <AppSelectedActivityItem/>
-    {/*<AppSelectedActivityItem props={event}/>*/}
+    <AppSelectedEventItem/>
+    {/*<AppSelectedEventItem props={event}/>*/}
   </section>
 }
 

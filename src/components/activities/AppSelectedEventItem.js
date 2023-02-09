@@ -8,7 +8,7 @@ import AppCard from '../ui/AppCard';
 import AppGetComments from './AppGetComments';
 import AppRating from './AppRating';
 
-function AppSelectedActivityItem() {
+function AppSelectedEventItem() {
 
     const reqCtx = useContext(RequestContext);
   // const favoritesCtx = useContext(FavoritesContext);
@@ -102,7 +102,7 @@ function AppSelectedActivityItem() {
 }
 // setShow(!show)
 
-export default AppSelectedActivityItem;
+export default AppSelectedEventItem;
 
 
 /* await fetch(

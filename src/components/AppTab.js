@@ -30,7 +30,7 @@ export default function NavTabs() {
     <Box sx={{ width: '100%' }}>
       <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">
         <LinkTab icon={<PersonPinIcon />} label="Activity page" href="/activities" />
-        <LinkTab icon={<FavoriteIcon />} label="AppGetFavorites" href="/favorites" />
+        <LinkTab icon={<FavoriteIcon />} label="AppGetReviews" href="/favorites" />
         <LinkTab icon={<CommentIcon />} label="Comments" href="/comments" />
         <LinkTab icon={<ReviewsIcon />} label="Reviews" href="/review" />
       </Tabs>

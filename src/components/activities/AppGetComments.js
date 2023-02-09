@@ -15,9 +15,7 @@ function AppGetComments() {
     let resp = await res.json()
     console.log(resp);
     return resp;
-  }; 
-  
-  fetchData();
+  }; fetchData();
 
   return (<div>Apa</div>)
 
