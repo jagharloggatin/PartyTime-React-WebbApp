@@ -20,12 +20,6 @@ import { default as SigninRoute, default as SignupRoute } from './routes/SignupR
 
 function App() {
 
-  useEffect(() => {
-    window.initMap = function() {
-      console.log("apa")
-    }
-  }, [])
-
   return (
     <div className="wrapper">
       <AppHeader></AppHeader>

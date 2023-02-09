@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import RequestContext from 'store/RequestContext';
-import FavoritesContext from '../../store/ActivitiesContext';
+import FavoritesContext from '../../store/FavoritesContext';
 import classes from '../styles/AppActivitiesItem.module.css';
 import AppCard from '../ui/AppCard';
 
