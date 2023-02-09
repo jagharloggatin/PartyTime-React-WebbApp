@@ -111,6 +111,7 @@ const AppMap = () => {
                 className={classes.autocompleteinput}
                 onChange={e => handleChange(e.target.value)}
                 ref={inputRef}
+                placeholder="Search address"
                 />
 
                 <Predictionsarea/>

@@ -78,7 +78,16 @@
     border: rgb(213, 213, 213) solid 1px;
     text-align: center;
     font-size: 20px;
-    font-family: 'SeoulHangang'
+    font-family: 'SeoulHangang';
+    transition: ease-in-out 0.15s;
+
+}
+
+.autocompleteinput:focus {
+  outline: 0;
+  transform: scale(1.02);
+  transform: translateY(-5px);
+  transition: ease-in-out 0.3s;
 }
 
 .autocompletepredictions {
