@@ -6,7 +6,7 @@ import { StorageContextProvider } from 'store/StorageContext';
 import { UserContextProvider } from 'store/UserContext';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { FavoritesContextProvider } from './store/ActivitiesContext';
+import { FavoritesContextProvider } from './store/FavoritesContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <StorageContextProvider>

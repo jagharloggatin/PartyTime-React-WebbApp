@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import uniqId from '../../uniq';
 import classes from '../styles/AppActivitiesList.module.css';
-import AppActivitiesItem from './AppActivitiesItem';
+import AppEventsItem from './AppEventsItem';
 
-function MeetupList() {
+function AppEventsList() {
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -22,7 +22,7 @@ function MeetupList() {
   return (
     <ul className={classes.list}>
       {data.map((event) => (
-        <AppActivitiesItem
+        <AppEventsItem
           key={uniqId()}
           id={event.id}
           image={event.image}
@@ -37,4 +37,4 @@ function MeetupList() {
   );
 }
 
-export default MeetupList;
+export default AppEventsList;

@@ -1,4 +1,4 @@
-import MeetupList from '../components/activities/AppActivitiesList';
+import AppEventsList from '../components/activities/AppEventsList';
 import classes from '../components/styles/Headlines.module.css';
 
 //https://testagain-d4b54-default-rtdb.firebaseio.com/meetups
@@ -8,7 +8,7 @@ function AllMeetups() {
   return (
     <div className={classes.wrapper}>
       <h1 className={classes.content}>All Activities</h1>
-      <MeetupList />
+      <AppEventsList />
     </div>
   );
 }

@@ -17,15 +17,12 @@ function CityRoute() {
           image: '/assets/Images/tokyo.png',
           description: 'Cool town in Germany',
         };
-
         await new Promise((resolve) => setTimeout(resolve, 500));
-
         setCity(mockCity);
       } finally {
         setIsLoading(false);
       }
     };
-
     fetchCity();
   }, []);
 

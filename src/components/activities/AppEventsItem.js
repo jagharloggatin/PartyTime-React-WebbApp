@@ -5,7 +5,7 @@ import FavoritesContext from '../../store/ActivitiesContext';
 import classes from '../styles/AppActivitiesItem.module.css';
 import AppCard from '../ui/AppCard';
 
-function AppActivitiesItem(props) {
+function AppEventsItem(props) {
   const favoritesCtx = useContext(FavoritesContext);
   const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
   const navigateTo = useNavigate();
@@ -28,7 +28,9 @@ function AppActivitiesItem(props) {
       eventIsNotFavorite: itemIsFavorite,
     };
 
-    
+    const favoriteList =  await reqCtx.getRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`);
+
+    // itemIsFavorite =
     await reqCtx.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`, data);
   }
   //○●
@@ -57,7 +59,7 @@ function AppActivitiesItem(props) {
   );
 }
 
-export default AppActivitiesItem;
+export default AppEventsItem;
 
 //
 // const goToActivity = () => {

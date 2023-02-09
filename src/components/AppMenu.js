@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import AppMenuItem from './AppMenuItem';
 import styles from './styles/AppMenu.module.scss';
-import AppFavorites from './activities/AppFavorites';
+import AppFavorites from './activities/AppGetFavorites';
 import ActivitiesRoute from '../routes/ActivitiesRoute';
 
 const AppMenu = (props) => {

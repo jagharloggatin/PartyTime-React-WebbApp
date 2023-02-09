@@ -5,7 +5,6 @@ const StorageContext = createContext({
     SaveJWT: null,
     RemoveJWT: null,
     ReadJWT: null,
-    
 });
 
 export function StorageContextProvider(props) {
@@ -26,13 +25,11 @@ export function StorageContextProvider(props) {
         const key = "JWT";
         const JwtToken = localStorage.getItem(key);
         const JWTInfo = JSON.parse(JwtToken);
-
-        console.log(JWTInfo)
-        return JWTInfo;
+        // console.log(JWTInfo)
+      return JWTInfo;
     }
 
-    //Functions to handle imageupload
-
+  //Functions to handle imageupload
   //Reference methods in this object to be passed as value
   const context = {
     SaveJWT: SaveJWT,

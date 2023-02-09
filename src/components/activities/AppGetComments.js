@@ -21,6 +21,7 @@ function AppGetComments() {
 
   return (<div>Apa</div>)
 
+
   // useEffect(() => {
   //   setIsLoading(true);
   //   fetch(

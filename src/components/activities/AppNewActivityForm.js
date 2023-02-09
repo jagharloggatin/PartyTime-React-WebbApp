@@ -18,9 +18,9 @@ function NewMeetupForm() {
   const navigateTo = useNavigate();
   
   const reqCtx = useContext(RequestContext);
-  const storageCtx = useContext(StorageContext);
+  // const storageCtx = useContext(StorageContext);
   
-  const user = storageCtx.ReadJWT();
+  // const user = storageCtx.ReadJWT();
 
   const addMeetupHandler = async meetupData => {
 

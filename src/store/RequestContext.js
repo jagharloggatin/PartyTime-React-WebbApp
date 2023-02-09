@@ -18,7 +18,7 @@ export function RequestContextProvider(props) {
             body: JSON.stringify(body)
         })
 
-       return response;      
+       return response;
     }
 
     async function putRequest(endpoint, body) {
