@@ -8,6 +8,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { FavoritesContextProvider } from './store/ActivitiesContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
     <StorageContextProvider>
         <RequestContextProvider>

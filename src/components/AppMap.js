@@ -68,10 +68,10 @@ const AppMap = () => {
     
 
   async function handleChange(value) {
-    //let res = await getRequest(url);
-   // let data = await res.json;
+    let res = await reqCtx.getRequest(url);
+    let data = await res.json;
 
-    //setPredictions(data);
+    setPredictions(data);
 
     if (value.length > 0) {
         setInputText(value)
