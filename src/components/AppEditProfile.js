@@ -2,13 +2,14 @@ import { Avatar, Box, Button, Stack, TextField } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
 import { style } from '@mui/system';
 import ENDPOINTS from 'Endpoints';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { getRequest, postRequest, putRequest } from 'RequestService';
+import RequestContext from 'store/RequestContext';
 import ProfileTabs from './ProfileTabs';
 import styles from './styles/AppProfile.module.scss';
 
 export default function AppEditProfile() {
+    const reqCtx = useContext(RequestContext);
   const [user, setUser] = useState(null);
   const [tempUser, setTempUser] = useState(null);
 
@@ -20,7 +21,7 @@ export default function AppEditProfile() {
     async function fetchData() {
       try {
         setIsLoading(true);
-        const res = await getRequest(ENDPOINTS.getUser(id));
+        const res = await reqCtx.getRequest(ENDPOINTS.getUser(id));
         console.log('här är mitt res', res);
         const data = await res.json();
 
@@ -42,7 +43,7 @@ export default function AppEditProfile() {
     e.preventDefault();
     console.log(tempUser);
 
-    let resp = await putRequest(ENDPOINTS.editUser(tempUser.id), tempUser);
+    let resp = await reqCtx.putRequest(ENDPOINTS.editUser(tempUser.id), tempUser);
 
     console.log(resp);
 

@@ -2,13 +2,14 @@ import { Avatar, Box, Button, TextField } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
 import { style } from '@mui/system';
 import ENDPOINTS from 'Endpoints';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { getRequest, postRequest, putRequest } from 'RequestService';
+import RequestContext from 'store/RequestContext';
 import ProfileTabs from './ProfileTabs';
 import styles from './styles/AppProfile.module.scss';
 
 export default function AppEditPassword() {
+const reqCtx = useContext(RequestContext);
   const [isLoading, setIsLoading] = useState(false);
   const id = 1;
 
@@ -25,7 +26,7 @@ export default function AppEditPassword() {
         newPassword,
       };
 
-      const res = await putRequest(ENDPOINTS.changePassword, body);
+      const res = await reqCtx.putRequest(ENDPOINTS.changePassword, body);
 
       console.log('här är mitt res', res);
 

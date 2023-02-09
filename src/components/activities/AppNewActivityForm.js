@@ -1,14 +1,13 @@
-import classes from '../styles/AppNewActivityForm.module.css';
-import { useRef } from 'react';
-import AppCard from '../ui/AppCard';
+import React, { useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
-import uniqId from '../../uniq';
-import RequestService, { postRequest, putRequest } from '../../RequestService';
+import RequestContext from 'store/RequestContext';
 import ENDPOINTS from '../../Endpoints';
+import uniqId from '../../uniq';
+import classes from '../styles/AppNewActivityForm.module.css';
+import AppCard from '../ui/AppCard';
 
 function NewMeetupForm() {
-
+    const reqCtx = useContext(RequestContext);
   const titleInputRef = useRef(null);
   const imageInputRef = useRef(null);
   const addressInputRef = useRef(null);
@@ -19,7 +18,7 @@ function NewMeetupForm() {
 
   const addMeetupHandler = async meetupData => {
 
-    let resp = await postRequest(ENDPOINTS.postEvent(),
+    let resp = await reqCtx.postRequest(ENDPOINTS.postEvent(),
       meetupData).then(() => navigateTo('/events'));
 
     console.log(resp);

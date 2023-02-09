@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import RequestService from '../../RequestService';
+import RequestContext from 'store/RequestContext';
 import FavoritesContext from '../../store/ActivitiesContext';
 import classes from '../styles/AppActivitiesItem.module.css';
 import AppCard from '../ui/AppCard';
@@ -9,6 +9,8 @@ function AppActivitiesItem(props) {
   const favoritesCtx = useContext(FavoritesContext);
   const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
   const navigateTo = useNavigate();
+
+  const reqCtx = useContext(RequestContext)
 
   const goToEvent = () => {
     // console.log(props);
@@ -26,7 +28,8 @@ function AppActivitiesItem(props) {
       eventIsNotFavorite: itemIsFavorite,
     };
 
-    await RequestService.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`, data);
+    
+    await reqCtx.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`, data);
   }
   //○●
   //☆★

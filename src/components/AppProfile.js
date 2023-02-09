@@ -2,13 +2,14 @@ import { Avatar } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
 import { style } from '@mui/system';
 import ENDPOINTS from 'Endpoints';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { getRequest } from 'RequestService';
+import RequestContext from 'store/RequestContext';
 import ProfileTabs from './ProfileTabs';
 import styles from './styles/AppProfile.module.scss';
 
 export default function AppProfile() {
+    const reqCtx = useContext(RequestContext);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -18,7 +19,7 @@ export default function AppProfile() {
     async function fetchData() {
       try {
         setIsLoading(true);
-        const res = await getRequest(ENDPOINTS.getUser(id));
+        const res = await reqCtx.getRequest(ENDPOINTS.getUser(id));
         console.log('här är mitt res', res);
         const data = await res.json();
 

@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import classes from '../styles/Headlines.module.css';
-import RequestService, { getRequest } from '../../RequestService';
+import React, { useContext, useEffect, useState } from 'react';
+import RequestContext from 'store/RequestContext';
 import ENDPOINTS from '../../Endpoints';
- function AppGetComments() {
+import classes from '../styles/Headlines.module.css';
+ 
+function AppGetComments() {
 
+    const reqCtx = useContext(RequestContext);
   // const data = await RequestService.getRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`)
   const [isLoading, setIsLoading] = useState(false);
   const [loadedComments, setLoadedComments] = useState([]);
 
   const fetchData = async () => {
-    let resp = await (await getRequest(
-      `https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`))
-      .json();
+    let res = await reqCtx.getRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`)
+    let resp = await res.json()
     console.log(resp);
     return resp;
-  }; fetchData();
+  }; 
+  
+  fetchData();
+
+  return (<div>Apa</div>)
 
   // useEffect(() => {
   //   setIsLoading(true);

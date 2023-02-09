@@ -57,6 +57,40 @@
   border: 10px solid #edae49;
 }
 
+.autocompletewrapper {
+    position: absolute;
+    width: 100vw;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+}
+
+.autocompleteinnerwrapper {
+    width: 80%;
+    margin: 0 auto;
+    margin: 50px;
+}
+
+.autocompleteinput {
+    
+}
+
+.autocompletepredictions {
+    background-color: rgba(255,255,255,0.9);
+    backdrop-filter: blur;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    border: solid 1px #cacaca;
+}
+
+.newmap {
+  position: absolute;
+  width: 1000px;
+  height: 1000px;
+  background-color:#999;
+}
+
 /*
 .gmnoprint a, .gmnoprint span, .gm-style-cc {
     display:none;

@@ -1,22 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { RequestContextProvider } from 'store/RequestContext';
 import { StorageContextProvider } from 'store/StorageContext';
 import { UserContextProvider } from 'store/UserContext';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { FavoritesContextProvider } from './store/ActivitiesContext';
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <StorageContextProvider>
-        <UserContextProvider>  
-            <FavoritesContextProvider>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-            </FavoritesContextProvider>
-        </UserContextProvider>
+        <RequestContextProvider>
+            <UserContextProvider>  
+                <FavoritesContextProvider>
+                    <BrowserRouter>
+                        <App />
+                    </BrowserRouter>
+                </FavoritesContextProvider>
+            </UserContextProvider>
+        </RequestContextProvider>
     </StorageContextProvider>,
 );
 

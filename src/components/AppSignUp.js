@@ -3,11 +3,12 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import ENDPOINTS from 'Endpoints';
 import * as React from 'react';
-import { useRef, useState } from 'react';
-import { getRequest } from 'RequestService';
+import { useContext, useRef, useState } from 'react';
+import RequestContext from 'store/RequestContext';
 import ErrorAlert from './ErrorAlert';
 
 function AppSignup() {
+    const reqCtx = useContext(RequestContext);
   const [firstCheck, setFirstCheck] = useState(false);
   const [lastCheck, setLastCheck] = useState(false);
   const [bdayCheck, setBdayCheck] = useState(false);
@@ -54,7 +55,7 @@ function AppSignup() {
 
     if (!username) return;
 
-    let resp = await (await getRequest(ENDPOINTS.checkUsername(username))).json();
+    let resp = await (await reqCtx.getRequest(ENDPOINTS.checkUsername(username))).json();
     if (resp.taken) setUsnCheck(true);
     else setUsnCheck(false);
   };

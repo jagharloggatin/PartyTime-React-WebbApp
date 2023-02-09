@@ -26,6 +26,8 @@ export function StorageContextProvider(props) {
         const key = "JWT";
         const JwtToken = localStorage.getItem(key);
         const JWTInfo = JSON.parse(JwtToken);
+
+        console.log(JWTInfo)
         return JWTInfo;
     }
 

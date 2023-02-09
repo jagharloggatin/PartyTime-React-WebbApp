@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import ENDPOINTS from 'Endpoints';
 import * as React from 'react';
 import { useRef } from 'react';
-import { postRequest } from 'RequestService';
+import RequestContext from 'store/RequestContext';
 import ErrorAlert from './ErrorAlert';
 import SuccessAlert from './SuccessAlert';
 
@@ -13,11 +13,14 @@ export default function AppSignup() {
   const errorAlertRef = useRef(null);
   const successAlertRef = useRef(null);
 
+  const reqCtx = React.useContext(RequestContext)
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const Username = e.target.username.value;
     const Password = e.target.password.value;
-    let resp = await postRequest(ENDPOINTS.login, { Username, Password });
+    const resp = await reqCtx.postRequest(ENDPOINTS.login, { Username, Password });
+  
 
     if (resp.status !== 200) {
       errorAlertRef.current.update('Wrong Username or Password!');

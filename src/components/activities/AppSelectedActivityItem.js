@@ -1,15 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import RequestContext from 'store/RequestContext';
 import FavoritesContext from '../../store/ActivitiesContext';
+import uniqId from '../../uniq';
 import classes from '../styles/AppActivitiesItem.module.css';
 import AppCard from '../ui/AppCard';
-import AppRating from './AppRating';
-import { useParams } from 'react-router-dom';
-import RequestService from '../../RequestService';
 import AppGetComments from './AppGetComments';
-import React from 'react';
-import uniqId from '../../uniq';
+import AppRating from './AppRating';
 
 function AppSelectedActivityItem() {
+
+    const reqCtx = useContext(RequestContext);
   // const favoritesCtx = useContext(FavoritesContext);
   // const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
   const [show, setShow] = useState(true);
@@ -30,7 +31,7 @@ function AppSelectedActivityItem() {
       uId: userId,
       eId: selectedId.id
     }
-    await RequestService.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`, data);
+    await reqCtx.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`, data);
   }
 
   const getComments = () => {
@@ -51,7 +52,7 @@ function AppSelectedActivityItem() {
       eId: selectedId.id,
       // eventIsNotFavorite: itemIsFavorite
     }
-    await RequestService.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`, data);
+    await reqCtx.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`, data);
   };
   return (
     <li className={classes.item}>
