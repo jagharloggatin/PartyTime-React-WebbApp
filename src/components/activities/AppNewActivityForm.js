@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import RequestContext from 'store/RequestContext';
 import ENDPOINTS from '../../Endpoints';
-import RequestService, { postRequest, putRequest } from '../../RequestService';
 import StorageContext from '../../store/StorageContext';
 import uniqId from '../../uniq';
 import classes from '../styles/AppNewActivityForm.module.css';
@@ -16,12 +16,15 @@ function NewMeetupForm() {
   const cityInputRef = useRef(null);
   // const ratingInputRef = useRef(null);
   const navigateTo = useNavigate();
+  
+  const reqCtx = useContext(RequestContext);
   const storageCtx = useContext(StorageContext);
+  
   const user = storageCtx.ReadJWT();
 
   const addMeetupHandler = async meetupData => {
 
-    let resp = await postRequest(ENDPOINTS.postEvent(),
+    let resp = await reqCtx.postRequest(ENDPOINTS.postEvent(),
       meetupData);
     // console.log(resp);
 

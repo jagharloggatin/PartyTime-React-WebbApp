@@ -7,17 +7,16 @@ import { default as ProfileCommentsTab, default as ProfileHomeTab } from 'routes
 import ProfileFavoritesTab from 'routes/ProfileFavoritesTab';
 import SettingsRoute from 'routes/SettingsRoute';
 import './App.scss';
-import AppFavorites from './components/activities/AppFavorites';
 import AppNewActivityForm from './components/activities/AppNewActivityForm';
 import AppHeader from './components/AppHeader';
 import ActivitiesRoute from './routes/ActivitiesRoute';
+import FavoritesRoute from './routes/FavoritesRoute';
 import HomeRoute from './routes/HomeRoute';
 import LoginRoute from './routes/LoginRoute';
 import MapRoute from './routes/MapRoute';
 import ProfileRoute from './routes/ProfileRoute';
 import SelectedActivityRoute from './routes/SelectedActivityRoute';
 import { default as SigninRoute, default as SignupRoute } from './routes/SignupRoute';
-import FavoritesRoute from './routes/FavoritesRoute';
 
 function App() {
   return (
