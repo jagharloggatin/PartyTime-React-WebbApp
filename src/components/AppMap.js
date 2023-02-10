@@ -10,6 +10,7 @@ import plusIcon from '../icons/plus.svg';
 import searchIcon from '../icons/search.svg';
 import AppNewActivityForm from './activities/AppNewActivityForm';
 import Logo from './AppLogo';
+import AppSelectedEventItem from './activities/AppSelectedEventItem';
 
 const AppMap = () => {
     const reqCtx = useContext(RequestContext);
@@ -96,6 +97,8 @@ const AppMap = () => {
 
       // start modal
       marker.addListener('click', () => {
+        setModalOpen(true)
+        setModalContent("selected");
       });
     });
   }, [mapState])
@@ -158,6 +161,7 @@ const AppMap = () => {
             {modalContent === "grid" ? <div/> : null}
             {modalContent === "add" ? <AppNewActivityForm/> : null}
             {modalContent === "search" ? <div/> : null}
+            {modalContent === "selected" ? <AppSelectedEventItem/> : null}
         </div>
       </Modal>
         <div className={classes.autocompletewrapper}>
@@ -169,9 +173,7 @@ const AppMap = () => {
                 ref={inputRef}
                 placeholder="Search address"
                 />
-
                 <Predictionsarea/>
-
             </div>
         </div>
       <div className={classes['control-container']}>
