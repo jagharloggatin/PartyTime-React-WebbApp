@@ -5,9 +5,29 @@
 
 .infoWindow {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 20vw;
+  z-index: 200;
+  color: white;
+  border-radius: 5px;
+  background-color: rgba(237, 174, 73, 1);
   font-family: 'SeoulHangang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.infoWindow-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoWindow-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoWindow-left img {
+  width: 8vw;
+  margin: 1rem;
+  border-radius: 5px;
 }
 
 
