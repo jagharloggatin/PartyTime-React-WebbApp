@@ -2,23 +2,14 @@ import { Autocomplete, GoogleMap, useLoadScript } from '@react-google-maps/api';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classes from './styles/AppMap.module.scss';
 
-import { TextField } from '@mui/material';
+import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import React from 'react';
 import RequestContext from 'store/RequestContext';
 import gridIcon from '../icons/grid.svg';
 import plusIcon from '../icons/plus.svg';
 import searchIcon from '../icons/search.svg';
+import AppNewActivityForm from './activities/AppNewActivityForm';
 import Logo from './AppLogo';
-
-
-
-const Button = (props) => {
-  return (
-    <div className={classes.button} style={{ width: `${props.size}px`, height: `${props.size}px`, ...props.style }}>
-      {props.children}
-    </div>
-  );
-};
 
 const AppMap = () => {
     const reqCtx = useContext(RequestContext);
@@ -26,6 +17,16 @@ const AppMap = () => {
   const [predictionsResult, setPredictionsResult] = useState([]);
   const [inputText, setInputText] = useState("");
   const [mapState, setMapState] = useState({center:{lat: 59.330936, lng: 18.071644}, zoom: 15 });
+  const [modalOpen, setModalOpen] = useState(false)
+  const [modalContent, setModalContent] = useState("");
+
+  const CustomButton = (props) => {
+    return (
+      <div onClick={() => {setModalOpen(true)}} className={classes.custombutton} style={{ width: `${props.size}px`, height: `${props.size}px`, ...props.style }}>
+        {props.children}
+      </div>
+    );
+  };
 
   const autoCompleteRef = useRef();
   const inputRef = useRef();
@@ -104,6 +105,18 @@ const AppMap = () => {
 
   return (
     <div>
+      <Modal
+        open={modalOpen}
+        onClose={() => {setModalOpen(false)}}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div className={classes.modalcontainer}>
+            {modalContent === "grid" ? <div/> : null}
+            {modalContent === "add" ? <AppNewActivityForm/> : null}
+            {modalContent === "search" ? <div/> : null}
+        </div>
+      </Modal>
         <div className={classes.autocompletewrapper}>
             <div className={classes.autocompleteinnerwrapper}>
                 <input
@@ -117,18 +130,17 @@ const AppMap = () => {
                 <Predictionsarea/>
 
             </div>
-          
         </div>
       <div className={classes['control-container']}>
-        <Button size={60}>
+        <CustomButton size={60} onClick={() => {setModalContent("grid")}}>
           <img src={gridIcon} alt={'grid-view'} />
-        </Button>
-        <Button size={100} style={{ margin: '0 40px' }}>
-          <img src={plusIcon} alt={'Search'} />
-        </Button>
-        <Button size={60}>
+        </CustomButton>
+        <CustomButton size={100} onClick={() => {setModalContent("add")}} style={{ margin: '0 40px' }}>
+          <img src={plusIcon} alt={'AddActivity'} />
+        </CustomButton>
+        <CustomButton size={60} onClick={() => {setModalContent("search")}}>
           <img src={searchIcon} alt={'Search'} />
-        </Button>
+        </CustomButton>
       </div>
       <div id="mapDiv" className={classes.mapcontainer}></div>
     </div>
