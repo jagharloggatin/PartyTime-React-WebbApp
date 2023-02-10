@@ -9,8 +9,8 @@ import gridIcon from '../icons/grid.svg';
 import plusIcon from '../icons/plus.svg';
 import searchIcon from '../icons/search.svg';
 import AppNewActivityForm from './activities/AppNewActivityForm';
-import Logo from './AppLogo';
 import AppSelectedEventItem from './activities/AppSelectedEventItem';
+import Logo from './AppLogo';
 
 const AppMap = () => {
     const reqCtx = useContext(RequestContext);
@@ -23,7 +23,7 @@ const AppMap = () => {
 
   const CustomButton = (props) => {
     return (
-      <div onClick={() => {setModalOpen(true)}} className={classes.custombutton} style={{ width: `${props.size}px`, height: `${props.size}px`, ...props.style }}>
+      <div onClick={() => {setModalOpen(true); setModalContent(props.modal) }} className={classes.custombutton} style={{ width: `${props.size}px`, height: `${props.size}px`, ...props.style }}>
         {props.children}
       </div>
     );
@@ -177,13 +177,13 @@ const AppMap = () => {
             </div>
         </div>
       <div className={classes['control-container']}>
-        <CustomButton size={60} onClick={() => {setModalContent("grid")}}>
+        <CustomButton size={60} modal={"grid"}>
           <img src={gridIcon} alt={'grid-view'} />
         </CustomButton>
-        <CustomButton size={100} onClick={() => {setModalContent("add")}} style={{ margin: '0 40px' }}>
+        <CustomButton size={100} modal={"add"} style={{ margin: '0 40px' }}>
           <img src={plusIcon} alt={'AddActivity'} />
         </CustomButton>
-        <CustomButton size={60} onClick={() => {setModalContent("search")}}>
+        <CustomButton size={60} modal={"search"}>
           <img src={searchIcon} alt={'Search'} />
         </CustomButton>
       </div>
