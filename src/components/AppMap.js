@@ -28,6 +28,8 @@ const AppMap = () => {
     );
   };
 
+
+
   const autoCompleteRef = useRef();
   const inputRef = useRef();
 
@@ -62,6 +64,8 @@ const AppMap = () => {
         position: {lat: 59.3192, lng: 18.0686},
       },
     ];
+
+    // onClick={() => {setModalOpen(true)}
     events.forEach(x => {
       const contentString = `<div class="infoWindow">` +
         `<div class='infoWindow-left'><img src='${x.image}' alt='${x.title}'/></div>` +
@@ -82,18 +86,16 @@ const AppMap = () => {
 
       // Add a click listener for each marker, and set up the info window.
       marker.addListener('mouseover', () => {
-        // anchor: marker,
         popUp.setContent(contentString);
         popUp.open(marker.getMap(), marker);
       });
 
       marker.addListener('mouseout', () => {
-        // anchor: marker,
         popUp.close();
       });
 
+      // start modal
       marker.addListener('click', () => {
-        // anchor: marker,
       });
     });
   }, [mapState])

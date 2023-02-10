@@ -8,11 +8,22 @@
   flex-direction: row;
   width: 20vw;
   z-index: 200;
-  color: white;
+  color: #282c34;
+  padding: 0;
   border-radius: 5px;
   background-color: rgba(237, 174, 73, 1);
   font-family: 'SeoulHangang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.gm-ui-hover-effect {
+  display: none !important;
+}
+
+.gm-style-iw {
+  background-color: rgba(237, 174, 73, 1);
+}
+
+
 
 .infoWindow-right {
   display: flex;
