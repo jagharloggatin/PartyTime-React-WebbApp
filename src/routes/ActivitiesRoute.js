@@ -7,7 +7,6 @@ function AllMeetups() {
 
   return (
     <div className={classes.wrapper}>
-      <h1 className={classes.content}>All Activities</h1>
       <AppEventsList />
     </div>
   );

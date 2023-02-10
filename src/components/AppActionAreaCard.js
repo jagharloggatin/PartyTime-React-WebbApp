@@ -13,7 +13,7 @@ export default function ActionAreaCard({ city }) {
 
   return (
     <Card className="card-homepage" sx={{ maxWidth: 345 }}>
-      <CardActionArea component={Link} to={PATHS.city(city.id)}>
+      <CardActionArea component={Link} to={`/events/location/${city.id}`}>
         <CardMedia className="card-media" component="img" height="160" image={city.image} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -27,3 +27,5 @@ export default function ActionAreaCard({ city }) {
     </Card>
   );
 }
+
+// component={Link} to={PATHS.city(city.id)}

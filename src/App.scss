@@ -3,6 +3,14 @@
   src: url(../fonts/SeoulHangangCBL.ttf);
 }
 
+.infoWindow {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  font-family: 'SeoulHangang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
 body {
   margin: 0;
   font-family: 'SeoulHangang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

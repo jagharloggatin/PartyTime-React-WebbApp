@@ -8,7 +8,6 @@ import classes from '../styles/AppNewActivityForm.module.css';
 import AppCard from '../ui/AppCard';
 
 function NewMeetupForm() {
-
   const titleInputRef = useRef(null);
   const imageInputRef = useRef(null);
   const addressInputRef = useRef(null);
@@ -22,10 +21,10 @@ function NewMeetupForm() {
   
   // const user = storageCtx.ReadJWT();
 
-  const addMeetupHandler = async meetupData => {
+  const addMeetupHandler = async eventData => {
 
     let resp = await reqCtx.postRequest(ENDPOINTS.postEvent(),
-      meetupData);
+      eventData);
     // console.log(resp);
 
     if (resp.ok) {
@@ -33,7 +32,7 @@ function NewMeetupForm() {
     } else {
       alert('NOT OK');
     }
-    navigateTo('/events');
+    navigateTo(`/events/location/${eventData.id}`);
   };
 
   // let resp = await postRequest(ENDPOINTS.postEvent(meetupData)).then(() => navigateTo('/events'));
@@ -69,8 +68,8 @@ function NewMeetupForm() {
 
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
-
     console.log(today.toISOString());
+
     const eventData =
       {
         title: enteredTitle,

@@ -16,7 +16,7 @@ function AppGetReviews(){
   useEffect(() => {
     const conv = async () => {
       setIsLoading(true);
-      var response = await reqCtx.getRequest("https://localhost:7215/events/reviews/1")
+      var response = await reqCtx.getRequest("https://localhost:7215/reviews/1")
       console.log(response);
       var converted = await reqCtx.convertResponse(response)
       console.log(converted);
@@ -25,11 +25,11 @@ function AppGetReviews(){
     }
     conv();
   }, []);
-  
-  console.log("HAR AER FALOAD");
-
-  console.log(loadedFavorites);
-  console.log("HAR AER FALOAD");
+  //
+  // console.log("HAR AER FALOAD");
+  //
+  // console.log(loadedFavorites);
+  // console.log("HAR AER FALOAD");
   if(isLoading){
     return <div className={classes.wrapper}>
       <h2 className={classes.content}>Loading...</h2>

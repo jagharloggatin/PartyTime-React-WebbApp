@@ -37,7 +37,7 @@ function App() {
         <Route path="/login" element={<LoginRoute />} />
         <Route path="/settings" element={<SettingsRoute />} />
         <Route path="/signup" element={<SignupRoute />} />
-        <Route path="/events" element={<ActivitiesRoute />} />
+        <Route path="/events/location/:id" element={<ActivitiesRoute />} />
         <Route path="/new-events" element={<AppNewActivityForm />} />
         <Route path="/favorites" element={<FavoritesRoute />} />
         <Route path="/events/selected" element={<SelectedActivityRoute />} />

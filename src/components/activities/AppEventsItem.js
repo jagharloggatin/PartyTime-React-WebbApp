@@ -20,17 +20,18 @@ function AppEventsItem(props) {
   };
 
   async function toggleFavoriteStatusHandler() {
-    const userId = 3;
 
-    const data = {
-      uId: userId,
-      eId: props.id,
-      eventIsNotFavorite: itemIsFavorite,
-    };
+    const data ={
+      like: true,
+      comment: "string",
+      created: "2023-02-10T10:40:00.500Z"
+    }
 
-    const favoriteList =  await reqCtx.getRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`);
-
-    // itemIsFavorite =
+    // const data = {
+    //   uId: userId,
+    //   eId: props.id,
+    //   eventIsNotFavorite: itemIsFavorite,
+    // };
     await reqCtx.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`, data);
   }
   //○●
@@ -47,8 +48,6 @@ function AppEventsItem(props) {
             <address>Address: {props.address}</address>
             <p>City: {props.city}</p>
             <p> Description: {props.description}</p>
-            {/*<p> comment: {props.comment}</p>*/}
-            {/*<p> Rating: {props.rating}</p>*/}
           </div>
         </li>
         <div className={classes.actions}>

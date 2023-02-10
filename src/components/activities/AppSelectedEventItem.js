@@ -20,7 +20,6 @@ function AppSelectedEventItem() {
   const userId = 3;
   const selectedId = JSON.parse(localStorage.getItem("selectedId")) || []
 
-
   async function onCommentSubmit(e) {
     e.preventDefault();
     setComments((comments) => [...comments, comment]);
@@ -79,6 +78,7 @@ function AppSelectedEventItem() {
 
             <div className={classes.commentsContainer}>
               <div>
+                <p>{selectedId.comment}</p>
                   <textarea
                     value={comment}
                     onChange={onCommentChange}
