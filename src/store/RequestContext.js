@@ -12,14 +12,22 @@ const RequestContext = createContext({
 export function RequestContextProvider(props) {
     const StorageCtx = useContext(StorageContext);
     
-    async function postRequest(endpoint, body) {
+    async function postRequest(endpoint, body, jwt) {
+      if (jwt === true) {
         const response = await fetch(endpoint, {
-            method: 'post',
-            headers: new Headers({ 'content-type': 'application/json' }),
-            body: JSON.stringify(body)
+          method: 'post',
+          headers: new Headers({ 'content-type': 'application/json', 'Authorization': `Bearer ${StorageCtx.ReadJWT().jwt}` }),
+          body: JSON.stringify(body)
         })
-
-       return response;
+        return response;
+      } else {
+        const response = await fetch(endpoint, {
+          method: 'post',
+          headers: new Headers({ 'content-type': 'application/json' }),
+          body: JSON.stringify(body)
+        })
+        return response;
+      }   
     }
 
     async function putRequest(endpoint, body) {
@@ -29,7 +37,6 @@ export function RequestContextProvider(props) {
             body: JSON.stringify(body)
         })
     }
-
     async function getRequest(endpoint) {
         return await fetch(endpoint)
     }

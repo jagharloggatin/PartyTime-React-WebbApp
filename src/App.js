@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import UserList from 'routes/apiTest';
 import ProfileRewievsTab from 'routes/ProfieRewievsTab';
@@ -20,11 +20,24 @@ import { default as SigninRoute, default as SignupRoute } from './routes/SignupR
 
 function App() {
 
+  
+  function initMap() {
+    const map = new window.google.maps.Map(document.getElementById("map"), {
+      center: { lat: -34.397, lng: 150.644 },
+      zoom: 8,
+    })
+  }
+  
+
+  useEffect(() => {
+    window.initMap = initMap;
+  })
+
   return (
     <div className="wrapper">
       <AppHeader></AppHeader>
       <Routes>
-        <Route path="/" element={<HomeRoute />} />
+        <Route path="/" element={<div id="map"/>} />
         <Route path="/api" element={<UserList />} />
         <Route path="/map" element={<MapRoute />} />
         <Route path="/profile" element={<ProfileRoute />}>

@@ -20,6 +20,7 @@ const AppMap = () => {
   const [mapState, setMapState] = useState({center:{lat: 59.330936, lng: 18.071644}, zoom: 14 });
   const [modalOpen, setModalOpen] = useState(false)
   const [modalContent, setModalContent] = useState("");
+  const [map, setMap] = useState(null);
 
   const CustomButton = (props) => {
     return (
@@ -41,14 +42,23 @@ const AppMap = () => {
   const API_KEY = "AIzaSyAY85IYZfPLkT6EyiauSREDkc7ZhYJCPys";
   const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${inputText}&key=${API_KEY}`;
 
-
-  useEffect(() => {
+  function initMap() {
     const map = new window.google.maps.Map(document.getElementById("mapDiv"), {
       zoom: mapState.zoom,
       center: mapState.center,
       disableDefaultUI: true,
       mapId:'bd0bdf809da55ccb',
     });
+
+    return map
+  }
+
+  useEffect(() => {
+    window.initMap = initMap.bind(this);
+
+
+    setMap(initMap())
+      
     const events = [
       {
         title: 'SvettigApa',
@@ -115,18 +125,37 @@ const AppMap = () => {
 
   const service = new window.google.maps.places.AutocompleteService();
 
-  async function getPlaceResult() {
-    const options = {
-      fields: ["address_components", "geometry", "name"],
-      strictBounds: false,
+  async function getPlaceResult(place_id) {
+    const servicex = new window.google.maps.places.PlacesService(map)
+    const request = {
+      placeId: place_id,
     };
-    var input = document.getElementById("autoinput")
-    var apa = new window.HTMLInputElement()
-    apa.value = input.value
 
-    const autocomplete = new window.google.maps.places.Autocomplete(apa, options);
-    var res = await autocomplete.getPlace()
-    console.log(res)
+    servicex.getDetails(request, (place, status) => {
+      if (
+        status === window.google.maps.places.PlacesServiceStatus.OK &&
+        place &&
+        place.geometry &&
+        place.geometry.location){
+          // const geocoder = new window.google.maps.Geocoder();
+          // geocoder.geocode({ placeId: place.place_id }, (a,b) => {
+          //   console.log(a)
+          // })
+
+          console.log("lat=" + place.geometry.location.lat());
+
+          console.log("lng=" + place.geometry.location.lng());
+
+
+          console.log(place)
+          // console.log("O");
+
+        } else {
+
+          console.log("fai");
+        }
+      }
+      )
   }
 
 
@@ -143,9 +172,9 @@ const AppMap = () => {
     }
   }
 
-  function fillSearchBox(xd) {
-    document.getElementById("autoinput").value = xd;
-    getPlaceResult()
+  function fillSearchBox(prediction) {
+    document.getElementById("autoinput").value = prediction.description;
+    getPlaceResult(prediction.place_id)
   }
 
 
@@ -154,7 +183,7 @@ const AppMap = () => {
       return(
         <div className={classes.autocompletepredictions}>
            {predictionsResult.map(x => {
-            return (<div onClick={() => {fillSearchBox(x.description)}} className={classes.autocompletesingle}>{x.description}</div>)
+            return (<div onClick={() => {fillSearchBox(x)}} className={classes.autocompletesingle}>{x.description}</div>)
            })}
         </div>
       ) 

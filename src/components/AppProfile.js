@@ -28,6 +28,7 @@ export default function AppProfile() {
         setIsLoading(false);
       }
     }
+    
     fetchData();
   }, []);
 

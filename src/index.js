@@ -15,7 +15,7 @@ root.render(
             <UserContextProvider>  
                 <FavoritesContextProvider>
                     <BrowserRouter>
-                        <App />
+                        <App/>
                     </BrowserRouter>
                 </FavoritesContextProvider>
             </UserContextProvider>
