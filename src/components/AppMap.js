@@ -17,7 +17,7 @@ const AppMap = () => {
   const [showSuggestions, setshowSuggestions] = useState(false);
   const [predictionsResult, setPredictionsResult] = useState([]);
   const [inputText, setInputText] = useState("");
-  const [mapState, setMapState] = useState({center:{lat: 59.330936, lng: 18.071644}, zoom: 15 });
+  const [mapState, setMapState] = useState({center:{lat: 59.330936, lng: 18.071644}, zoom: 14 });
   const [modalOpen, setModalOpen] = useState(false)
   const [modalContent, setModalContent] = useState("");
 
@@ -103,9 +103,6 @@ const AppMap = () => {
     });
   }, [mapState])
 
-  function getPredictions() {
-
-  }
   const displaySuggestions = function (predictions, status) {
     if (status != window.google.maps.places.PlacesServiceStatus.OK || !predictions) {
       alert(status);
@@ -118,12 +115,24 @@ const AppMap = () => {
 
   const service = new window.google.maps.places.AutocompleteService();
 
+  async function getPlaceResult() {
+    const options = {
+      fields: ["address_components", "geometry", "name"],
+      strictBounds: false,
+    };
+    var input = document.getElementById("autoinput")
+    var apa = new window.HTMLInputElement()
+    apa.value = input.value
+
+    const autocomplete = new window.google.maps.places.Autocomplete(apa, options);
+    var res = await autocomplete.getPlace()
+    console.log(res)
+  }
+
 
       
 
   async function handleChange(value) {
-    //setPredictions(data);
-    //console.log(autoCompleteRef)
     if (value.length > 2) {
         setInputText(value)
         setshowSuggestions(true)
@@ -134,13 +143,18 @@ const AppMap = () => {
     }
   }
 
+  function fillSearchBox(xd) {
+    document.getElementById("autoinput").value = xd;
+    getPlaceResult()
+  }
+
 
   function Predictionsarea() {
     if (showSuggestions) {
       return(
         <div className={classes.autocompletepredictions}>
            {predictionsResult.map(x => {
-            return (<div className={classes.autocompletesingle}>{x.description}</div>)
+            return (<div onClick={() => {fillSearchBox(x.description)}} className={classes.autocompletesingle}>{x.description}</div>)
            })}
         </div>
       ) 
@@ -167,7 +181,7 @@ const AppMap = () => {
         <div className={classes.autocompletewrapper}>
             <div className={classes.autocompleteinnerwrapper}>
                 <input
-                id="outlined-basic"
+                id="autoinput"
                 className={classes.autocompleteinput}
                 onChange={e => handleChange(e.target.value)}
                 ref={inputRef}
@@ -177,13 +191,13 @@ const AppMap = () => {
             </div>
         </div>
       <div className={classes['control-container']}>
-        <CustomButton size={60} modal={"grid"}>
+        <CustomButton size={40} modal={"grid"}>
           <img src={gridIcon} alt={'grid-view'} />
         </CustomButton>
-        <CustomButton size={100} modal={"add"} style={{ margin: '0 40px' }}>
+        <CustomButton size={80} modal={"add"} style={{ margin: '0 40px' }}>
           <img src={plusIcon} alt={'AddActivity'} />
         </CustomButton>
-        <CustomButton size={60} modal={"search"}>
+        <CustomButton size={40} modal={"search"}>
           <img src={searchIcon} alt={'Search'} />
         </CustomButton>
       </div>
