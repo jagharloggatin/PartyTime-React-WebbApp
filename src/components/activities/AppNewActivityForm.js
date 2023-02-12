@@ -1,3 +1,4 @@
+import AppLogo from 'components/AppLogo';
 import React, { useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RequestContext from 'store/RequestContext';
@@ -103,38 +104,51 @@ function NewMeetupForm() {
     addMeetupHandler(eventData);
   }
 
-  return <AppCard>
-    <form className={classes.form} onSubmit={submitHandler}>
-      <div className={classes.control}>
-        <label htmlFor='title'>Title</label>
-        <input type='text' required id='title' ref={titleInputRef} />
+  return <div className={classes.addactivityouterwrapper}>
+  <div className={classes.topbar}><AppLogo/></div>
+  <div className={classes.addactivityinnerwrapper}>
+    <div className={classes.addactivityleft}>
+      <div className={classes.addactivityleftinner}>
+        <div className={classes.chosenimage}></div>
+        <input type="file"/>
       </div>
-      <div className={classes.control}>
-        <label htmlFor='image'>Image</label>
-        <input type='url' required id='image' ref={imageInputRef} />
-      </div>
-      <div className={classes.control}>
-        <label htmlFor='city'>City</label>
-        <input type='text' required id='city' ref={cityInputRef} />
-      </div>
-      <div className={classes.control}>
-        <label htmlFor='address'>Address</label>
-        <input type='text' required id='address' ref={addressInputRef} />
-      </div>
-      <div className={classes.control}>
-        <label htmlFor='description'>Description</label>
-        <textarea id='description' required rows='5'
-                  ref={descriptionInputRef} />
-      </div>
-      {/*<div className={classes.control}>*/}
-      {/*  <label htmlFor='rating'>Rating(1-5)</label>*/}
-      {/*  <input type='number' required id='number' ref={ratingInputRef} />*/}
-      {/*</div>*/}
-      <div className={classes.actions}>
-        <button>Add Meetup</button>
-      </div>
-    </form>
-  </AppCard>;
+    </div>
+    <div className={classes.addactivityright}>
+      <form className={classes.form} onSubmit={submitHandler}>
+        <div className={classes.control}>
+          <label htmlFor='title'>Title</label>
+          <input type='text' required id='title' ref={titleInputRef} />
+        </div>
+        <div className={classes.control}>
+          <label htmlFor='image'>Image</label>
+          <input type='url' required id='image' ref={imageInputRef} />
+        </div>
+        <div className={classes.control}>
+          <label htmlFor='city'>City</label>
+          <input type='text' required id='city' ref={cityInputRef} />
+        </div>
+        <div className={classes.control}>
+          <label htmlFor='address'>Address</label>
+          <input type='text' required id='address' ref={addressInputRef} />
+        </div>
+        <div className={classes.control}>
+          <label htmlFor='description'>Description</label>
+          <textarea className={classes.description} id='description' required rows='5'
+                    ref={descriptionInputRef} />
+        </div>
+        {/*<div className={classes.control}>*/}
+        {/*  <label htmlFor='rating'>Rating(1-5)</label>*/}
+        {/*  <input type='number' required id='number' ref={ratingInputRef} />*/}
+        {/*</div>*/}
+        <div className={classes.actions}>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div>
+    <div className={classes.lower}><button className={classes.addbutton} type="submit">Create event</button></div>
+  </div>
+  </div>;
 }
 
 export default NewMeetupForm;

@@ -4,6 +4,7 @@ import classes from './styles/AppMap.module.scss';
 
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import React from 'react';
+import HomeRoute from 'routes/HomeRoute';
 import RequestContext from 'store/RequestContext';
 import gridIcon from '../icons/grid.svg';
 import plusIcon from '../icons/plus.svg';
@@ -14,7 +15,7 @@ import Logo from './AppLogo';
 
 const AppMap = () => {
     const reqCtx = useContext(RequestContext);
-  const [showSuggestions, setshowSuggestions] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [predictionsResult, setPredictionsResult] = useState([]);
   const [inputText, setInputText] = useState("");
   const [mapState, setMapState] = useState({center:{lat: 59.330936, lng: 18.071644}, zoom: 14 });
@@ -137,22 +138,16 @@ const AppMap = () => {
         place &&
         place.geometry &&
         place.geometry.location){
-          // const geocoder = new window.google.maps.Geocoder();
-          // geocoder.geocode({ placeId: place.place_id }, (a,b) => {
-          //   console.log(a)
-          // })
 
-          console.log("lat=" + place.geometry.location.lat());
+          const lat = place.geometry.location.lat();
+          const lng = place.geometry.location.lng();
 
-          console.log("lng=" + place.geometry.location.lng());
-
-
-          console.log(place)
-          // console.log("O");
+          setMapState({center:{lat: lat, lng: lng}, zoom: 14 })
+          setShowSuggestions(false)
 
         } else {
 
-          console.log("fai");
+          console.log("apa");
         }
       }
       )
@@ -164,11 +159,11 @@ const AppMap = () => {
   async function handleChange(value) {
     if (value.length > 2) {
         setInputText(value)
-        setshowSuggestions(true)
+        setShowSuggestions(true)
         service.getQueryPredictions({ input: value }, displaySuggestions);
 
     } else {
-        setshowSuggestions(false)
+        setShowSuggestions(false)
     }
   }
 
@@ -201,7 +196,7 @@ const AppMap = () => {
         aria-describedby="modal-modal-description"
       >
         <div className={classes.modalcontainer}>
-            {modalContent === "grid" ? <div/> : null}
+            {modalContent === "grid" ? <HomeRoute/> : null}
             {modalContent === "add" ? <AppNewActivityForm/> : null}
             {modalContent === "search" ? <div/> : null}
             {modalContent === "selected" ? <AppSelectedEventItem/> : null}

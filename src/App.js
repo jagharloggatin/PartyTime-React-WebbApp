@@ -37,7 +37,7 @@ function App() {
     <div className="wrapper">
       <AppHeader></AppHeader>
       <Routes>
-        <Route path="/" element={<div id="map"/>} />
+        <Route path="/" element={<HomeRoute/>} />
         <Route path="/api" element={<UserList />} />
         <Route path="/map" element={<MapRoute />} />
         <Route path="/profile" element={<ProfileRoute />}>
