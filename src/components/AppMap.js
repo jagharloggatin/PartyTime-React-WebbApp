@@ -119,7 +119,6 @@ const AppMap = () => {
       alert(status);
       return;
     }
-    console.log("WAWAWAWA");
     console.log(predictions)
     setPredictionsResult(predictions)
   };
@@ -138,6 +137,52 @@ const AppMap = () => {
         place &&
         place.geometry &&
         place.geometry.location){
+
+          //DATA FILTERING - CODE FROM GOOGLE
+          // for (const component of place.address_components as google.maps.GeocoderAddressComponent[]) {
+          //   // @ts-ignore remove once typings fixed
+          //   const componentType = component.types[0];
+        
+          //   switch (componentType) {
+          //     case "street_number": {
+          //       address1 = `${component.long_name} ${address1}`;
+          //       break;
+          //     }
+        
+          //     case "route": {
+          //       address1 += component.short_name;
+          //       break;
+          //     }
+        
+          //     case "postal_code": {
+          //       postcode = `${component.long_name}${postcode}`;
+          //       break;
+          //     }
+        
+          //     case "postal_code_suffix": {
+          //       postcode = `${postcode}-${component.long_name}`;
+          //       break;
+          //     }
+        
+          //     case "locality":
+          //       (document.querySelector("#locality") as HTMLInputElement).value =
+          //         component.long_name;
+          //       break;
+        
+          //     case "administrative_area_level_1": {
+          //       (document.querySelector("#state") as HTMLInputElement).value =
+          //         component.short_name;
+          //       break;
+          //     }
+        
+          //     case "country":
+          //       (document.querySelector("#country") as HTMLInputElement).value =
+          //         component.long_name;
+          //       break;
+          //   }
+          // }
+
+          console.log(place);
 
           const lat = place.geometry.location.lat();
           const lng = place.geometry.location.lng();
