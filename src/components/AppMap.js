@@ -14,7 +14,7 @@ import AppSelectedEventItem from './activities/AppSelectedEventItem';
 import Logo from './AppLogo';
 
 const AppMap = () => {
-    const reqCtx = useContext(RequestContext);
+  const reqCtx = useContext(RequestContext);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [predictionsResult, setPredictionsResult] = useState([]);
   const [inputText, setInputText] = useState("");
