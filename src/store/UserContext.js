@@ -54,6 +54,8 @@ export function UserContextProvider(props) {
     return JWTInfo;
   }
 
+  
+
   //Reference methods in this object to be passed as value
   const context = {
     LogInUser: LogInUser,

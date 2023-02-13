@@ -46,10 +46,19 @@ export function RequestContextProvider(props) {
     const headers = { 'content-type': 'application/json' };
     if (userCtx.IsLoggedIn) headers.Authorization = `Bearer ${userCtx.ReadJWT().jwt}`;
 
-    return await fetch(endpoint, {
-      method: 'post',
+    console.log(userCtx.ReadJWT().jwt);
+
+    const newheaders = new Headers()
+    newheaders.append('content-type', 'application/json')
+    newheaders.append('Authorization', `Bearer ${userCtx.ReadJWT().jwt}`)
+
+    const resp = await fetch(endpoint, {
+      method: 'get',
       headers: new Headers(headers)
-    }) 
+      }
+    ) 
+
+    return resp
   }
 
   async function convertResponse(response) {
