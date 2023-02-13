@@ -8,12 +8,11 @@ import uniqId from '../../uniq';
 import classes from '../styles/AppNewActivityForm.module.css';
 import AppCard from '../ui/AppCard';
 
-function NewMeetupForm() {
+function AppNewEvent() {
   const titleInputRef = useRef(null);
-  const imageInputRef = useRef(null);
   const addressInputRef = useRef(null);
   const descriptionInputRef = useRef(null);
-  const cityInputRef = useRef(null);
+  const dateInputRef = useRef(null);
   // const ratingInputRef = useRef(null);
   const navigateTo = useNavigate();
   
@@ -62,28 +61,53 @@ function NewMeetupForm() {
     event.preventDefault();
 
     const enteredTitle = titleInputRef.current.value;
-    const enteredImage = imageInputRef.current.value;
     const enteredAddress = addressInputRef.current.value;
     const enteredDescription = descriptionInputRef.current.value;
-    const enteredCity = cityInputRef.current.value;
+    const enteredDate= dateInputRef.current.value;
 
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
     console.log(today.toISOString());
 
+    // {
+    //   "title": null,
+    //   "description": null,
+    //   "image": null,
+    //   "planned": null,
+    //   "likes": null,
+    //   "comments": [
+    //     {}
+    //   ],
+    //   "location": {
+    //     "id": null,
+    //     "name": null,
+    //     "address": null,
+    //     "latitude": null,
+    //     "longitude": null,
+    //     "city": {
+    //       "id": null,
+    //       "name": null,
+    //       "country": {
+    //         "id": null,
+    //         "name": null,
+    //         "countryCode": null
+    //       }
+    //     }
+    //   }
+    // }
+
     const eventData =
       {
         title: enteredTitle,
         description: enteredDescription,
-        image: enteredImage,
         planned: today.toISOString(),
-        likes: 7,
-        city: enteredCity,
+        likes: null,
+        date: enteredDate,
         comments: [
           {},
         ],
         location: {
-          id: 8,
+          id: null,
           name: 'string',
           address: enteredAddress,
           latitude: 30,
@@ -92,7 +116,7 @@ function NewMeetupForm() {
             id: 4,
             name: 'string',
             country: {
-              id: 5,
+              id: 4,
               name: 'string',
               countryCode: 'string',
             },
@@ -120,12 +144,8 @@ function NewMeetupForm() {
           <input type='text' required id='title' ref={titleInputRef} />
         </div>
         <div className={classes.control}>
-          <label htmlFor='image'>Image</label>
-          <input type='url' required id='image' ref={imageInputRef} />
-        </div>
-        <div className={classes.control}>
-          <label htmlFor='city'>City</label>
-          <input type='text' required id='city' ref={cityInputRef} />
+          <label htmlFor='city'>Planned Date</label>
+          <input type='date' required id='date' ref={dateInputRef} />
         </div>
         <div className={classes.control}>
           <label htmlFor='address'>Address</label>
@@ -151,4 +171,4 @@ function NewMeetupForm() {
   </div>;
 }
 
-export default NewMeetupForm;
+export default AppNewEvent;

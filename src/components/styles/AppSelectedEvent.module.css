@@ -1,0 +1,10 @@
+.listItem {
+    box-sizing: border-box;
+    padding: 1rem 3rem;
+}
+
+.imageContainer img {
+    width: 20vw;
+    object-fit: cover;
+    justify-content: center;
+}
