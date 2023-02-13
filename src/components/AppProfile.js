@@ -12,21 +12,21 @@ import styles from './styles/AppProfile.module.scss';
 export default function AppProfile() {
   const reqCtx = useContext(RequestContext);
   const userCtx = useContext(UserContext);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        setIsLoading(true);
-        const res = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userId));
-        const data = await res.json();
-        setUser(data);
-      } finally {
-        setIsLoading(false);
-      }
+
+    async function getUser() {
+      setIsLoading(true)
+      const req = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userID));
+      const json = await req.json();
+      setUser(json)
+      setIsLoading(false)
     }
-    fetchData();
+    
+    getUser()
+    
   }, []);
 
   if (isLoading) {
