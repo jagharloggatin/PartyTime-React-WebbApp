@@ -9,7 +9,7 @@ import RequestContext from 'store/RequestContext';
 import gridIcon from '../icons/grid.svg';
 import plusIcon from '../icons/plus.svg';
 import searchIcon from '../icons/search.svg';
-import AppNewActivityForm from './activities/AppNewActivityForm';
+import AppNewEvent from './activities/AppNewEvent';
 import AppSelectedEventItem from './activities/AppSelectedEventItem';
 import Logo from './AppLogo';
 
@@ -242,7 +242,7 @@ const AppMap = () => {
       >
         <div className={classes.modalcontainer}>
             {modalContent === "grid" ? <HomeRoute/> : null}
-            {modalContent === "add" ? <AppNewActivityForm/> : null}
+            {modalContent === "add" ? <AppNewEvent/> : null}
             {modalContent === "search" ? <div/> : null}
             {modalContent === "selected" ? <AppSelectedEventItem/> : null}
         </div>
