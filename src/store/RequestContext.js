@@ -39,7 +39,8 @@ export function RequestContextProvider(props) {
   }
   
   async function getRequest(endpoint) {
-    return await fetch(endpoint);
+    console.log(endpoint);
+    return await fetch(endpoint, { method: 'get' });
   }
 
   async function getRequestJWT(endpoint) {

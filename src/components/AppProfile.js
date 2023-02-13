@@ -27,9 +27,8 @@ export default function AppProfile() {
       setUser(json)
       setIsLoading(false)
     }
-    
-    getUser()
-    
+
+    fetchData();
   }, []);
 
   if (isLoading) {
