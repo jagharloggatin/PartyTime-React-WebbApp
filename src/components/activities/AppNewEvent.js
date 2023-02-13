@@ -152,7 +152,7 @@ function AppNewEvent(props) {
         <div className={classes.control}>
           <p>Address</p>
           <div className={classes.autoinput}>
-            <AutoCompleteInput map={props.gmap} size="small"/>
+            <AutoCompleteInput map={props.gmap} setMapState={props.setMapState} size="small"/>
           </div>
         </div>
 

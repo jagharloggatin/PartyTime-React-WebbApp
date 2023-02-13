@@ -96,7 +96,7 @@ function AutoCompleteInput(props) {
 
 
 
-          //props.setMapState({center:{lat: lat, lng: lng}, zoom: 14 })
+          props.setMapState({center:{lat: lat, lng: lng}, zoom: 14 })
           setShowSuggestions(false)
 
         } else {

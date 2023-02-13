@@ -122,7 +122,7 @@ const AppMap = () => {
       >
         <div className={classes.modalcontainer}>
             {modalContent === "grid" ? <HomeRoute/> : null}
-            {modalContent === "add" ? <AppNewEvent gmap={map}/> : null}
+            {modalContent === "add" ? <AppNewEvent setMapState={setMapState} gmap={map}/> : null}
             {modalContent === "search" ? <div/> : null}
             {modalContent === "selected" ? <AppSelectedEventItem/> : null}
         </div>
