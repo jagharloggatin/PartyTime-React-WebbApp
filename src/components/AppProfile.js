@@ -21,14 +21,14 @@ export default function AppProfile() {
       setIsLoading(true)
       console.log("ANVÄDNARE");
       console.log(userCtx.ReadJWT().userID);
-      const req = await reqCtx.getRequestJWT(`https://localhost:7215/users/userId/1`);
+      const req = await reqCtx.getRequestJWT(ENDPOINTS.getUser(userCtx.ReadJWT().userID));
       const json = await req.json();
 
       setUser(json)
       setIsLoading(false)
     }
 
-    fetchData();
+    getUser();
   }, []);
 
   if (isLoading) {
