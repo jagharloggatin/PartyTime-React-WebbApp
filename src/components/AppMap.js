@@ -12,6 +12,7 @@ import searchIcon from '../icons/search.svg';
 import AppNewEvent from './activities/AppNewEvent';
 import AppSelectedEventItem from './activities/AppSelectedEventItem';
 import Logo from './AppLogo';
+import AutoCompleteInput from './AutoCompleteInput';
 
 const AppMap = () => {
   const reqCtx = useContext(RequestContext);
@@ -31,18 +32,6 @@ const AppMap = () => {
     );
   };
 
-
-
-  const autoCompleteRef = useRef();
-  const inputRef = useRef();
-
-  const options = {
-    fields: ["address_components", "geometry", "icon", "name"],
-  }
-
-  const API_KEY = "AIzaSyAY85IYZfPLkT6EyiauSREDkc7ZhYJCPys";
-  const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${inputText}&key=${API_KEY}`;
-
   function initMap() {
     const map = new window.google.maps.Map(document.getElementById("mapDiv"), {
       zoom: mapState.zoom,
@@ -55,10 +44,10 @@ const AppMap = () => {
   }
 
   useEffect(() => {
-    window.initMap = initMap.bind(this);
 
+    const map = initMap()
 
-    setMap(initMap())
+    setMap(map)
       
     const events = [
       {
@@ -123,115 +112,6 @@ const AppMap = () => {
     setPredictionsResult(predictions)
   };
 
-  const service = new window.google.maps.places.AutocompleteService();
-
-  async function getPlaceResult(place_id) {
-    const servicex = new window.google.maps.places.PlacesService(map)
-    const request = {
-      placeId: place_id,
-    };
-
-    servicex.getDetails(request, (place, status) => {
-      if (
-        status === window.google.maps.places.PlacesServiceStatus.OK &&
-        place &&
-        place.geometry &&
-        place.geometry.location){
-
-          //DATA FILTERING - CODE FROM GOOGLE
-          // for (const component of place.address_components as google.maps.GeocoderAddressComponent[]) {
-          //   // @ts-ignore remove once typings fixed
-          //   const componentType = component.types[0];
-        
-          //   switch (componentType) {
-          //     case "street_number": {
-          //       address1 = `${component.long_name} ${address1}`;
-          //       break;
-          //     }
-        
-          //     case "route": {
-          //       address1 += component.short_name;
-          //       break;
-          //     }
-        
-          //     case "postal_code": {
-          //       postcode = `${component.long_name}${postcode}`;
-          //       break;
-          //     }
-        
-          //     case "postal_code_suffix": {
-          //       postcode = `${postcode}-${component.long_name}`;
-          //       break;
-          //     }
-        
-          //     case "locality":
-          //       (document.querySelector("#locality") as HTMLInputElement).value =
-          //         component.long_name;
-          //       break;
-        
-          //     case "administrative_area_level_1": {
-          //       (document.querySelector("#state") as HTMLInputElement).value =
-          //         component.short_name;
-          //       break;
-          //     }
-        
-          //     case "country":
-          //       (document.querySelector("#country") as HTMLInputElement).value =
-          //         component.long_name;
-          //       break;
-          //   }
-          // }
-
-          console.log(place);
-
-          const lat = place.geometry.location.lat();
-          const lng = place.geometry.location.lng();
-
-          setMapState({center:{lat: lat, lng: lng}, zoom: 14 })
-          setShowSuggestions(false)
-
-        } else {
-
-          console.log("apa");
-        }
-      }
-      )
-  }
-
-
-      
-
-  async function handleChange(value) {
-    if (value.length > 2) {
-        setInputText(value)
-        setShowSuggestions(true)
-        service.getQueryPredictions({ input: value }, displaySuggestions);
-
-    } else {
-        setShowSuggestions(false)
-    }
-  }
-
-  function fillSearchBox(prediction) {
-    document.getElementById("autoinput").value = prediction.description;
-    getPlaceResult(prediction.place_id)
-  }
-
-
-  function Predictionsarea() {
-    if (showSuggestions) {
-      return(
-        <div className={classes.autocompletepredictions}>
-           {predictionsResult.map(x => {
-            return (<div onClick={() => {fillSearchBox(x)}} className={classes.autocompletesingle}>{x.description}</div>)
-           })}
-        </div>
-      ) 
-    } else {
-        return <div></div>
-    }
-  }
-
   return (
     <div>
       <Modal
@@ -247,17 +127,8 @@ const AppMap = () => {
             {modalContent === "selected" ? <AppSelectedEventItem/> : null}
         </div>
       </Modal>
-        <div className={classes.autocompletewrapper}>
-            <div className={classes.autocompleteinnerwrapper}>
-                <input
-                id="autoinput"
-                className={classes.autocompleteinput}
-                onChange={e => handleChange(e.target.value)}
-                ref={inputRef}
-                placeholder="Search address"
-                />
-                <Predictionsarea/>
-            </div>
+      <div className={classes.autocompletewrapper}>
+        <AutoCompleteInput map={map} disabled={false} setMapState={setMapState}/>
         </div>
       <div className={classes['control-container']}>
         <CustomButton size={40} modal={"grid"}>
