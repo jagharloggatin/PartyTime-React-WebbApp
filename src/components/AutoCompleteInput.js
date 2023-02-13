@@ -24,7 +24,12 @@ function AutoCompleteInput(props) {
 
 
   async function getPlaceResult(place_id) {
-    const servicex = new window.google.maps.places.PlacesService(props.map)
+
+    const newmap = new window.google.maps.Map(document.getElementById("mapDiv"), {
+      
+    });
+
+    const servicex = new window.google.maps.places.PlacesService(newmap)
 
     console.log(place_id);
 
@@ -87,6 +92,11 @@ function AutoCompleteInput(props) {
           
           const lat = place.geometry.location.lat();
           const lng = place.geometry.location.lng();
+
+          console.log(lat);
+          console.log(lng);
+
+
 
           //props.setMapState({center:{lat: lat, lng: lng}, zoom: 14 })
           setShowSuggestions(false)
