@@ -25,7 +25,9 @@ function AutoCompleteInput(props) {
 
   async function getPlaceResult(place_id) {
     const servicex = new window.google.maps.places.PlacesService(props.map)
-    console.log(servicex);
+
+    console.log(place_id);
+
     const request = {
       placeId: place_id,
     };
@@ -86,7 +88,7 @@ function AutoCompleteInput(props) {
           const lat = place.geometry.location.lat();
           const lng = place.geometry.location.lng();
 
-          //setMapState({center:{lat: lat, lng: lng}, zoom: 14 })
+          //props.setMapState({center:{lat: lat, lng: lng}, zoom: 14 })
           setShowSuggestions(false)
 
         } else {
@@ -97,7 +99,7 @@ function AutoCompleteInput(props) {
   }
 
   const displaySuggestions = function (predictions, status) {
-    if (status != window.google.maps.places.PlacesServiceStatus.OK || !predictions) {
+    if (status !== window.google.maps.places.PlacesServiceStatus.OK || !predictions) {
       alert(status);
       return;
     }
@@ -117,7 +119,8 @@ function AutoCompleteInput(props) {
   }
 
   function fillSearchBox(prediction) {
-    document.getElementById("autoinput").value = prediction.description;
+    //document.getElementById("autoinput").value = prediction.description;
+
     getPlaceResult(prediction.place_id)
   }
 
@@ -144,6 +147,7 @@ function AutoCompleteInput(props) {
                   ref={inputRef}
                   placeholder="Search address"
                   className={props.size === "small" ? classes.autocompleteinputsmall : classes.autocompleteinput}
+                  disabled={props.disabled}
                 />
                 <Predictionsarea size={props.size}/>
             </div>

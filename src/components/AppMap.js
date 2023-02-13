@@ -44,9 +44,10 @@ const AppMap = () => {
   }
 
   useEffect(() => {
-    setMap(initMap())
 
     const map = initMap()
+
+    setMap(map)
       
     const events = [
       {
@@ -127,7 +128,7 @@ const AppMap = () => {
         </div>
       </Modal>
       <div className={classes.autocompletewrapper}>
-        <AutoCompleteInput map={map} mapState={mapState}/>
+        <AutoCompleteInput map={map} disabled={false} setMapState={setMapState}/>
         </div>
       <div className={classes['control-container']}>
         <CustomButton size={40} modal={"grid"}>
