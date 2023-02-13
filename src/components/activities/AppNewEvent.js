@@ -8,7 +8,7 @@ import uniqId from '../../uniq';
 import classes from '../styles/AppNewActivityForm.module.css';
 import AppCard from '../ui/AppCard';
 
-function NewMeetupForm() {
+function AppNewEvent() {
   const titleInputRef = useRef(null);
   const imageInputRef = useRef(null);
   const addressInputRef = useRef(null);
@@ -83,7 +83,7 @@ function NewMeetupForm() {
           {},
         ],
         location: {
-          id: 8,
+          id: 4,
           name: 'string',
           address: enteredAddress,
           latitude: 30,
@@ -92,7 +92,7 @@ function NewMeetupForm() {
             id: 4,
             name: 'string',
             country: {
-              id: 5,
+              id: 4,
               name: 'string',
               countryCode: 'string',
             },
@@ -151,4 +151,4 @@ function NewMeetupForm() {
   </div>;
 }
 
-export default NewMeetupForm;
+export default AppNewEvent;
