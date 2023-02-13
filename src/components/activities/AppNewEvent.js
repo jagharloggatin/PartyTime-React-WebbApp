@@ -1,11 +1,12 @@
 import AppLogo from 'components/AppLogo';
+import AutoCompleteInput from 'components/AutoCompleteInput';
 import React, { useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RequestContext from 'store/RequestContext';
 import ENDPOINTS from '../../Endpoints';
 import StorageContext from '../../store/StorageContext';
 import uniqId from '../../uniq';
-import classes from '../styles/AppNewActivityForm.module.css';
+import classes from '../styles/AppNewEvent.module.css';
 import AppCard from '../ui/AppCard';
 
 function AppNewEvent() {
@@ -147,10 +148,14 @@ function AppNewEvent() {
           <label htmlFor='city'>Planned Date</label>
           <input type='date' required id='date' ref={dateInputRef} />
         </div>
+
         <div className={classes.control}>
-          <label htmlFor='address'>Address</label>
-          <input type='text' required id='address' ref={addressInputRef} />
+          <p>Address</p>
+          <div className={classes.autoinput}>
+            <AutoCompleteInput size="small"/>
+          </div>
         </div>
+
         <div className={classes.control}>
           <label htmlFor='description'>Description</label>
           <textarea className={classes.description} id='description' required rows='5'
