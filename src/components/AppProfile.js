@@ -5,30 +5,27 @@ import ENDPOINTS from 'Endpoints';
 import React, { useContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import RequestContext from 'store/RequestContext';
+import UserContext from 'store/UserContext';
 import ProfileTabs from './ProfileTabs';
 import styles from './styles/AppProfile.module.scss';
 
 export default function AppProfile() {
-    const reqCtx = useContext(RequestContext);
+  const reqCtx = useContext(RequestContext);
+  const userCtx = useContext(UserContext);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const id = 1;
-
     async function fetchData() {
       try {
         setIsLoading(true);
-        const res = await reqCtx.getRequest(ENDPOINTS.getUser(id));
-        console.log('här är mitt res', res);
+        const res = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userId));
         const data = await res.json();
-
         setUser(data);
       } finally {
         setIsLoading(false);
       }
     }
-    
     fetchData();
   }, []);
 

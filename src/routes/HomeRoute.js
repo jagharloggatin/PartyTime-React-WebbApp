@@ -4,6 +4,7 @@ import AppActionAreaCard from 'components/AppActionAreaCard';
 import AppCard from 'components/ui/AppCard';
 import React, { useState } from 'react';
 import List from '../components/List';
+import uniqId from '../uniq';
 
 function HomeRoute() {
   const [inputText, setInputText] = useState('');
@@ -113,7 +114,7 @@ function HomeRoute() {
 
         <div className="card-wrapper">
           {filteredCities.map((city) => (
-            <AppActionAreaCard city={city}></AppActionAreaCard>
+            <AppActionAreaCard city={city} key={uniqId()}></AppActionAreaCard>
           ))}
         </div>
       </div>

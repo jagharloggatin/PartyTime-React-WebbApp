@@ -8,21 +8,18 @@ import RequestContext from 'store/RequestContext';
 import ProfileTabs from './ProfileTabs';
 import styles from './styles/AppProfile.module.scss';
 
-export default function AppEditProfile() {
-    const reqCtx = useContext(RequestContext);
+export default function AppEditProfile({ userId, displaySuccess, displayError }) {
+  const reqCtx = useContext(RequestContext);
   const [user, setUser] = useState(null);
   const [tempUser, setTempUser] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const id = 1;
-
     async function fetchData() {
       try {
         setIsLoading(true);
-        const res = await reqCtx.getRequest(ENDPOINTS.getUser(id));
-        console.log('här är mitt res', res);
+        const res = await reqCtx.getRequest(ENDPOINTS.getUser(userId));
         const data = await res.json();
 
         setUser(data);
@@ -43,13 +40,13 @@ export default function AppEditProfile() {
     e.preventDefault();
     console.log(tempUser);
     let resp = await reqCtx.putRequest(ENDPOINTS.editUser(tempUser.id), tempUser);
-    let result = await resp.json()
+    let result = await resp.json();
 
     console.log(result);
     if (resp.ok === 200) {
-      alert('OK');
+      displaySuccess('Successfully updated profile!');
     } else {
-      alert('NOT OK');
+      displayError('Failed to update profile!');
     }
   };
 
@@ -116,7 +113,7 @@ export default function AppEditProfile() {
         </Box>
 
         <Stack direction="row" spacing={2}>
-          <Button onClick={onSubmit}variant="contained" type="submit">
+          <Button onClick={onSubmit} variant="contained" type="submit">
             Save changes
           </Button>
 
