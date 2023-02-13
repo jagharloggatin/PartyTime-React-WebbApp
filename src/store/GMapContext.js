@@ -12,6 +12,8 @@ export function GMapContextProvider(props) {
   const [mapState, setMapState] = useState({center:{lat: 59.330936, lng: 18.071644}, zoom: 14 });
 
 
+  
+
   //Reference methods in this object to be passed as value
   const context = {
     map: map

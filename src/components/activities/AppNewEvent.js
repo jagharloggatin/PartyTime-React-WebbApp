@@ -9,7 +9,7 @@ import uniqId from '../../uniq';
 import classes from '../styles/AppNewEvent.module.css';
 import AppCard from '../ui/AppCard';
 
-function AppNewEvent() {
+function AppNewEvent(props) {
   const titleInputRef = useRef(null);
   const addressInputRef = useRef(null);
   const descriptionInputRef = useRef(null);
@@ -152,7 +152,7 @@ function AppNewEvent() {
         <div className={classes.control}>
           <p>Address</p>
           <div className={classes.autoinput}>
-            <AutoCompleteInput size="small"/>
+            <AutoCompleteInput map={props.gmap} size="small"/>
           </div>
         </div>
 

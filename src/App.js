@@ -26,8 +26,10 @@ function App() {
     });
   }
 
+  window.initMap = initMap;
+
+
   useEffect(() => {
-    window.initMap = initMap;
   });
 
   return (
