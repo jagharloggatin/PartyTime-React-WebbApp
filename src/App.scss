@@ -6,21 +6,22 @@
 .infoWindow {
   display: flex;
   flex-direction: row;
-  width: 20vw;
+  width: auto;
   z-index: 200;
-  color: #282c34;
-  padding: 0;
+  padding: 1rem;
   border-radius: 5px;
+  color: white;
   background-color: rgba(237, 174, 73, 1);
   font-family: 'SeoulHangang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .gm-ui-hover-effect {
   display: none !important;
+  overflow: hidden;
   transition: 0.1s;
 }
 
-.gm-style-iw {
+.gm-style-iw .gm-style-iw-c .storemapper-iw-container {
   background-color: rgba(237, 174, 73, 1);
 }
 
@@ -37,7 +38,7 @@
 
 .infoWindow-left img {
   width: 8vw;
-  margin: 1rem;
+  margin-right: 1rem;
   border-radius: 5px;
 }
 

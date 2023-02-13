@@ -5,8 +5,9 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Avatar, Divider, List, SwipeableDrawer } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import UserContext from 'store/UserContext';
 import AppMenuItem from './AppMenuItem';
 import styles from './styles/AppAvatar.module.scss';
 
@@ -23,32 +24,47 @@ const style = {
 };
 
 export default function AppAvatar() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const userCtx = useContext(UserContext);
+  const location = useLocation();
+  const navigateTo = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const location = useLocation();
 
   useEffect(() => {
     handleClose();
   }, [location]);
 
   const logout = () => {
-    console.log('Logga ut');
+    userCtx.LogOutUser();
+    navigateTo('/');
   };
 
   const drawer = (
     <SwipeableDrawer anchor="right" open={open} onClose={handleClose} onOpen={handleOpen}>
       <div className={styles.drawer}>
         <List>
-          <AppMenuItem icon={<PersonIcon />} name="Profile" url="/profile"></AppMenuItem>
-          <AppMenuItem icon={<SettingsIcon />} name="Settings" url="/settings"></AppMenuItem>
-          <AppMenuItem icon={<LoginIcon />} name="Log in" url="/login"></AppMenuItem>
-          <AppMenuItem icon={<FastfoodIcon />} name="Sign up" url="/signup"></AppMenuItem>
+          {userCtx.IsLoggedIn() && (
+            <div>
+              <AppMenuItem icon={<PersonIcon />} name="Profile" url="/profile"></AppMenuItem>
+              <AppMenuItem icon={<SettingsIcon />} name="Settings" url="/settings"></AppMenuItem>
+            </div>
+          )}
+          {!userCtx.IsLoggedIn() && (
+            <div>
+              <AppMenuItem icon={<LoginIcon />} name="Log in" url="/login"></AppMenuItem>
+              <AppMenuItem icon={<FastfoodIcon />} name="Sign up" url="/signup"></AppMenuItem>
+            </div>
+          )}
         </List>
-        <Divider />
-        <List>
-          <AppMenuItem icon={<LogoutIcon />} name="Logout" onClick={logout}></AppMenuItem>
-        </List>
+        {userCtx.IsLoggedIn() && (
+          <div>
+            <Divider />
+            <List>
+              <AppMenuItem icon={<LogoutIcon />} name="Logout" onClick={logout}></AppMenuItem>
+            </List>
+          </div>
+        )}
       </div>
     </SwipeableDrawer>
   );

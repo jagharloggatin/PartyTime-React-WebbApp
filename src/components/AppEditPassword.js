@@ -8,10 +8,9 @@ import RequestContext from 'store/RequestContext';
 import ProfileTabs from './ProfileTabs';
 import styles from './styles/AppProfile.module.scss';
 
-export default function AppEditPassword() {
-const reqCtx = useContext(RequestContext);
+export default function AppEditPassword({ userId, displaySuccess, displayError }) {
+  const reqCtx = useContext(RequestContext);
   const [isLoading, setIsLoading] = useState(false);
-  const id = 1;
 
   const onSubmit = async (e) => {
     try {
@@ -21,42 +20,36 @@ const reqCtx = useContext(RequestContext);
       const currentPassword = e.target.password.value;
       const newPassword = e.target.newpassword.value;
       const body = {
-        userId: id,
+        userId,
         currentPassword,
         newPassword,
       };
 
       const res = await reqCtx.putRequest(ENDPOINTS.changePassword, body);
 
-      console.log('här är mitt res', res);
-
       if (res.ok) {
-        alert('Password was changed');
+        displaySuccess('Successfully changed password!');
       } else {
-        alert('Password change failed');
+        displayError('Failed to change password!');
       }
-
-      const data = await res.json();
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
-        <Box>
-          <TextField id="password" label="Old password" type="password" margin="normal" fullWidth />
-        </Box>
-        <Box>
-          <TextField id="newpassword" label="New password" type="password" margin="normal" fullWidth />
-        </Box>
-        <Box>
-          <Button disabled={isLoading} variant="contained" type="submit" size="large" sx={{ mt: 2 }}>
-            Change password
-          </Button>
-        </Box>
-      </form>
-    </>
+    <form onSubmit={onSubmit}>
+      <Box>
+        <TextField id="password" label="Old password" type="password" margin="normal" fullWidth />
+      </Box>
+      <Box>
+        <TextField id="newpassword" label="New password" type="password" margin="normal" fullWidth />
+      </Box>
+      <Box>
+        <Button disabled={isLoading} variant="contained" type="submit" size="large" sx={{ mt: 2 }}>
+          Change password
+        </Button>
+      </Box>
+    </form>
   );
 }

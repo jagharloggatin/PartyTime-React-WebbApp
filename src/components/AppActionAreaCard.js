@@ -9,8 +9,6 @@ import { PATHS } from 'utils/paths';
 import CityList from './List';
 
 export default function ActionAreaCard({ city }) {
-  console.log(city);
-
   return (
     <Card className="card-homepage" sx={{ maxWidth: 345 }}>
       <CardActionArea component={Link} to={`/events/location/${city.id}`}>

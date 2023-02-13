@@ -4,9 +4,9 @@ import Layout from './AppLayout';
 
 function Card(props) {
   return (
-    <Layout>
+    // <Layout>
       <div className={classes.card}>{props.children}</div>
-    </Layout>
+    // </Layout>
   );
 }
 export default Card;

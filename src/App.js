@@ -7,7 +7,7 @@ import ProfileFavoritesTab from 'routes/ProfileFavoritesTab';
 import ProfileReviewsTab from 'routes/ProfileReviewsTab';
 import SettingsRoute from 'routes/SettingsRoute';
 import './App.scss';
-import AppNewActivityForm from './components/activities/AppNewActivityForm';
+import AppNewActivityForm from './components/activities/AppNewEvent';
 import AppHeader from './components/AppHeader';
 import ActivitiesRoute from './routes/ActivitiesRoute';
 import FavoritesRoute from './routes/FavoritesRoute';

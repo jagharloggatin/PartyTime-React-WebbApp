@@ -5,31 +5,30 @@ import ENDPOINTS from 'Endpoints';
 import React, { useContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import RequestContext from 'store/RequestContext';
+import UserContext from 'store/UserContext';
 import ProfileTabs from './ProfileTabs';
 import styles from './styles/AppProfile.module.scss';
 
 export default function AppProfile() {
-    const reqCtx = useContext(RequestContext);
-  const [user, setUser] = useState(null);
+  const reqCtx = useContext(RequestContext);
+  const userCtx = useContext(UserContext);
+  const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const id = 1;
 
-    async function fetchData() {
-      try {
-        setIsLoading(true);
-        const res = await reqCtx.getRequest(ENDPOINTS.getUser(id));
-        console.log('här är mitt res', res);
-        const data = await res.json();
+    async function getUser() {
+      setIsLoading(true)
+      console.log("ANVÄDNARE");
+      console.log(userCtx.ReadJWT().userID);
+      const req = await reqCtx.getRequestJWT(ENDPOINTS.getUser(userCtx.ReadJWT().userID));
+      const json = await req.json();
 
-        setUser(data);
-      } finally {
-        setIsLoading(false);
-      }
+      setUser(json)
+      setIsLoading(false)
     }
-    
-    fetchData();
+
+    getUser();
   }, []);
 
   if (isLoading) {

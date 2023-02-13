@@ -33,7 +33,6 @@ function AppEventsList() {
   return (
 
   <ul className={classes.list}>
-    <h1>City Activities</h1>
     {loadedEvents.map((event) => (
         <AppEventsItem
           key={uniqId()}

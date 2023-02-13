@@ -1,69 +1,89 @@
 import React, { createContext, useContext } from 'react';
 import StorageContext from './StorageContext';
+import UserContext from './UserContext';
 
 //Refrenace methods to be shown in intellisense
 const RequestContext = createContext({
-    postRequest: null,
-    putRequest: null,
-    getRequest: null,
-    convertResponse: null,
+  postRequest: null,
+  putRequest: null,
+  getRequest: null,
+  convertResponse: null,
+  getRequestJWT: null
 });
 
 export function RequestContextProvider(props) {
-    const StorageCtx = useContext(StorageContext);
-    
-    async function postRequest(endpoint, body, jwt) {
-      if (jwt === true) {
-        const response = await fetch(endpoint, {
-          method: 'post',
-          headers: new Headers({ 'content-type': 'application/json', 'Authorization': `Bearer ${StorageCtx.ReadJWT().jwt}` }),
-          body: JSON.stringify(body)
-        })
-        return response;
-      } else {
-        const response = await fetch(endpoint, {
-          method: 'post',
-          headers: new Headers({ 'content-type': 'application/json' }),
-          body: JSON.stringify(body)
-        })
-        return response;
-      }   
-    }
+  const userCtx = useContext(UserContext);
 
-    async function putRequest(endpoint, body) {
-        await fetch(endpoint, {
-            method: 'put',
-            headers: new Headers({ 'content-type': 'application/json', 'Authorization': `Bearer ${StorageCtx.ReadJWT().jwt}` }),
-            body: JSON.stringify(body)
-        })
-    }
-    async function getRequest(endpoint) {
-        return await fetch(endpoint)
-    }
+  async function postRequest(endpoint, body) {
+    const headers = { 'content-type': 'application/json' };
 
+    if (userCtx.IsLoggedIn) headers.Authorization = `Bearer ${userCtx.ReadJWT().jwt}`;
 
-    async function convertResponse(response) {
-      var json = await response.json();
+    const response = await fetch(endpoint, {
+      method: 'post',
+      headers: new Headers(headers),
+      body: JSON.stringify(body),
+    });
+    return response;
+  }
 
-      const list = [];
+  async function putRequest(endpoint, body) {
+    const headers = { 'content-type': 'application/json' };
+    if (userCtx.IsLoggedIn) headers.Authorization = `Bearer ${userCtx.ReadJWT().jwt}`;
+
+    await fetch(endpoint, {
+      method: 'put',
+      headers: new Headers(headers),
+      body: JSON.stringify(body),
+    });
+  }
   
-        for(const key in json){
-          const meetup = {
-            id:key,
-            ...json[key]
-          };        
-          list.push(meetup);
-        }
-      return list
-    }
+  async function getRequest(endpoint) {
+    console.log(endpoint);
+    return await fetch(endpoint, { method: 'get' });
+  }
 
+  async function getRequestJWT(endpoint) {
+    const headers = { 'content-type': 'application/json' };
+    if (userCtx.IsLoggedIn) headers.Authorization = `Bearer ${userCtx.ReadJWT().jwt}`;
+
+    console.log(userCtx.ReadJWT().jwt);
+
+    const newheaders = new Headers()
+    newheaders.append('content-type', 'application/json')
+    newheaders.append('Authorization', `Bearer ${userCtx.ReadJWT().jwt}`)
+
+    const resp = await fetch(endpoint, {
+      method: 'get',
+      headers: new Headers(headers)
+      }
+    ) 
+
+    return resp
+  }
+
+  async function convertResponse(response) {
+    var json = await response.json();
+
+    const list = [];
+
+    for (const key in json) {
+      const meetup = {
+        id: key,
+        ...json[key],
+      };
+      list.push(meetup);
+    }
+    return list;
+  }
 
   //Reference methods in this object to be passed as value
   const context = {
     postRequest: postRequest,
     putRequest: putRequest,
     getRequest: getRequest,
-    convertResponse: convertResponse
+    convertResponse: convertResponse,
+    getRequestJWT: getRequestJWT
   };
 
   return <RequestContext.Provider value={context}>{props.children}</RequestContext.Provider>;
