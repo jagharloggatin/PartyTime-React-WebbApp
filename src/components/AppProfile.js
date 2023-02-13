@@ -27,7 +27,7 @@ export default function AppProfile() {
       }
     }
 
-    getUser();
+    fetchData();
   }, []);
 
   if (isLoading) {
