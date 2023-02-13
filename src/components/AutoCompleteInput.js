@@ -25,8 +25,7 @@ function AutoCompleteInput(props) {
 
   async function getPlaceResult(place_id) {
 
-    const newmap = props.map
-
+    const newmap = props.gmap
     const servicex = new window.google.maps.places.PlacesService(newmap)
 
     console.log(place_id);
@@ -127,7 +126,8 @@ function AutoCompleteInput(props) {
   }
 
   function fillSearchBox(prediction) {
-    document.getElementById("autoinput").value = prediction.description;
+    inputRef.current.value = prediction.description;
+    //document.getElementById("autoinput").value = prediction.description;
     getPlaceResult(prediction.place_id)
   }
 

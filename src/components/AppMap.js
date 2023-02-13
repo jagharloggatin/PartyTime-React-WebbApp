@@ -22,7 +22,7 @@ const AppMap = () => {
   const [mapState, setMapState] = useState({center:{lat: 59.330936, lng: 18.071644}, zoom: 14 });
   const [modalOpen, setModalOpen] = useState(false)
   const [modalContent, setModalContent] = useState("");
-  let[map, setMap] = useState(null);
+  const [map, setMap] = useState(null);
 
   const CustomButton = (props) => {
     return (
@@ -32,22 +32,16 @@ const AppMap = () => {
     );
   };
 
-  function initMap() {
-    const map = new window.google.maps.Map(document.getElementById("mapDiv"), {
+
+  useEffect(() => {
+    const newmap = new window.google.maps.Map(document.getElementById("mapDiv"), {
       zoom: mapState.zoom,
       center: mapState.center,
       disableDefaultUI: true,
       mapId:'bd0bdf809da55ccb',
     });
 
-    return map
-  }
-
-  useEffect(() => {
-
-    const newmap = initMap()
-
-    map = newmap;
+    setMap(newmap);
       
     const events = [
       {
@@ -128,7 +122,7 @@ const AppMap = () => {
         </div>
       </Modal>
       <div className={classes.autocompletewrapper}>
-        <AutoCompleteInput map={map} disabled={false} setMapState={setMapState}/>
+        <AutoCompleteInput gmap={map} disabled={false} setMapState={setMapState}/>
         </div>
       <div className={classes['control-container']}>
         <CustomButton size={40} modal={"grid"}>
