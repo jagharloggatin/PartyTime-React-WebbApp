@@ -19,7 +19,7 @@ export default function AppProfile() {
     async function fetchData() {
       try {
         setIsLoading(true);
-        const res = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userId));
+        const res = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userID));
         const data = await res.json();
         setUser(data);
       } finally {
