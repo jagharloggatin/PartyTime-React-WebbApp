@@ -22,7 +22,6 @@ export function UserContextProvider(props) {
       return false;
     } else {
       const json = await resp.json();
-      console.log(json);
       SaveJWT(json.token, json.userId);
       return true;
     }

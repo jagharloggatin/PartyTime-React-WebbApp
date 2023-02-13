@@ -12,7 +12,7 @@ import styles from './styles/AppProfile.module.scss';
 export default function AppProfile() {
   const reqCtx = useContext(RequestContext);
   const userCtx = useContext(UserContext);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
