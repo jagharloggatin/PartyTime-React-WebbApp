@@ -20,13 +20,16 @@ function AppGetComments() {
   useEffect(() => {
     const conv = async () => {
       setIsLoading(true);
-      const response = await reqCtx.getRequest(`https://localhost:7215/events/{id}?eventId=${selectedId.id}`)
+      const response = await reqCtx.getRequest(`https://localhost:7215/events/location/${selectedId.id}`)
+      // console.log(response);
       const converted = await reqCtx.convertResponse(response)
+
+      console.log(converted);
 
       // console.log(converted);
 
-      console.log("HEJ");
-      console.log(converted);
+      // console.log("HEJ");
+      // console.log(converted);
       setLoadedComments(converted);
       setIsLoading(false);
     }

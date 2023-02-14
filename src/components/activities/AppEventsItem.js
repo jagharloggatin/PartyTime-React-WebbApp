@@ -1,37 +1,64 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import RequestContext from 'store/RequestContext';
 import FavoritesContext from '../../store/FavoritesContext';
 import classes from '../styles/AppEvents.module.css';
+import ENDPOINTS from '../../Endpoints';
+import userContext from '../../store/UserContext';
+import requestContext from '../../store/RequestContext';
 
 function AppEventsItem(props) {
   const favoritesCtx = useContext(FavoritesContext);
   const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
   const navigateTo = useNavigate();
+  const [favorite, setFavorite] = useState(false);
 
-  const reqCtx = useContext(RequestContext);
+  const selectedId = JSON.parse(localStorage.getItem('selectedId')) || [];
+
+  const userCtx = useContext(userContext);
+  const reqCtx = useContext(requestContext);
+
+  useEffect(() => {
+    const conv = async () => {
+      const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
+      console.log(response);
+      const converted = await reqCtx.convertResponse(response);
+
+      for (let i = 0; i < converted.length; i++) {
+        // console.log(converted[i].title);
+        // console.log(converted[i].comment);
+        if (converted[i].id === selectedId.id) {
+          if (converted[i].likes === 1) {
+            setFavorite(true);
+          } else {
+            setFavorite(false);
+          }
+        }
+      }
+    };
+    conv();
+  }, []);
 
   const goToEvent = () => {
     // console.log(props);
-    // navigateTo(`/events/${props.id}`);
+    navigateTo(`/events/${props.id}`);
     localStorage.setItem('selectedId', JSON.stringify(props));
     navigateTo(`/events/selected`);
   };
 
-  async function toggleFavoriteStatusHandler() {
+  const toggleFavoriteStatusHandler = async () => {
+
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed);
 
     const data = {
-      like: true,
-      comment: 'string',
-      created: '2023-02-10T10:40:00.500Z',
+      like: favorite,
+      comment: '',
+      created: today.toISOString(),
     };
-    // const data = {
-    //   uId: userId,
-    //   eId: props.id,
-    //   eventIsNotFavorite: itemIsFavorite,
-    // };
-    await reqCtx.postRequest(`https://localhost:7215/reviews/1`, data);
-  }
+    const res = await reqCtx.postRequest(ENDPOINTS.postReview(selectedId.id), data);
+    console.log(res);
+  };
 
   return (
     <li className={classes.card}>
@@ -49,8 +76,9 @@ function AppEventsItem(props) {
           </div>
         </div>
         <div className={classes.buttonListItem}>
-          <button onClick={toggleFavoriteStatusHandler}>Favorite</button>
-          {/*{itemIsFavorite ? 'Favorite' : 'UnFavorite'}*/}
+          <button onClick={toggleFavoriteStatusHandler}>
+            {favorite ? 'Favorite' : 'UnFavorite'}
+          </button>
           <button onClick={goToEvent}>Go To Event</button>
         </div>
       </div>

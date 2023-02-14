@@ -24,7 +24,6 @@ function AppSelectedEventItem() {
       const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
       console.log(response);
       const converted = await reqCtx.convertResponse(response);
-
       for (let i = 0; i < converted.length; i++) {
         // console.log(converted[i].title);
         // console.log(converted[i].comment);
@@ -44,6 +43,13 @@ function AppSelectedEventItem() {
 
   const toggleFavoriteStatusHandler = async () => {
 
+    if(favorite){
+      setFavorite(false)
+    }
+    else {
+      setFavorite(true)
+    }
+
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
 
@@ -57,6 +63,7 @@ function AppSelectedEventItem() {
   };
 
   async function onCommentSubmit(e) {
+
     e.preventDefault();
     setComments((comments) => [...comments, comment]);
     // console.log(Params.id);
@@ -75,8 +82,6 @@ function AppSelectedEventItem() {
 
   const getComments = () => {
     setShow(!show);
-
-
   };
 
   const onCommentChange = (e) => {
@@ -103,14 +108,13 @@ function AppSelectedEventItem() {
         {
           !show ? <div>
             <h4>Comments</h4>
-
             <AppGetComments/>
             {/*{() => comments.map((text) => {*/}
             {/*  return <div>HEJ</div>*/}
             {/*})};*/}
             <div className={classes.commentsContainer}>
               <div>
-                <p>{selectedId.comment}</p>
+                {/*<p>{selectedId.comment}</p>*/}
                 <textarea
                   value={comment}
                   onChange={onCommentChange}
