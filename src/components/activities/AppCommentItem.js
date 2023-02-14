@@ -4,13 +4,16 @@ import React from 'react';
 
 function AppCommentItem(props) {
   return (
-    <li className={classes.listItem}>
-      <AppCard>
-        <div>
-          <p> comment: {props.comment}</p>
-        </div>
-      </AppCard>
-    </li>);
+    <ul>
+      <li className={classes.listItem}>
+        <AppCard>
+          <div>
+            <p> comment: {props.comment}</p>
+          </div>
+        </AppCard>
+      </li>
+    </ul>);
 }
-export default AppCommentItem
+
+export default AppCommentItem;
 
