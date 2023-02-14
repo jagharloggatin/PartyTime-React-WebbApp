@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { convertResponse, default as RequestContext, default as requestContext } from 'store/RequestContext';
-import ENDPOINTS from '../../Endpoints';
-import userContext from '../../store/UserContext';
+import RequestContext, { convertResponse } from 'store/RequestContext';
 import classes from '../styles/AppSelectedEvent.module.css';
 import AppGetComments from './AppGetComments';
+import userContext from '../../store/UserContext';
+import requestContext from 'store/RequestContext';
+import ENDPOINTS from '../../Endpoints';
 
 function AppSelectedEventItem() {
+
   const [show, setShow] = useState(true);
   const [review, setReview] = useState(false);
   const [favorite, setFavorite] = useState(false);
@@ -22,7 +24,6 @@ function AppSelectedEventItem() {
       const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
       console.log(response);
       const converted = await response.json();
-      console.log(converted);
       for (let i = 0; i < converted.length; i++) {
         // console.log(converted[i].title);
         // console.log(converted[i].comment);
@@ -40,12 +41,12 @@ function AppSelectedEventItem() {
   }, []);
 
   const toggleFavoriteStatusHandler = async () => {
-    if (favorite) {
-      setFavorite(false);
-    } else {
-      setFavorite(true);
+    if(favorite){
+      setFavorite(false)
     }
-
+    else {
+      setFavorite(true)
+    }
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
 
@@ -59,6 +60,7 @@ function AppSelectedEventItem() {
   };
 
   async function onCommentSubmit(e) {
+
     e.preventDefault();
     setComments((comments) => [...comments, comment]);
     // console.log(Params.id);
@@ -90,41 +92,44 @@ function AppSelectedEventItem() {
         <div className={classes.imageContainer}>
           <img src={selectedId.image} alt={selectedId.title} />
         </div>
-        {show ? (
-          <div className={classes.innerItem}>
+        {
+          show ? <div className={classes.innerItem}>
             <h2>{selectedId.title}</h2>
             <div className={classes.placeInfo}>
               <address>{selectedId.address}</address>
               <p>{selectedId.planned}</p>
             </div>
             <div className={classes.description}>{selectedId.description}</div>
-          </div>
-        ) : null}
-        {!show ? (
-          <div>
+          </div> : null
+        }
+        {
+          !show ? <div>
             <h4>Comments</h4>
-            <AppGetComments />
+            <AppGetComments/>
             {/*{() => comments.map((text) => {*/}
             {/*  return <div>HEJ</div>*/}
             {/*})};*/}
             <div className={classes.commentsContainer}>
               <div>
                 {/*<p>{selectedId.comment}</p>*/}
-                <textarea value={comment} onChange={onCommentChange} />
+                <textarea
+                  value={comment}
+                  onChange={onCommentChange}
+                />
               </div>
-              <button
-                onClick={(e) => {
-                  return onCommentSubmit(e);
-                }}
-              >
-                Submit Comment
+              <button onClick={(e) => {
+                return onCommentSubmit(e);
+              }}>Submit Comment
               </button>
             </div>
-          </div>
-        ) : null}
-        <li></li>
+          </div> : null
+        }
+        <li>
+        </li>
         <div className={classes.actions}>
-          <button onClick={toggleFavoriteStatusHandler}>{favorite ? 'Favorite' : 'UnFavorite'}</button>
+          <button onClick={toggleFavoriteStatusHandler}>
+            {favorite ? 'Favorite' : 'UnFavorite'}
+          </button>
           <button onClick={getComments}>Comments</button>
         </div>
       </div>
@@ -135,6 +140,7 @@ function AppSelectedEventItem() {
 // setShow(!show)
 
 export default AppSelectedEventItem;
+
 
 /* await fetch(
       `https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`,
