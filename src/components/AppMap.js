@@ -3,6 +3,7 @@ import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classes from './styles/AppMap.module.scss';
 
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
+import ENDPOINTS from 'Endpoints';
 import React from 'react';
 import HomeRoute from 'routes/HomeRoute';
 import RequestContext from 'store/RequestContext';
@@ -43,58 +44,76 @@ const AppMap = () => {
 
     setMap(newmap);
       
-    const events = [
-      {
-        title: 'SvettigApa',
-        description: 'balle',
-        map: newmap,
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-        position: {lat: 59.3294, lng: 18.0686},
-      },
-      {
-        title: 'Borderdell',
-        description: 'Kom hit och sug',
-        map: newmap,
-        image: "https://cdn.pixabay.com/photo/2016/03/26/22/47/motion-blur-1281675_960_720.jpg",
-        position: {lat: 59.3192, lng: 18.0686},
-      },
-    ];
+    // const events = [
+    //   {
+    //     title: 'SvettigApa',
+    //     description: 'balle',
+    //     map: newmap,
+    //     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
+    //     position: {lat: 59.3294, lng: 18.0686},
+    //   },
+    //   {
+    //     title: 'Borderdell',
+    //     description: 'Kom hit och sug',
+    //     map: newmap,
+    //     image: "https://cdn.pixabay.com/photo/2016/03/26/22/47/motion-blur-1281675_960_720.jpg",
+    //     position: {lat: 59.3192, lng: 18.0686},
+    //   },
+    // ];
 
-    // onClick={() => {setModalOpen(true)}
-    events.forEach(x => {
-      const contentString = `<div class="infoWindow">` +
-        `<div class='infoWindow-left'><img src='${x.image}' alt='${x.title}'/></div>` +
-        `<div class='infoWindow-right'>` +
-          `<h2>${x.title}</h2>`+
-          `<div>${x.description}</div>` +
-        `</div>` +
-        `</div>`
-      const popUp = new window.google.maps.InfoWindow({
-        content: contentString
-      });
-      const marker = new window.google.maps.Marker({
-        position: x.position,
-        content: contentString,
-        map: x.map,
-        icon: './assets/party.png',
-      });
 
-      // Add a click listener for each marker, and set up the info window.
-      marker.addListener('mouseover', () => {
-        popUp.setContent(contentString);
-        popUp.open(marker.getMap(), marker);
-      });
+    const showMarkers = async () => {
+      const req  = await reqCtx.getRequest(ENDPOINTS.getEvents)
+      const res = await req.json()
 
-      marker.addListener('mouseout', () => {
-        popUp.close();
-      });
+      res.forEach(x => {
+        const contentString = `<div class="infoWindow">` +
+          `<div class='infoWindow-left'><img src='${x.image}' alt='${x.title}'/></div>` +
+          `<div class='infoWindow-right'>` +
+            `<h2>${x.title}</h2>`+
+            `<div>${x.description}</div>` +
+          `</div>` +
+          `</div>`
 
-      // start modal
-      marker.addListener('click', () => {
-        setModalOpen(true)
-        setModalContent("selected");
+        const pos = {lat: x.location.latitude, lng: x.location.longitude} 
+
+        const popUp = new window.google.maps.InfoWindow({
+          content: contentString
+        });
+        const marker = new window.google.maps.Marker({
+          position: pos,
+          content: contentString,
+          map: newmap,
+          icon: './assets/party.png',
+        });
+  
+        // Add a click listener for each marker, and set up the info window.
+        marker.addListener('mouseover', () => {
+          popUp.setContent(contentString);
+          popUp.open(marker.getMap(), marker);
+        });
+  
+        marker.addListener('mouseout', () => {
+          popUp.close();
+        });
+  
+        // start modal
+        marker.addListener('click', () => {
+          setModalOpen(true)
+          setModalContent("selected");
+        });
       });
-    });
+    }
+
+    showMarkers().then((e => {
+      
+    }));
+
+
+
+
+
+    
   }, [mapState])
 
   const displaySuggestions = function (predictions, status) {

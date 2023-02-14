@@ -16,16 +16,17 @@ export default function AppProfile() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-
     async function getUser() {
-      setIsLoading(true)
-      console.log("ANVÄDNARE");
+      setIsLoading(true);
+      console.log('ANVÄNDARE');
       console.log(userCtx.ReadJWT().userID);
-      const req = await reqCtx.getRequestJWT(ENDPOINTS.getUser(userCtx.ReadJWT().userID));
+      const req = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userID));
       const json = await req.json();
+      setUser(json);
 
-      setUser(json)
-      setIsLoading(false)
+      console.log(json);
+      setIsLoading(false);
+
     }
 
     getUser();
@@ -44,7 +45,9 @@ export default function AppProfile() {
 
   return (
     <div>
-      <div className="profile-background"></div>
+      <div style={{backgroundImage: `url(${user.profileImage})`}} 
+      className="profile-background">
+      </div>
       <div className={styles.header}>
         <div className={styles.headerAvatar}>
           <Avatar sx={{ bgcolor: deepOrange[500], width: 120, height: 120 }}>

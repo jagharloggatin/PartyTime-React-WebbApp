@@ -2,6 +2,7 @@ import AppLogo from 'components/AppLogo';
 import AutoCompleteInput from 'components/AutoCompleteInput';
 import React, { useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import LocationContext from 'store/LocationContext';
 import RequestContext from 'store/RequestContext';
 import ENDPOINTS from '../../Endpoints';
 import StorageContext from '../../store/StorageContext';
@@ -10,8 +11,9 @@ import classes from '../styles/AppNewEvent.module.css';
 import AppCard from '../ui/AppCard';
 
 function AppNewEvent(props) {
+  const locCtx = useContext(LocationContext);
   const titleInputRef = useRef(null);
-  const addressInputRef = useRef(null);
+  const imageInputRef = useRef(null);
   const descriptionInputRef = useRef(null);
   const dateInputRef = useRef(null);
   // const ratingInputRef = useRef(null);
@@ -22,111 +24,65 @@ function AppNewEvent(props) {
   
   // const user = storageCtx.ReadJWT();
 
-  const addMeetupHandler = async eventData => {
+  async function submitHandler(e) {
+    e.preventDefault();
 
-    let resp = await reqCtx.postRequest(ENDPOINTS.postEvent(),
-      eventData);
-    // console.log(resp);
+    // const plan = new Date(dateInputRef)
+    // const planned = dateInputRef.toISIOstring();
 
-    if (resp.ok) {
-      alert('OK');
-    } else {
-      alert('NOT OK');
-    }
-    navigateTo(`/events/location/${eventData.id}`);
-  };
-
-  // let resp = await postRequest(ENDPOINTS.postEvent(meetupData)).then(() => navigateTo('/events'));
-  // console.log(resp);
-  //
+    // const d = new Date();
+    // let text = d.toISOString();
 
 
-  // const addMeetupHandler = meetupData => {
-  //   // console.log(meetupData)
-  //   fetch(
-  //     ENDPOINTS.postEvent(),
-  //     {
-  //       method: 'POST',
-  //       body: JSON.stringify(meetupData),
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     },
-  //   ).then(() => navigateTo('/events'));
-  //
-  //   let resp = await postRequest(ENDPOINTS.postEvent(meetupData)).then(() => navigateTo('/events'));
-  //
-  // };
+    const date = dateInputRef.current.value;
+    const d = new Date(date).toISOString();
+  
+    //Event to be posted
+    const event = {
+      title: titleInputRef.current.value,
+      description: descriptionInputRef.current.value,
+      image: imageInputRef.current.value,
+      planned: d,
+      likes: 0,
+      comments: [
+        {}
+      ],
+      location: locCtx.location
+    } // End of event to be posted
 
-  function submitHandler(event) {
-    event.preventDefault();
-
-    const enteredTitle = titleInputRef.current.value;
-    const enteredAddress = addressInputRef.current.value;
-    const enteredDescription = descriptionInputRef.current.value;
-    const enteredDate= dateInputRef.current.value;
-
-    const timeElapsed = Date.now();
-    const today = new Date(timeElapsed);
-    console.log(today.toISOString());
-
+    // const event = 
     // {
-    //   "title": null,
-    //   "description": null,
-    //   "image": null,
-    //   "planned": null,
-    //   "likes": null,
-    //   "comments": [
+    //   title: "string",
+    //   description: "string",
+    //   image: "string",
+    //   planned: "2023-02-14T12:26:53.475Z",
+    //   likes: 0,
+    //   comments: [
     //     {}
     //   ],
-    //   "location": {
-    //     "id": null,
-    //     "name": null,
-    //     "address": null,
-    //     "latitude": null,
-    //     "longitude": null,
-    //     "city": {
-    //       "id": null,
-    //       "name": null,
-    //       "country": {
-    //         "id": null,
-    //         "name": null,
-    //         "countryCode": null
+    //   location: {
+    //     id: 0,
+    //     name: "string",
+    //     address: "string",
+    //     latitude: 0,
+    //     longitude: 0,
+    //     city: {
+    //       id: 0,
+    //       name: "string",
+    //       country: {
+    //         id: 0,
+    //         name: "string",
+    //         countryCode: "string"
     //       }
     //     }
     //   }
     // }
 
-    const eventData =
-      {
-        title: enteredTitle,
-        description: enteredDescription,
-        planned: today.toISOString(),
-        likes: null,
-        date: enteredDate,
-        comments: [
-          {},
-        ],
-        location: {
-          id: null,
-          name: 'string',
-          address: enteredAddress,
-          latitude: 30,
-          longitude: 30,
-          city: {
-            id: 4,
-            name: 'string',
-            country: {
-              id: 4,
-              name: 'string',
-              countryCode: 'string',
-            },
-          },
-        },
-      };
-    // props.onAddMeetup(meetupData);
-    // console.log(meetupData)
-    addMeetupHandler(eventData);
+    console.log(event);
+
+    const res = await reqCtx.postRequest(ENDPOINTS.postEvent, event);
+    console.log(res);
+
   }
 
   return <div className={classes.addactivityouterwrapper}>
@@ -157,21 +113,24 @@ function AppNewEvent(props) {
         </div>
 
         <div className={classes.control}>
-          <label htmlFor='description'>Description</label>
+          <label htmlFor='image'>Image</label>
+          <input type='text' required id='image' ref={imageInputRef} />
+        </div>
+
+        
+
+        <div className={classes.control}>
+          <label htmlFor='description'>Description</label>z
           <textarea className={classes.description} id='description' required rows='5'
                     ref={descriptionInputRef} />
         </div>
-        {/*<div className={classes.control}>*/}
-        {/*  <label htmlFor='rating'>Rating(1-5)</label>*/}
-        {/*  <input type='number' required id='number' ref={ratingInputRef} />*/}
-        {/*</div>*/}
         <div className={classes.actions}>
         </div>
       </form>
     </div>
   </div>
   <div>
-    <div className={classes.lower}><button className={classes.addbutton} type="submit">Create event</button></div>
+    <div className={classes.lower}><button className={classes.addbutton} onClick={(e) => {console.log(locCtx.location); submitHandler(e)}} type="submit">Create event</button></div>
   </div>
   </div>;
 }
