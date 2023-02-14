@@ -16,16 +16,15 @@ export default function AppProfile() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-
     async function getUser() {
-      setIsLoading(true)
-      console.log("ANVÄDNARE");
+      setIsLoading(true);
+      console.log('ANVÄNDARE');
       console.log(userCtx.ReadJWT().userID);
-      const req = await reqCtx.getRequestJWT(ENDPOINTS.getUser(userCtx.ReadJWT().userID));
+      const req = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userID));
       const json = await req.json();
 
-      setUser(json)
-      setIsLoading(false)
+      setUser(json);
+      setIsLoading(false);
     }
 
     getUser();
