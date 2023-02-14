@@ -38,7 +38,7 @@ const AppMap = () => {
     const newmap = new window.google.maps.Map(document.getElementById("mapDiv"), {
       zoom: mapState.zoom,
       center: mapState.center,
-      disableDefaultUI: false,
+      disableDefaultUI: true,
       mapId:'bd0bdf809da55ccb',
     });
 
@@ -66,8 +66,6 @@ const AppMap = () => {
       const req  = await reqCtx.getRequest(ENDPOINTS.getEvents)
       const res = await req.json()
 
-      console.log(res);
-
       res.forEach(x => {
         const contentString = `<div class="infoWindow">` +
           `<div class='infoWindow-left'><img src='${x.image}' alt='${x.title}'/></div>` +
@@ -78,10 +76,7 @@ const AppMap = () => {
           `</div>`
 
         const pos = {lat: x.location.latitude, lng: x.location.longitude} 
-        console.log("POSITISJTIAJT");
-        console.log(x.title + x.description + x.image);
 
-        console.log(pos);
         const popUp = new window.google.maps.InfoWindow({
           content: contentString
         });
