@@ -1,17 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import RequestContext from 'store/RequestContext';
 import ENDPOINTS from '../../Endpoints';
-import classes from '../styles/Headlines.module.css';
-import AppEventsItem from './AppEventsItem';
-import uniqId from '../../uniq';
-import AppCommentItem from './AppCommentItem';
-import userContext from '../../store/UserContext';
 import requestContext from '../../store/RequestContext';
+import userContext from '../../store/UserContext';
+import uniqId from '../../uniq';
+import classes from '../styles/Headlines.module.css';
+import AppCommentItem from './AppCommentItem';
+import AppEventsItem from './AppEventsItem';
 
 function AppGetComments() {
-
   const [isLoading, setIsLoading] = useState(false);
-  const [loadedComments, setLoadedComments] = useState([]);
+  const [loadedComments, setLoadedComments] = useState(null);
 
   const reqCtx = useContext(RequestContext);
   const userCtx = useContext(userContext);
@@ -20,7 +19,7 @@ function AppGetComments() {
   useEffect(() => {
     const conv = async () => {
       setIsLoading(true);
-      const response = await reqCtx.getRequest(`https://localhost:7215/events/${selectedId.id}`)
+      const response = await reqCtx.getRequest(`https://localhost:7215/events/${selectedId.id}`);
       // console.log("HEJ");
       // console.log(response);
       const converted = await response.json();
@@ -29,30 +28,26 @@ function AppGetComments() {
 
       setLoadedComments(converted);
       setIsLoading(false);
-    }
+    };
     conv();
   }, []);
   if (isLoading) {
-    return <div className={classes.wrapper}>
-      <h2 className={classes.content}>Loading...</h2>
-    </div>;
+    return (
+      <div className={classes.wrapper}>
+        <h2 className={classes.content}>Loading...</h2>
+      </div>
+    );
   }
-  console.log("HEJ");
-  console.log(loadedComments);
 
-  if(!loadedComments.comments)
-    return <div>No data..</div>
+  if (!loadedComments?.comments ?? false) return <div>No data..</div>;
 
   return (
-    <ul>
+    <div>
       {loadedComments.comments.map((c) => (
-        <AppCommentItem
-          key={uniqId()}
-          id={c.id}
-          comment={c}
-        />
+        <AppCommentItem key={uniqId()} id={c.id} comment={c} />
       ))}
-    </ul>)
+    </div>
+  );
   // return <div className={classes.wrapper}>
   // </div>;
 
@@ -68,7 +63,6 @@ function AppGetComments() {
   // }; fetchData();
   //
   // return (<div>Apa</div>)
-
 }
 
 export default AppGetComments;

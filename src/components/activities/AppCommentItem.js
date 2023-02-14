@@ -1,20 +1,22 @@
+import { Avatar } from '@mui/material';
+import Card from '@mui/material/Card';
+import React from 'react';
 import classes from '../styles/AppEvents.module.css';
 import AppCard from '../ui/AppCard';
-import React from 'react';
 
 function AppCommentItem(props) {
   // console.log(props);
   return (
-    <ul>
-      <li className={classes.listItem}>
-        <AppCard>
-          <div>
-            <p> {props.comment.username}: {props.comment.comment}</p>
-          </div>
-        </AppCard>
-      </li>
-    </ul>);
+    <AppCard>
+      <Card sx={{ marginBottom: '1rem', padding: '0.5rem' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+          <Avatar sx={{ marginRight: '5px' }}></Avatar>
+          <span style={{ marginRight: '1rem', color: 'gray', fontSize: '16px' }}>{props.comment.username}</span>
+          <span style={{ fontSize: '16px' }}>{props.comment.comment}</span>
+        </div>
+      </Card>
+    </AppCard>
+  );
 }
 
 export default AppCommentItem;
-

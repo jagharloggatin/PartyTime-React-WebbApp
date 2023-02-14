@@ -9,12 +9,11 @@ const RequestContext = createContext({
   getRequest: null,
   convertResponse: null,
   getRequestJWT: null,
-  postRequestNoJwt: null
+  postRequestNoJwt: null,
 });
 
 export function RequestContextProvider(props) {
   const userCtx = useContext(UserContext);
-
 
   async function postRequestNoJwt(endpoint, body) {
     const headers = { 'content-type': 'application/json' };
@@ -28,13 +27,13 @@ export function RequestContextProvider(props) {
   }
 
   async function postRequest(endpoint, body) {
-    const headers = { 'content-type': 'application/json' };
+    const headers = new Headers({ 'content-type': 'application/json' });
 
-    if (userCtx.IsLoggedIn) headers.Authorization = `Bearer ${userCtx.ReadJWT().jwt}`;
+    if (userCtx.IsLoggedIn) headers.append('authorization', `Bearer ${userCtx.ReadJWT().jwt}`);
 
     const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: new Headers(headers),
+      method: 'post',
+      headers: headers,
       body: JSON.stringify(body),
     });
     return response;
@@ -87,7 +86,7 @@ export function RequestContextProvider(props) {
     getRequest: getRequest,
     convertResponse: convertResponse,
     getRequestJWT: getRequestJWT,
-    postRequestNoJwt: postRequestNoJwt
+    postRequestNoJwt: postRequestNoJwt,
   };
 
   return <RequestContext.Provider value={context}>{props.children}</RequestContext.Provider>;
