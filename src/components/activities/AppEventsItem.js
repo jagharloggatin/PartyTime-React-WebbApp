@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import RequestContext from 'store/RequestContext';
-import FavoritesContext from '../../store/FavoritesContext';
-import classes from '../styles/AppEvents.module.css';
 import ENDPOINTS from '../../Endpoints';
-import userContext from '../../store/UserContext';
+import FavoritesContext from '../../store/FavoritesContext';
 import requestContext from '../../store/RequestContext';
+import userContext from '../../store/UserContext';
+import classes from '../styles/AppEvents.module.css';
 
 function AppEventsItem(props) {
   const favoritesCtx = useContext(FavoritesContext);
@@ -19,9 +19,9 @@ function AppEventsItem(props) {
   const reqCtx = useContext(requestContext);
 
   useEffect(() => {
+    console.log(props.id);
     const conv = async () => {
       const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
-      console.log(response);
       const converted = await reqCtx.convertResponse(response);
 
       for (let i = 0; i < converted.length; i++) {
@@ -39,15 +39,12 @@ function AppEventsItem(props) {
     conv();
   }, []);
 
-  const goToEvent = () => {
-    // console.log(props);
-    navigateTo(`/events/${props.id}`);
+  const goToEvent = (id) => {
     localStorage.setItem('selectedId', JSON.stringify(props));
     navigateTo(`/events/selected`);
   };
 
   const toggleFavoriteStatusHandler = async () => {
-
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
 
@@ -76,10 +73,8 @@ function AppEventsItem(props) {
           </div>
         </div>
         <div className={classes.buttonListItem}>
-          <button onClick={toggleFavoriteStatusHandler}>
-            {favorite ? 'Favorite' : 'UnFavorite'}
-          </button>
-          <button onClick={goToEvent}>Go To Event</button>
+          <button onClick={toggleFavoriteStatusHandler}>{favorite ? 'Favorite' : 'UnFavorite'}</button>
+          <button onClick={() => goToEvent(props.id)}>Go To Event</button>
         </div>
       </div>
     </li>
@@ -121,7 +116,6 @@ function AppEventsItem(props) {
     //   {/*  </div>*/}
     //   {/*</div>*/}
     // </section>
-
 
     // <li className={classes.listItem}>
     //   {/*<AppCard>*/}
