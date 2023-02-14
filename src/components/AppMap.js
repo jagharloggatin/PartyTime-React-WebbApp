@@ -60,6 +60,9 @@ const AppMap = () => {
       },
     ];
 
+    reqCtx.getRequest()
+
+
     // onClick={() => {setModalOpen(true)}
     events.forEach(x => {
       const contentString = `<div class="infoWindow">` +
