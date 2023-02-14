@@ -1,3 +1,4 @@
+import { ThumbUp } from '@mui/icons-material';
 import CommentIcon from '@mui/icons-material/Comment';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import PersonPinIcon from '@mui/icons-material/Person';
@@ -22,11 +23,9 @@ export default function ProfileTabs() {
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <LinkTab value="1" icon={<PersonPinIcon />} label="Activity page" to="/profile" />
-            <LinkTab value="2" icon={<FavoriteIcon />} label="AppGetReviews" to="/profile/favorites" />
-            <LinkTab value="3" icon={<CommentIcon />} label="Comments" to="/profile/comments" />
-            <LinkTab value="4" icon={<ReviewsIcon />} label="Reviews" to="/profile/review" />
+          <TabList onChange={handleChange}>
+            <LinkTab value="1" icon={<ThumbUp />} label="Liked" to="/profile/comments" />
+            <LinkTab value="2" icon={<CommentIcon />} label="Comments" to="/profile/review" />
           </TabList>
         </Box>
         <Outlet></Outlet>

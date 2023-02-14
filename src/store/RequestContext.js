@@ -8,7 +8,7 @@ const RequestContext = createContext({
   putRequest: null,
   getRequest: null,
   convertResponse: null,
-  getRequestJWT: null
+  getRequestJWT: null,
 });
 
 export function RequestContextProvider(props) {
@@ -37,7 +37,7 @@ export function RequestContextProvider(props) {
       body: JSON.stringify(body),
     });
   }
-  
+
   async function getRequest(endpoint) {
     console.log(endpoint);
     return await fetch(endpoint, { method: 'get' });
@@ -49,8 +49,8 @@ export function RequestContextProvider(props) {
 
     return await fetch(endpoint, {
       method: 'post',
-      headers: new Headers(headers)
-    }) 
+      headers: new Headers(headers),
+    });
   }
 
   async function convertResponse(response) {
@@ -74,7 +74,7 @@ export function RequestContextProvider(props) {
     putRequest: putRequest,
     getRequest: getRequest,
     convertResponse: convertResponse,
-    getRequestJWT: getRequestJWT
+    getRequestJWT: getRequestJWT,
   };
 
   return <RequestContext.Provider value={context}>{props.children}</RequestContext.Provider>;

@@ -42,12 +42,10 @@ function AppEventsItem(props) {
           </div>
           <div className={classes.textContainer}>
             <h2>{props.title}</h2>
-            <div>Sean once said: "if she acts up just give her a little
-              schlap", that will calm down a woman
-            </div>
-            <p>Stockholm</p>
-            <p>Sankt Eriksgatan 70, 113 20 Stockholm</p>
-            <p>2023-01-02 18:00</p>
+            <div>{props.description}</div>
+            <p>{props.city}</p>
+            <p>{props.address}</p>
+            <p>{props.planned}</p>
           </div>
         </div>
         <div className={classes.buttonListItem}>

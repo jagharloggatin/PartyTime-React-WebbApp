@@ -13,9 +13,11 @@ const ENDPOINTS = {
   postEvent: () => `https://${HOST}:${PORT}/events`,
   getUserReviews: (userId) => `https://${HOST}:${PORT}/events/reviews/${userId}`,
   putEvent: (id) => `https://${HOST}:${PORT}/events/${id}`,
+  postReview: (eventId) => `https://${HOST}:${PORT}/reviews/${eventId}`,
   deleteEvent: (id) => `https://${HOST}:${PORT}/events/${id}`,
   // postFavorite: () => `https://${HOST}:${PORT}/favorites/:id`,
-  getUser: (id) => `${URL}/users/${id}`,
+  getUser: (id) => `${URL}/users/userId/${id}`,
+
   editUser: (id) => `${URL}/users/${id}`,
   changePassword: `${URL}/users/password`,
 };

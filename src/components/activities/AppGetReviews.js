@@ -16,9 +16,9 @@ function AppGetReviews(){
   useEffect(() => {
     const conv = async () => {
       setIsLoading(true);
-      var response = await reqCtx.getRequest("https://localhost:7215/reviews/1")
+      const response = await reqCtx.getRequest("https://localhost:7215/reviews/1")
       console.log(response);
-      var converted = await reqCtx.convertResponse(response)
+      const converted = await reqCtx.convertResponse(response)
       console.log(converted);
       setLoadedFavorites(converted);
       setIsLoading(false);

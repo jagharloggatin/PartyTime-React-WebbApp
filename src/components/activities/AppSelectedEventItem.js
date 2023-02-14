@@ -5,6 +5,7 @@ import classes from '../styles/AppSelectedEvent.module.css';
 import AppGetComments from './AppGetComments';
 import userContext from '../../store/UserContext';
 import requestContext from 'store/RequestContext';
+import ENDPOINTS from '../../Endpoints';
 
 function AppSelectedEventItem() {
 
@@ -22,9 +23,12 @@ function AppSelectedEventItem() {
     const conv = async () => {
       const response = await reqCtx.getRequest(`https://localhost:7215/reviews/${userCtx.ReadJWT().userID}`);
       const converted = await reqCtx.convertResponse(response);
-      // console.log(converted);
       for (let i = 0; i < converted.length; i++) {
+
         // console.log(converted[i].likes);
+        console.log(converted[i].title);
+        console.log(converted[i].comment);
+        setComments(converted[i].comment)
         if (converted[i].id === selectedId.id) {
           if (converted[i].likes === 1) {
             setFavorite(true);
@@ -41,38 +45,39 @@ function AppSelectedEventItem() {
 
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
-    // console.log(today.toISOString());
+
     const data = {
       like: favorite,
-      comment: 'string',
+      comment: "",
       created: today.toISOString(),
-      // eventIsNotFavorite: itemIsFavorite
     };
-
-    console.log(data);
-    await reqCtx.postRequest(`https://localhost:7215/reviews/${selectedId.id}`, data);
+    const res = await reqCtx.postRequest(ENDPOINTS.postReview(selectedId.id), data);
   };
   async function onCommentSubmit(e) {
     e.preventDefault();
     setComments((comments) => [...comments, comment]);
     // console.log(Params.id);
 
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed);
+
     const data = {
-      com: comment,
-      // uId: userId,
-      eId: selectedId.id,
+      comment: "Hej Ferridono Magatheridono",
+      created: today.toISOString(),
     };
-    await reqCtx.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`, data);
+    await reqCtx.postRequest(ENDPOINTS.postReview(selectedId.id), data);
   }
   const getComments = () => {
     setShow(!show);
-    const resp = <AppGetComments />;
-    console.log(resp.props);
+    // const resp = await <AppGetComments />;
+    // setComments(resp.json())
   };
+
   const onCommentChange = (e) => {
     e.preventDefault();
     setComment(e.target.value);
   };
+
   return (
     <li className={classes.listItem}>
       <div>
@@ -95,7 +100,7 @@ function AppSelectedEventItem() {
         !show ? <div>
           <h4>Comments</h4>
           {comments.map((text) => {
-            return <div>{text}</div>;
+            return <div>comment</div>;
           })}
 
           <div className={classes.commentsContainer}>
