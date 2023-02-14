@@ -1,10 +1,76 @@
+.innerItem {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
 .listItem {
     box-sizing: border-box;
     padding: 1rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
 }
 
-.imageContainer img {
-    width: 20vw;
-    object-fit: cover;
-    justify-content: center;
+.placeInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
+
+.description {
+    width: 40rem;
+    margin-bottom: 2rem;
+}
+
+.placeInfo p, .placeInfo div {
+    margin: 2rem 2rem;
+    font-size: 1.5rem;
+}
+
+.description {
+    font-size: 1.5rem;
+}
+
+.listItem .imageContainer img {
+    width: 40rem;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.actions button, .commentsContainer button {
+    font-size: 1rem;
+    margin: 0 1rem;
+    display: inline-block;
+    width: 150px;
+    height: 50px;
+    border-color: transparent;
+    color: #fff;
+    background-color: #3656A8;
+    border-radius: 10px;
+    transition: .5s;
+}
+
+.commentsContainer button {
+    margin: 1rem 0;
+}
+
+.commentsContainer textarea {
+    width: 500px;
+    height: 75px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+
+.actions button:active {
+    transform: scale(0.70);
+}
+
+
+

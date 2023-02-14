@@ -1,39 +1,76 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import RequestContext from 'store/RequestContext';
-import FavoritesContext from '../../store/FavoritesContext';
+import RequestContext, { convertResponse } from 'store/RequestContext';
 import classes from '../styles/AppSelectedEvent.module.css';
 import AppGetComments from './AppGetComments';
+import userContext from '../../store/UserContext';
+import requestContext from 'store/RequestContext';
+import ENDPOINTS from '../../Endpoints';
 
 function AppSelectedEventItem() {
 
-  const reqCtx = useContext(RequestContext);
-  // const favoritesCtx = useContext(FavoritesContext);
-  // const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
   const [show, setShow] = useState(true);
+  const [review, setReview] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const [comment, setComment] = useState();
   const [comments, setComments] = useState([]);
-  // const Params = useParams();
-  const userId = 3;
   const selectedId = JSON.parse(localStorage.getItem('selectedId')) || [];
 
+  const userCtx = useContext(userContext);
+  const reqCtx = useContext(requestContext);
+
+  useEffect(() => {
+    const conv = async () => {
+      const response = await reqCtx.getRequest(`https://localhost:7215/reviews/${userCtx.ReadJWT().userID}`);
+      const converted = await reqCtx.convertResponse(response);
+      for (let i = 0; i < converted.length; i++) {
+
+        // console.log(converted[i].likes);
+        console.log(converted[i].title);
+        console.log(converted[i].comment);
+        setComments(converted[i].comment)
+        if (converted[i].id === selectedId.id) {
+          if (converted[i].likes === 1) {
+            setFavorite(true);
+          } else {
+            setFavorite(false);
+          }
+        }
+      }
+    };
+    conv();
+  }, []);
+
+  const toggleFavoriteStatusHandler = async () => {
+
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed);
+
+    const data = {
+      like: favorite,
+      comment: "",
+      created: today.toISOString(),
+    };
+    const res = await reqCtx.postRequest(ENDPOINTS.postReview(selectedId.id), data);
+  };
   async function onCommentSubmit(e) {
     e.preventDefault();
     setComments((comments) => [...comments, comment]);
     // console.log(Params.id);
 
-    const data = {
-      com: comment,
-      uId: userId,
-      eId: selectedId.id,
-    };
-    await reqCtx.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`, data);
-  }
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed);
 
+    const data = {
+      comment: "Hej Ferridono Magatheridono",
+      created: today.toISOString(),
+    };
+    await reqCtx.postRequest(ENDPOINTS.postReview(selectedId.id), data);
+  }
   const getComments = () => {
     setShow(!show);
-    const resp = <AppGetComments />;
-    console.log(resp.props);
+    // const resp = await <AppGetComments />;
+    // setComments(resp.json())
   };
 
   const onCommentChange = (e) => {
@@ -41,36 +78,29 @@ function AppSelectedEventItem() {
     setComment(e.target.value);
   };
 
-  const toggleFavoriteStatusHandler = async () => {
-
-    const data = {
-      uId: userId,
-      eId: selectedId.id,
-      // eventIsNotFavorite: itemIsFavorite
-    };
-    await reqCtx.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`, data);
-  };
   return (
     <li className={classes.listItem}>
+      <div>
       <div className={classes.imageContainer}>
         <img src={selectedId.image} alt={selectedId.title} />
       </div>
       {
-        show ? <li className={classes.innerItem}>
-          <div className={classes.content}>
-            <h3>Title: {selectedId.title}</h3>
-            <address>Address: {selectedId.address}</address>
-            <p>City: {selectedId.city}</p>
-            <p> Description: {selectedId.description}</p>
-            {/*<p> Rating: {props.rating}</p>*/}
+        show ? <div className={classes.innerItem}>
+          <h2>{selectedId.title}</h2>
+          <div className={classes.placeInfo}>
+            <address>{selectedId.address}</address>
+            <p>{selectedId.planned}</p>
+            {/*<p>{selectedId.attending}</p>*/}
           </div>
-        </li> : null
+          <div className={classes.description}>{selectedId.description}</div>
+          {/*<p> Rating: {props.rating}</p>*/}
+        </div> : null
       }
       {
-        !show ? <div className={classes.comments}>
+        !show ? <div>
           <h4>Comments</h4>
           {comments.map((text) => {
-            return <div>{text}</div>;
+            return <div>comment</div>;
           })}
 
           <div className={classes.commentsContainer}>
@@ -92,9 +122,10 @@ function AppSelectedEventItem() {
       </li>
       <div className={classes.actions}>
         <button onClick={toggleFavoriteStatusHandler}>
-          {/*{itemIsFavorite ? '♥' : '♡'}*/}
+          {favorite ? 'Favorite' : 'UnFavorite'}
         </button>
         <button onClick={getComments}>Comments</button>
+      </div>
       </div>
     </li>
   );

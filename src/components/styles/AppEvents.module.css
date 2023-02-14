@@ -1,23 +1,19 @@
 .card {
     padding: 1rem 3rem;
-    box-sizing: border-box;
 }
 
-.card ul {
+.card .contentContainer {
     background-color: #3656A8;
     color: #fff;
     list-style: none;
-    box-sizing: border-box;
     flex-direction: column;
     padding: 1rem;
     border-radius: 30px;
-    transition-duration: .5s;
-    transition-timing-function: ease-in;
-    transition-property: height;
 }
 
-.card ul li .contentDirection {
+.contentDirection {
     display: flex;
+    flex-direction: row;
     align-items: center;
 }
 
@@ -31,7 +27,6 @@
     object-position: bottom;
     width: 100%;
     border-radius: 20px;
-
 }
 
 .textContainer {
@@ -40,62 +35,40 @@
     margin-left: 2rem;
 }
 
-.card ul .buttonListItem {
+.card .contentContainer .buttonListItem {
     display: flex;
     align-items: center;
     margin: 1rem;
     transform: translate(50%);
 }
 
-/*.buttonListItem button {*/
-/*    background-color: transparent;*/
-/*    border-radius: 10px;*/
-/*    font-size: 1.5em;*/
-/*}*/
-
-
-.card ul:hover .buttonListItem {
-    transition-duration: .5s;
-    transition-timing-function: ease-in;
-}
-
-.card ul:hover .buttonListItem button {
+.card .contentContainer:hover .buttonListItem button {
     opacity: 1;
-    color: #fff;
-    display: inline-flex;
+    display: flex;
 }
-
-/**!<button class="button-87" role="button">Button 87</button>*/
-
 
 .buttonListItem button {
     margin: 10px;
     padding: 15px 30px;
-    text-align: center;
     text-transform: uppercase;
-    transition: 0.5s;
-    background-size: 200% auto;
-    color: white;
+    color:  #3656A8;
     width: 10rem;
-    border-radius: 10px;
     display: none;
-    border: 0px;
+    border-radius: 10px;
     font-weight: 700;
-    background-image: linear-gradient(180deg, rgba(237, 174, 73, 0.8) 0%, rgba(0, 43, 152, 0.8) 100%);
+    border: none;
     cursor: pointer;
+    transition: .5s;
 }
 
 .buttonListItem button:hover  {
     background-position: right center;
-    /* change the direction of the change here */
-    color: #fff;
     text-decoration: none;
 }
 
 .buttonListItem button:active {
-    transform: scale(0.70);
+    transform: scale(0.90);
 }
-
 
 /*body {*/
 /*    margin: 0;*/

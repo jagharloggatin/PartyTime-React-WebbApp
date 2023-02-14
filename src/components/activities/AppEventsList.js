@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import uniqId from '../../uniq';
-import classes from '../styles/AppActivitiesList.module.css';
+import classes from '../styles/AppEventsList.module.css';
 import AppEventsItem from './AppEventsItem';
 import RequestContext from '../../store/RequestContext';
 import { useParams } from 'react-router-dom';
@@ -12,13 +12,12 @@ function AppEventsList() {
   const [loadedEvents, setLoadedEvents] = useState([]);
   const Params = useParams();
 
-  console.log(Params.id);
-
   useEffect(() => {
     const conv = async () => {
       setIsLoading(true);
-      const response = await reqCtx.getRequest(`https://localhost:7215/events/location/{locationid}?id=${Params.id}`)
+      const response = await reqCtx.getRequest(`https://localhost:7215/events/location/${Params.id}`)
       const converted = await reqCtx.convertResponse(response)
+      // console.log(converted);
       setLoadedEvents(converted);
       setIsLoading(false);
     }
