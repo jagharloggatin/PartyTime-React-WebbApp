@@ -52,7 +52,6 @@ export function RequestContextProvider(props) {
   }
 
   async function getRequest(endpoint) {
-    console.log(endpoint);
     return await fetch(endpoint, { method: 'get' });
   }
 

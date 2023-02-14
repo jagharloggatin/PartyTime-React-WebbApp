@@ -7,7 +7,7 @@ const ENDPOINTS = {
   register: `https://${HOST}:${PORT}/users`,
   events: `https://${HOST}:${PORT}/events`,
   checkUsername: (un) => `https://${HOST}:${PORT}/check/username/${un}`,
-  getEvents: () => `https://${HOST}:${PORT}/events`,
+  getEvents: `https://${HOST}:${PORT}/events`,
   getLocationEvents: (location, locationId) => `https://${HOST}:${PORT}/events/${location}/${locationId}`,
   postEvent: `https://${HOST}:${PORT}/events`,
   getUserReviews: (userId) => `https://${HOST}:${PORT}/reviews/${userId}`,
