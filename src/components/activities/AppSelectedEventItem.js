@@ -6,18 +6,38 @@ import userContext from '../../store/UserContext';
 import classes from '../styles/AppSelectedEvent.module.css';
 import AppGetComments from './AppGetComments';
 
-function AppSelectedEventItem() {
+function AppSelectedEventItem(props) {
+  
   const [show, setShow] = useState(true);
   const [review, setReview] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [comment, setComment] = useState();
   const [comments, setComments] = useState([]);
   const selectedId = JSON.parse(localStorage.getItem('selectedId')) || [];
+  const [event, setEvent] = useState({});
+
+  
 
   const userCtx = useContext(userContext);
   const reqCtx = useContext(requestContext);
 
+  
+
   useEffect(() => {
+    console.log("eventid");
+    console.log(props.eventID);
+    
+    const event = async () => {
+      const req = await reqCtx.getRequest(ENDPOINTS.getEvent(props.eventID))
+      const json = await req.json()
+      console.log(json);
+    }
+
+    event();
+
+
+
+
     const conv = async () => {
       const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
       console.log(response);
