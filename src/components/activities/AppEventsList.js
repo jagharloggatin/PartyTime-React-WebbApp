@@ -18,8 +18,7 @@ function AppEventsList() {
       const response = await reqCtx.getRequest(`https://localhost:7215/events/location/${Params.id}`)
       const converted = await reqCtx.convertResponse(response)
       setLoadedEvents(converted);
-
-      console.log(converted);
+      // console.log(converted);
       setIsLoading(false);
     }
     conv();
@@ -30,6 +29,8 @@ function AppEventsList() {
       <h2>Loading...</h2>
     </div>;
   }
+
+  console.log(loadedEvents);
   return (
 
   <ul className={classes.list}>

@@ -1,20 +1,20 @@
-import React from 'react';
 import classes from '../styles/AppEvents.module.css';
 import AppCard from '../ui/AppCard';
+import React from 'react';
 
 function AppCommentItem(props) {
-  console.log(props);
+  // console.log(props);
   return (
     <ul>
       <li className={classes.listItem}>
         <AppCard>
           <div>
-            <p> comment: {props.comment}</p>
+            <p> {props.comment.username}: {props.comment.comment}</p>
           </div>
         </AppCard>
       </li>
-    </ul>
-  );
+    </ul>);
 }
 
 export default AppCommentItem;
+
