@@ -23,7 +23,10 @@ export default function AppProfile() {
       const req = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userID));
       const json = await req.json();
       setUser(json);
+
+      console.log(json);
       setIsLoading(false);
+
     }
 
     getUser();
@@ -42,7 +45,9 @@ export default function AppProfile() {
 
   return (
     <div>
-      <div className="profile-background"></div>
+      <div style={{backgroundImage: `url(${user.profileImage})`}} 
+      className="profile-background">
+      </div>
       <div className={styles.header}>
         <div className={styles.headerAvatar}>
           <Avatar sx={{ bgcolor: deepOrange[500], width: 120, height: 120 }}>
