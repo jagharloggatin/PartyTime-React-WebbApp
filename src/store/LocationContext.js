@@ -3,7 +3,8 @@ import StorageContext from './StorageContext';
 
 //Refrenace methods to be shown in intellisense
 const LocationContext = createContext({
-  location: location
+  location: null,
+  setLocation: null
 });
 
 export function LocationContextProvider(props) {
@@ -11,7 +12,8 @@ export function LocationContextProvider(props) {
 
   //Reference methods in this object to be passed as value
   const context = {
-    location
+    location: location,
+    setLocation: setLocation
   };
 
   return <LocationContext.Provider value={context}>{props.children}</LocationContext.Provider>;

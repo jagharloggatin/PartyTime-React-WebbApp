@@ -20,7 +20,7 @@ export function RequestContextProvider(props) {
     if (userCtx.IsLoggedIn) headers.Authorization = `Bearer ${userCtx.ReadJWT().jwt}`;
 
     const response = await fetch(endpoint, {
-      method: 'post',
+      method: 'POST',
       headers: new Headers(headers),
       body: JSON.stringify(body),
     });
