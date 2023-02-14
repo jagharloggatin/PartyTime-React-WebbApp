@@ -52,7 +52,17 @@ function ProfileReviewsTab() {
                 <h2>{x.title}</h2>
                 <div>
                   <p className="card-review-comment-title">Comment:</p>
-                  <p className="card-review-comment">{x.comment}</p>
+                  <p className="card-review-comment">{x.description}</p>
+                </div>
+                <div>
+                  {x.comments.map((x) => {
+                    return (
+                      <div className="card-review-comment">
+                        <p className="card-review-comment-title">{x.username}</p>
+                        <p className="card-review-comment">{x.comment}</p>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </Card>

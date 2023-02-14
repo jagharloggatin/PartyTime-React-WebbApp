@@ -5,8 +5,9 @@ const URL = `https://${HOST}:${PORT}`;
 const ENDPOINTS = {
   login: `https://${HOST}:${PORT}/auth/login`,
   register: `https://${HOST}:${PORT}/users`,
-  events: `https://${HOST}:${PORT}/events`,
   checkUsername: (un) => `https://${HOST}:${PORT}/check/username/${un}`,
+  
+  getEvent: (id) => `https://${HOST}:${PORT}/events/${id}`,
   getEvents: `https://${HOST}:${PORT}/events`,
   getLocationEvents: (location, locationId) => `https://${HOST}:${PORT}/events/${location}/${locationId}`,
   postEvent: `https://${HOST}:${PORT}/events`,

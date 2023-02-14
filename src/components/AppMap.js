@@ -24,6 +24,8 @@ const AppMap = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [modalContent, setModalContent] = useState("");
   const [map, setMap] = useState(null);
+  const [eventID, setEventID] = useState("apa")
+  
 
   const CustomButton = (props) => {
     return (
@@ -99,21 +101,14 @@ const AppMap = () => {
   
         // start modal
         marker.addListener('click', () => {
-          setModalOpen(true)
+          setEventID(x.id)
           setModalContent("selected");
+          setModalOpen(true)
         });
       });
     }
 
-    showMarkers().then((e => {
-      
-    }));
-
-
-
-
-
-    
+    showMarkers()
   }, [mapState])
 
   const displaySuggestions = function (predictions, status) {
@@ -135,9 +130,9 @@ const AppMap = () => {
       >
         <div className={classes.modalcontainer}>
             {modalContent === "grid" ? <HomeRoute/> : null}
-            {modalContent === "add" ? <AppNewEvent setMapState={setMapState} gmap={map}/> : null}
+            {modalContent === "add" ? <AppNewEvent  setMapState={setMapState} gmap={map}/> : null}
             {modalContent === "search" ? <div/> : null}
-            {modalContent === "selected" ? <AppSelectedEventItem/> : null}
+            {modalContent === "selected" ? <AppSelectedEventItem eventID={eventID}/> : null}
         </div>
       </Modal>
       <div className={classes.autocompletewrapper}>
