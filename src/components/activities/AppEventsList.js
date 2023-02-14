@@ -17,8 +17,9 @@ function AppEventsList() {
       setIsLoading(true);
       const response = await reqCtx.getRequest(`https://localhost:7215/events/location/${Params.id}`)
       const converted = await reqCtx.convertResponse(response)
-      // console.log(converted);
       setLoadedEvents(converted);
+
+      console.log(converted);
       setIsLoading(false);
     }
     conv();
@@ -33,6 +34,8 @@ function AppEventsList() {
 
   <ul className={classes.list}>
     {loadedEvents.map((event) => (
+      // console.log("here"),
+      // console.log(event),
         <AppEventsItem
           key={uniqId()}
           id={event.id}
@@ -40,6 +43,7 @@ function AppEventsList() {
           title={event.title}
           city={event.city}
           address={event.address}
+          planned={event.planned}
           description={event.description}
           comment={[event.comments]}
         />

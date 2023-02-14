@@ -21,15 +21,15 @@ function AppSelectedEventItem() {
 
   useEffect(() => {
     const conv = async () => {
-      const response = await reqCtx.getRequest(`https://localhost:7215/reviews/${userCtx.ReadJWT().userID}`);
+      const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
+      console.log(response);
       const converted = await reqCtx.convertResponse(response);
-      for (let i = 0; i < converted.length; i++) {
 
-        // console.log(converted[i].likes);
-        console.log(converted[i].title);
-        console.log(converted[i].comment);
-        setComments(converted[i].comment)
+      for (let i = 0; i < converted.length; i++) {
+        // console.log(converted[i].title);
+        // console.log(converted[i].comment);
         if (converted[i].id === selectedId.id) {
+          setComments(converted[i].comment);
           if (converted[i].likes === 1) {
             setFavorite(true);
           } else {
@@ -41,6 +41,7 @@ function AppSelectedEventItem() {
     conv();
   }, []);
 
+
   const toggleFavoriteStatusHandler = async () => {
 
     const timeElapsed = Date.now();
@@ -48,11 +49,13 @@ function AppSelectedEventItem() {
 
     const data = {
       like: favorite,
-      comment: "",
+      comment: '',
       created: today.toISOString(),
     };
     const res = await reqCtx.postRequest(ENDPOINTS.postReview(selectedId.id), data);
+    console.log(res);
   };
+
   async function onCommentSubmit(e) {
     e.preventDefault();
     setComments((comments) => [...comments, comment]);
@@ -62,15 +65,18 @@ function AppSelectedEventItem() {
     const today = new Date(timeElapsed);
 
     const data = {
-      comment: "Hej Ferridono Magatheridono",
+      comment: comment,
       created: today.toISOString(),
     };
-    await reqCtx.postRequest(ENDPOINTS.postReview(selectedId.id), data);
+    console.log(data);
+    const res = await reqCtx.postRequest(ENDPOINTS.postReview(selectedId.id), data);
+    console.log(res);
   }
+
   const getComments = () => {
     setShow(!show);
-    // const resp = await <AppGetComments />;
-    // setComments(resp.json())
+
+
   };
 
   const onCommentChange = (e) => {
@@ -79,55 +85,54 @@ function AppSelectedEventItem() {
   };
 
   return (
-    <li className={classes.listItem}>
+    <div className={classes.listItem}>
       <div>
-      <div className={classes.imageContainer}>
-        <img src={selectedId.image} alt={selectedId.title} />
-      </div>
-      {
-        show ? <div className={classes.innerItem}>
-          <h2>{selectedId.title}</h2>
-          <div className={classes.placeInfo}>
-            <address>{selectedId.address}</address>
-            <p>{selectedId.planned}</p>
-            {/*<p>{selectedId.attending}</p>*/}
-          </div>
-          <div className={classes.description}>{selectedId.description}</div>
-          {/*<p> Rating: {props.rating}</p>*/}
-        </div> : null
-      }
-      {
-        !show ? <div>
-          <h4>Comments</h4>
-          {comments.map((text) => {
-            return <div>comment</div>;
-          })}
-
-          <div className={classes.commentsContainer}>
-            <div>
-              <p>{selectedId.comment}</p>
-              <textarea
-                value={comment}
-                onChange={onCommentChange}
-              />
+        <div className={classes.imageContainer}>
+          <img src={selectedId.image} alt={selectedId.title} />
+        </div>
+        {
+          show ? <div className={classes.innerItem}>
+            <h2>{selectedId.title}</h2>
+            <div className={classes.placeInfo}>
+              <address>{selectedId.address}</address>
+              <p>{selectedId.planned}</p>
             </div>
-            <button onClick={(e) => {
-              return onCommentSubmit(e);
-            }}>Submit Comment
-            </button>
-          </div>
-        </div> : null
-      }
-      <li>
-      </li>
-      <div className={classes.actions}>
-        <button onClick={toggleFavoriteStatusHandler}>
-          {favorite ? 'Favorite' : 'UnFavorite'}
-        </button>
-        <button onClick={getComments}>Comments</button>
+            <div className={classes.description}>{selectedId.description}</div>
+          </div> : null
+        }
+        {
+          !show ? <div>
+            <h4>Comments</h4>
+
+            <AppGetComments/>
+            {/*{() => comments.map((text) => {*/}
+            {/*  return <div>HEJ</div>*/}
+            {/*})};*/}
+            <div className={classes.commentsContainer}>
+              <div>
+                <p>{selectedId.comment}</p>
+                <textarea
+                  value={comment}
+                  onChange={onCommentChange}
+                />
+              </div>
+              <button onClick={(e) => {
+                return onCommentSubmit(e);
+              }}>Submit Comment
+              </button>
+            </div>
+          </div> : null
+        }
+        <li>
+        </li>
+        <div className={classes.actions}>
+          <button onClick={toggleFavoriteStatusHandler}>
+            {favorite ? 'Favorite' : 'UnFavorite'}
+          </button>
+          <button onClick={getComments}>Comments</button>
+        </div>
       </div>
-      </div>
-    </li>
+    </div>
   );
 }
 

@@ -5,18 +5,28 @@ import classes from '../styles/Headlines.module.css';
 import AppEventsItem from './AppEventsItem';
 import uniqId from '../../uniq';
 import AppCommentItem from './AppCommentItem';
- 
+import userContext from '../../store/UserContext';
+import requestContext from '../../store/RequestContext';
+
 function AppGetComments() {
 
-  const reqCtx = useContext(RequestContext);
   const [isLoading, setIsLoading] = useState(false);
   const [loadedComments, setLoadedComments] = useState([]);
+
+  const reqCtx = useContext(RequestContext);
+  const userCtx = useContext(userContext);
+  const selectedId = JSON.parse(localStorage.getItem('selectedId')) || [];
 
   useEffect(() => {
     const conv = async () => {
       setIsLoading(true);
-      const response = await reqCtx.getRequest(`https://localhost:7215/reviews`)
+      const response = await reqCtx.getRequest(`https://localhost:7215/events/{id}?eventId=${selectedId.id}`)
       const converted = await reqCtx.convertResponse(response)
+
+      // console.log(converted);
+
+      console.log("HEJ");
+      console.log(converted);
       setLoadedComments(converted);
       setIsLoading(false);
     }
