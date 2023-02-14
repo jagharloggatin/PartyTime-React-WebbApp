@@ -8,7 +8,7 @@ import RequestContext from 'store/RequestContext';
 import ErrorAlert from './ErrorAlert';
 
 function AppSignup() {
-    const reqCtx = useContext(RequestContext);
+  const reqCtx = useContext(RequestContext);
   const [firstCheck, setFirstCheck] = useState(false);
   const [lastCheck, setLastCheck] = useState(false);
   const [bdayCheck, setBdayCheck] = useState(false);
@@ -25,6 +25,8 @@ function AppSignup() {
     const email = e.target.email.value;
     const pwd = e.target.password.value;
     const verify = e.target.verify.value;
+
+    console.log(pwd);
 
     // Input validation
 
@@ -47,7 +49,24 @@ function AppSignup() {
 
     if (firstCheck || lastCheck || bdayCheck || emailCheck || usnCheck || pwdCheck) return;
 
-    alert('Registered!');
+    const user = {
+      firstName: first,
+      lastName: last,
+      profileImage: "https://mynewart.se/wp-content/uploads/2016/06/Mona-Lisa.jpg",
+      email: email,
+      username: usn,
+      password: pwd,
+      dateOfBirth: birth
+    }
+
+    const res = await reqCtx.postRequestNoJwt(ENDPOINTS.register, user)
+
+    if (res.ok) {
+      alert('Registered!');
+    } else {
+      alert('Could not register');
+    }
+
   };
 
   const checkUsername = async (e) => {

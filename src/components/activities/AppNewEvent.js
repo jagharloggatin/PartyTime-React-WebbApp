@@ -24,35 +24,59 @@ function AppNewEvent(props) {
   
   // const user = storageCtx.ReadJWT();
 
-  const addMeetupHandler = async eventData => {
-
-    let resp = await reqCtx.postRequest(ENDPOINTS.postEvent(),
-      eventData);
-    // console.log(resp);
-
-    if (resp.ok) {
-      alert('OK');
-    } else {
-      alert('NOT OK');
-    }
-    navigateTo(`/events/location/${eventData.id}`);
-  };
-
   async function submitHandler(e) {
     e.preventDefault();
 
+    // const plan = new Date(dateInputRef)
+    // const planned = dateInputRef.toISIOstring();
+
+    // const d = new Date();
+    // let text = d.toISOString();
+
+
+    const date = dateInputRef.current.value;
+    const d = new Date(date).toISOString();
+  
     //Event to be posted
     const event = {
-      "title": titleInputRef.current.value,
-      "description": descriptionInputRef.current.value,
-      "image": imageInputRef.current.value,
-      "planned": dateInputRef.current.value,
-      "likes": 0,
-      "comments": [
+      title: titleInputRef.current.value,
+      description: descriptionInputRef.current.value,
+      image: imageInputRef.current.value,
+      planned: d,
+      likes: 0,
+      comments: [
         {}
       ],
-      "location": locCtx.location
+      location: locCtx.location
     } // End of event to be posted
+
+    // const event = 
+    // {
+    //   title: "string",
+    //   description: "string",
+    //   image: "string",
+    //   planned: "2023-02-14T12:26:53.475Z",
+    //   likes: 0,
+    //   comments: [
+    //     {}
+    //   ],
+    //   location: {
+    //     id: 0,
+    //     name: "string",
+    //     address: "string",
+    //     latitude: 0,
+    //     longitude: 0,
+    //     city: {
+    //       id: 0,
+    //       name: "string",
+    //       country: {
+    //         id: 0,
+    //         name: "string",
+    //         countryCode: "string"
+    //       }
+    //     }
+    //   }
+    // }
 
     console.log(event);
 
