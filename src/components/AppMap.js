@@ -17,79 +17,89 @@ const AppMap = () => {
   const reqCtx = useContext(RequestContext);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [predictionsResult, setPredictionsResult] = useState([]);
-  const [inputText, setInputText] = useState("");
-  const [mapState, setMapState] = useState({center:{lat: 59.330936, lng: 18.071644}, zoom: 14 });
-  const [modalOpen, setModalOpen] = useState(false)
-  const [modalContent, setModalContent] = useState("");
-  const [map, setMap] = useState(null);
+  const [inputText, setInputText] = useState('');
+  const [mapState, setMapState] = useState({
+    center: {
+      lat: 59.330936,
+      lng: 18.071644,
+    }, zoom: 14,
+  });
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState('');
+  const [map, setMap] = useState(null);
 
   const CustomButton = (props) => {
     return (
-      <div onClick={() => {setModalOpen(true); setModalContent(props.modal) }} className={classes.custombutton} style={{ width: `${props.size}px`, height: `${props.size}px`, ...props.style }}>
+      <div onClick={() => {
+        setModalOpen(true);
+        setModalContent(props.modal);
+      }} className={classes.custombutton} style={{
+        width: `${props.size}px`,
+        height: `${props.size}px`, ...props.style,
+      }}>
         {props.children}
       </div>
     );
   };
 
 
-
   const autoCompleteRef = useRef();
   const inputRef = useRef();
 
   const options = {
-    fields: ["address_components", "geometry", "icon", "name"],
-  }
+    fields: ['address_components', 'geometry', 'icon', 'name'],
+  };
 
-  const API_KEY = "AIzaSyAY85IYZfPLkT6EyiauSREDkc7ZhYJCPys";
+  const API_KEY = 'AIzaSyAY85IYZfPLkT6EyiauSREDkc7ZhYJCPys';
   const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${inputText}&key=${API_KEY}`;
 
   function initMap() {
-    const map = new window.google.maps.Map(document.getElementById("mapDiv"), {
+    const map = new window.google.maps.Map(document.getElementById('mapDiv'), {
       zoom: mapState.zoom,
       center: mapState.center,
       disableDefaultUI: true,
-      mapId:'bd0bdf809da55ccb',
+      mapId: 'bd0bdf809da55ccb',
     });
 
-    return map
+    return map;
   }
 
   useEffect(() => {
     window.initMap = initMap.bind(this);
+    setMap(initMap());
 
-
-    setMap(initMap())
-      
     const events = [
       {
         title: 'SvettigApa',
         description: 'balle',
         map: map,
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-        position: {lat: 59.3294, lng: 18.0686},
+        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg',
+        position: { lat: 59.3294, lng: 18.0686 },
       },
       {
         title: 'Borderdell',
         description: 'Kom hit och sug',
         map: map,
-        image: "https://cdn.pixabay.com/photo/2016/03/26/22/47/motion-blur-1281675_960_720.jpg",
-        position: {lat: 59.3192, lng: 18.0686},
+        image: 'https://cdn.pixabay.com/photo/2016/03/26/22/47/motion-blur-1281675_960_720.jpg',
+        position: { lat: 59.3192, lng: 18.0686 },
       },
     ];
 
     // onClick={() => {setModalOpen(true)}
     events.forEach(x => {
-      const contentString = `<div class="infoWindow">` +
+      const contentString = `<div class='infoWindow'>` +
         `<div class='infoWindow-left'><img src='${x.image}' alt='${x.title}'/></div>` +
         `<div class='infoWindow-right'>` +
-          `<h2>${x.title}</h2>`+
-          `<div>${x.description}</div>` +
+        `<h2>${x.title}</h2>` +
+        `<div>${x.description}</div>` +
         `</div>` +
-        `</div>`
+        `</div>`;
       const popUp = new window.google.maps.InfoWindow({
-        content: contentString
+        content: contentString,
       });
       const marker = new window.google.maps.Marker({
+
+
         position: x.position,
         content: contentString,
         map: x.map,
@@ -108,73 +118,73 @@ const AppMap = () => {
 
       // start modal
       marker.addListener('click', () => {
-        setModalOpen(true)
-        setModalContent("selected");
+        setModalOpen(true);
+        setModalContent('selected');
       });
     });
-  }, [mapState])
+  }, [mapState]);
 
-  const displaySuggestions = function (predictions, status) {
+  const displaySuggestions = function(predictions, status) {
     if (status != window.google.maps.places.PlacesServiceStatus.OK || !predictions) {
       alert(status);
       return;
     }
-    console.log(predictions)
-    setPredictionsResult(predictions)
+    console.log(predictions);
+    setPredictionsResult(predictions);
   };
 
   const service = new window.google.maps.places.AutocompleteService();
 
   async function getPlaceResult(place_id) {
-    const servicex = new window.google.maps.places.PlacesService(map)
+    const servicex = new window.google.maps.places.PlacesService(map);
     const request = {
       placeId: place_id,
     };
 
     servicex.getDetails(request, (place, status) => {
-      if (
-        status === window.google.maps.places.PlacesServiceStatus.OK &&
-        place &&
-        place.geometry &&
-        place.geometry.location){
+        if (
+          status === window.google.maps.places.PlacesServiceStatus.OK &&
+          place &&
+          place.geometry &&
+          place.geometry.location) {
 
           //DATA FILTERING - CODE FROM GOOGLE
           // for (const component of place.address_components as google.maps.GeocoderAddressComponent[]) {
           //   // @ts-ignore remove once typings fixed
           //   const componentType = component.types[0];
-        
+
           //   switch (componentType) {
           //     case "street_number": {
           //       address1 = `${component.long_name} ${address1}`;
           //       break;
           //     }
-        
+
           //     case "route": {
           //       address1 += component.short_name;
           //       break;
           //     }
-        
+
           //     case "postal_code": {
           //       postcode = `${component.long_name}${postcode}`;
           //       break;
           //     }
-        
+
           //     case "postal_code_suffix": {
           //       postcode = `${postcode}-${component.long_name}`;
           //       break;
           //     }
-        
+
           //     case "locality":
           //       (document.querySelector("#locality") as HTMLInputElement).value =
           //         component.long_name;
           //       break;
-        
+
           //     case "administrative_area_level_1": {
           //       (document.querySelector("#state") as HTMLInputElement).value =
           //         component.short_name;
           //       break;
           //     }
-        
+
           //     case "country":
           //       (document.querySelector("#country") as HTMLInputElement).value =
           //         component.long_name;
@@ -187,48 +197,48 @@ const AppMap = () => {
           const lat = place.geometry.location.lat();
           const lng = place.geometry.location.lng();
 
-          setMapState({center:{lat: lat, lng: lng}, zoom: 14 })
-          setShowSuggestions(false)
+          setMapState({ center: { lat: lat, lng: lng }, zoom: 14 });
+          setShowSuggestions(false);
 
         } else {
 
-          console.log("apa");
+          console.log('apa');
         }
-      }
-      )
+      },
+    );
   }
 
 
-      
-
   async function handleChange(value) {
     if (value.length > 2) {
-        setInputText(value)
-        setShowSuggestions(true)
-        service.getQueryPredictions({ input: value }, displaySuggestions);
+      setInputText(value);
+      setShowSuggestions(true);
+      service.getQueryPredictions({ input: value }, displaySuggestions);
 
     } else {
-        setShowSuggestions(false)
+      setShowSuggestions(false);
     }
   }
 
   function fillSearchBox(prediction) {
-    document.getElementById("autoinput").value = prediction.description;
-    getPlaceResult(prediction.place_id)
+    document.getElementById('autoinput').value = prediction.description;
+    getPlaceResult(prediction.place_id);
   }
 
 
   function Predictionsarea() {
     if (showSuggestions) {
-      return(
+      return (
         <div className={classes.autocompletepredictions}>
-           {predictionsResult.map(x => {
-            return (<div onClick={() => {fillSearchBox(x)}} className={classes.autocompletesingle}>{x.description}</div>)
-           })}
+          {predictionsResult.map(x => {
+            return (<div onClick={() => {
+              fillSearchBox(x);
+            }} className={classes.autocompletesingle}>{x.description}</div>);
+          })}
         </div>
-      ) 
+      );
     } else {
-        return <div></div>
+      return <div></div>;
     }
   }
 
@@ -236,41 +246,43 @@ const AppMap = () => {
     <div>
       <Modal
         open={modalOpen}
-        onClose={() => {setModalOpen(false)}}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        onClose={() => {
+          setModalOpen(false);
+        }}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <div className={classes.modalcontainer}>
-            {modalContent === "grid" ? <HomeRoute/> : null}
-            {modalContent === "add" ? <AppNewEvent/> : null}
-            {modalContent === "search" ? <div/> : null}
-            {modalContent === "selected" ? <AppSelectedEventItem/> : null}
+          {modalContent === 'grid' ? <HomeRoute /> : null}
+          {modalContent === 'add' ? <AppNewEvent /> : null}
+          {modalContent === 'search' ? <div /> : null}
+          {modalContent === 'selected' ? <AppSelectedEventItem /> : null}
         </div>
       </Modal>
-        <div className={classes.autocompletewrapper}>
-            <div className={classes.autocompleteinnerwrapper}>
-                <input
-                id="autoinput"
-                className={classes.autocompleteinput}
-                onChange={e => handleChange(e.target.value)}
-                ref={inputRef}
-                placeholder="Search address"
-                />
-                <Predictionsarea/>
-            </div>
+      <div className={classes.autocompletewrapper}>
+        <div className={classes.autocompleteinnerwrapper}>
+          <input
+            id='autoinput'
+            className={classes.autocompleteinput}
+            onChange={e => handleChange(e.target.value)}
+            ref={inputRef}
+            placeholder='Search address'
+          />
+          <Predictionsarea />
         </div>
+      </div>
       <div className={classes['control-container']}>
-        <CustomButton size={40} modal={"grid"}>
+        <CustomButton size={40} modal={'grid'}>
           <img src={gridIcon} alt={'grid-view'} />
         </CustomButton>
-        <CustomButton size={80} modal={"add"} style={{ margin: '0 40px' }}>
+        <CustomButton size={80} modal={'add'} style={{ margin: '0 40px' }}>
           <img src={plusIcon} alt={'AddActivity'} />
         </CustomButton>
-        <CustomButton size={40} modal={"search"}>
+        <CustomButton size={40} modal={'search'}>
           <img src={searchIcon} alt={'Search'} />
         </CustomButton>
       </div>
-      <div id="mapDiv" className={classes.mapcontainer}></div>
+      <div id='mapDiv' className={classes.mapcontainer}></div>
     </div>
   );
 };

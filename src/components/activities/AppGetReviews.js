@@ -25,10 +25,9 @@ function AppGetReviews(){
     }
     conv();
   }, []);
-  //
   // console.log("HAR AER FALOAD");
   //
-  // console.log(loadedFavorites);
+  console.log(loadedFavorites);
   // console.log("HAR AER FALOAD");
   if(isLoading){
     return <div className={classes.wrapper}>

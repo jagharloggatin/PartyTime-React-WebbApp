@@ -5,7 +5,7 @@ import RequestContext from 'store/RequestContext';
 import ENDPOINTS from '../../Endpoints';
 import StorageContext from '../../store/StorageContext';
 import uniqId from '../../uniq';
-import classes from '../styles/AppNewActivityForm.module.css';
+import classes from '../styles/AppNewEventForm.module.css';
 import AppCard from '../ui/AppCard';
 
 function AppNewEvent() {

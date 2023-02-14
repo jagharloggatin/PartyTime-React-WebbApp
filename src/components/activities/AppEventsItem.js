@@ -25,44 +25,38 @@ function AppEventsItem(props) {
       comment: 'string',
       created: '2023-02-10T10:40:00.500Z',
     };
-
     // const data = {
     //   uId: userId,
     //   eId: props.id,
     //   eventIsNotFavorite: itemIsFavorite,
     // };
-    await reqCtx.postRequest(`https://testagain-d4b54-default-rtdb.firebaseio.com/favorites.json`, data);
+    await reqCtx.postRequest(`https://localhost:7215/reviews/1`, data);
   }
 
-  //○●
-  //☆★
-
   return (
-      <li className={classes.card}>
-        <ul>
-          <li>
-            <div className={classes.contentDirection}>
-              <div className={classes.imageContainer}>
-                <img src={props.image} />
-              </div>
-              <div className={classes.textContainer}>
-                <h2>Sean Connery FanClub</h2>
-                <div>Sean once said: "if she acts up just give her a little
-                  schlap", that will calm down a woman
-                </div>
-                <p>Stockholm</p>
-                <p>Sankt Eriksgatan 70, 113 20 Stockholm</p>
-                <p>2023-01-02 18:00</p>
-              </div>
+    <li className={classes.card}>
+      <div className={classes.contentContainer}>
+        <div className={classes.contentDirection}>
+          <div className={classes.imageContainer}>
+            <img src={props.image} />
+          </div>
+          <div className={classes.textContainer}>
+            <h2>{props.title}</h2>
+            <div>Sean once said: "if she acts up just give her a little
+              schlap", that will calm down a woman
             </div>
-          </li>
-          <li className={classes.buttonListItem}>
-            <button onClick={toggleFavoriteStatusHandler}>Favorite </button>
-            {/*{itemIsFavorite ? 'Favorite' : 'UnFavorite'}*/}
-            <button onClick={goToEvent}>Go To Event</button>
-          </li>
-        </ul>
-      </li>
+            <p>Stockholm</p>
+            <p>Sankt Eriksgatan 70, 113 20 Stockholm</p>
+            <p>2023-01-02 18:00</p>
+          </div>
+        </div>
+        <div className={classes.buttonListItem}>
+          <button onClick={toggleFavoriteStatusHandler}>Favorite</button>
+          {/*{itemIsFavorite ? 'Favorite' : 'UnFavorite'}*/}
+          <button onClick={goToEvent}>Go To Event</button>
+        </div>
+      </div>
+    </li>
 
     // <section>
     //

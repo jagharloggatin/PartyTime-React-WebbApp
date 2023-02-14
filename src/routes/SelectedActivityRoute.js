@@ -8,7 +8,7 @@ function SelectedActivityRoute(){
 
 
   return <section>
-    <h1 className={classes.wrapper}>Selected Activity</h1>
+    {/*<h1 className={classes.wrapper}>Selected Activity</h1>*/}
     <AppSelectedEventItem/>
     {/*<AppSelectedEventItem props={event}/>*/}
   </section>

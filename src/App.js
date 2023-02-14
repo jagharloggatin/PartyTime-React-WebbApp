@@ -19,15 +19,12 @@ import SelectedActivityRoute from './routes/SelectedActivityRoute';
 import { default as SigninRoute, default as SignupRoute } from './routes/SignupRoute';
 
 function App() {
-
-  
   function initMap() {
     const map = new window.google.maps.Map(document.getElementById("map"), {
       center: { lat: -34.397, lng: 150.644 },
       zoom: 8,
     })
   }
-  
 
   useEffect(() => {
     window.initMap = initMap;
