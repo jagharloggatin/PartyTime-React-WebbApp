@@ -14,25 +14,12 @@ function AppSelectedEventItem(props) {
   const [comment, setComment] = useState();
   const [comments, setComments] = useState([]);
   const selectedId = JSON.parse(localStorage.getItem('selectedId')) || [];
-  const [event, setEvent] = useState({title: "", description: "", planned: "", address: "", image: ""});
-
   
 
   const userCtx = useContext(userContext);
   const reqCtx = useContext(RequestContext);
 
   useEffect(() => {
-    console.log('eventid');
-    console.log(props.eventID);
-
-    const event = async () => {
-      const req = await reqCtx.getRequest(ENDPOINTS.getEvent(props.eventID))
-      const json = await req.json()
-      setEvent(json)
-    }
-
-    event();
-
     const conv = async () => {
       const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
       console.log(response);
