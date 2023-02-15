@@ -39,7 +39,7 @@ function App() {
         <Route path="/profile" element={<ProfileRoute />}>
           <Route index element={<ProfileFavoritesTab />} />
           <Route path="/profile/reviews" element={<ProfileReviewsTab />} />
-          <Route index element={<ProfileActivitiesTab />} />
+          <Route path="/profile/created" element={<ProfileActivitiesTab />} />
         </Route>
         <Route path="/login" element={<LoginRoute />} />
         <Route path="/settings" element={<SettingsRoute />} />
