@@ -1,5 +1,4 @@
 import React, { createContext, useContext } from 'react';
-import StorageContext from './StorageContext';
 import UserContext from './UserContext';
 
 //Refrenace methods to be shown in intellisense

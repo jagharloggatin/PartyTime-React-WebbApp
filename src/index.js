@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import LocationContext, { LocationContextProvider } from 'store/LocationContext';
+import { LocationContextProvider } from 'store/LocationContext';
 import { RequestContextProvider } from 'store/RequestContext';
 import { StorageContextProvider } from 'store/StorageContext';
 import { UserContextProvider } from 'store/UserContext';

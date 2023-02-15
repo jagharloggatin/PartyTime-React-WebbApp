@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import classes from '../components/styles/Headlines.module.css';
-import AppEventsList from '../components/activities/AppEventsList';
+import React from 'react';
 import AppFavorites from '../components/activities/AppGetReviews';
 
 function FavoritesRoute() {
-
-  return <AppFavorites />
+  return <AppFavorites />;
 }
 
 export default FavoritesRoute;

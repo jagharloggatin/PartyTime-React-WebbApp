@@ -1,4 +1,3 @@
-import AppProfile from 'components/AppProfile';
 import React from 'react';
 
 function ProfileFavoritesTab() {

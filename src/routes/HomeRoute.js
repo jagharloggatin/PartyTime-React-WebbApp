@@ -1,9 +1,6 @@
-import { Card } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import AppActionAreaCard from 'components/AppActionAreaCard';
-import AppCard from 'components/ui/AppCard';
 import React, { useState } from 'react';
-import List from '../components/List';
 import uniqId from '../uniq';
 
 function HomeRoute() {
