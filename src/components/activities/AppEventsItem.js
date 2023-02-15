@@ -61,12 +61,18 @@ function AppEventsItem({ event }) {
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
 
+    if (favorite) {
+    }
+
     const data = {
-      like: favorite,
+      like: favorite ? false : true,
       comment: '',
       created: today.toISOString(),
     };
     const res = await reqCtx.postRequest(ENDPOINTS.postReview(selectedId.id), data);
+
+    setFavorite(favorite ? false : true);
+
     // console.log(res);
   };
 
@@ -96,7 +102,7 @@ function AppEventsItem({ event }) {
 
         <CardActions disableSpacing>
           <IconButton onClick={toggleFavoriteStatusHandler} aria-label="add to favorites">
-            <FavoriteIcon color={favorite ? 'primary' : 'disabled'} />
+            <FavoriteIcon color={favorite ? 'error' : 'disabled'} />
           </IconButton>
           <Button size="small" onClick={goToEvent}>
             Go to event
