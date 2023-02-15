@@ -96,7 +96,7 @@ function AppSelectedEventItem(props) {
     <div className={classes.listItem}>
       <div>
         <div className={classes.imageContainer}>
-          <img src={event.image} alt={event.title} />
+          <img src={selectedId.image} alt={selectedId.title} />
         </div>
         <div className={classes.innerItem}>
           <h2>{selectedId.title}</h2>

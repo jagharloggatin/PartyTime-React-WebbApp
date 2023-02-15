@@ -101,7 +101,7 @@ const AppMap = () => {
   
         // start modal
         marker.addListener('click', () => {
-          setEventID(x.id)
+          localStorage.setItem('selectedId', JSON.stringify(x))
           setModalContent("selected");
           setModalOpen(true)
         });
@@ -132,7 +132,7 @@ const AppMap = () => {
             {modalContent === "grid" ? <HomeRoute/> : null}
             {modalContent === "add" ? <AppNewEvent  setMapState={setMapState} gmap={map}/> : null}
             {modalContent === "search" ? <div/> : null}
-            {modalContent === "selected" ? <AppSelectedEventItem eventID={eventID}/> : null}
+            {modalContent === "selected" ? <AppSelectedEventItem/> : null}
         </div>
       </Modal>
       <div className={classes.autocompletewrapper}>
