@@ -1,15 +1,26 @@
+import { ExpandMore, Favorite as FavoriteIcon } from '@mui/icons-material';
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  IconButton,
+  Typography,
+} from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import RequestContext from 'store/RequestContext';
-import FavoritesContext from '../../store/FavoritesContext';
-import classes from '../styles/AppEvents.module.css';
 import ENDPOINTS from '../../Endpoints';
-import userContext from '../../store/UserContext';
+import FavoritesContext from '../../store/FavoritesContext';
 import requestContext from '../../store/RequestContext';
+import userContext from '../../store/UserContext';
+import classes from '../styles/AppEvents.module.css';
 
-function AppEventsItem(props) {
+function AppEventsItem({ event }) {
   const favoritesCtx = useContext(FavoritesContext);
-  const itemIsFavorite = favoritesCtx.itemIsFavorite(props.id);
+  const itemIsFavorite = favoritesCtx.itemIsFavorite(event.id);
   const navigateTo = useNavigate();
   const [favorite, setFavorite] = useState(false);
 
@@ -18,14 +29,16 @@ function AppEventsItem(props) {
   const userCtx = useContext(userContext);
   const reqCtx = useContext(requestContext);
 
+  const date = new Date(event.planned).toLocaleDateString();
+
   useEffect(() => {
     const conv = async () => {
       const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
       const converted = await reqCtx.convertResponse(response);
 
+      console.log('CONVERTERD', converted);
+
       for (let i = 0; i < converted.length; i++) {
-        // console.log(converted[i].title);
-        // console.log(converted[i].comment);
         if (converted[i].id === selectedId.id) {
           if (converted[i].likes === 1) {
             setFavorite(true);
@@ -39,13 +52,12 @@ function AppEventsItem(props) {
   }, []);
 
   const goToEvent = () => {
-    // console.log(props);
-    localStorage.setItem('selectedId', JSON.stringify(props));
+    console.log(event);
+    localStorage.setItem('selectedId', JSON.stringify(event));
     navigateTo(`/events/selected`);
   };
 
   const toggleFavoriteStatusHandler = async () => {
-
     const timeElapsed = Date.now();
     const today = new Date(timeElapsed);
 
@@ -59,28 +71,39 @@ function AppEventsItem(props) {
   };
 
   return (
-    <li className={classes.card}>
-      <div className={classes.contentContainer}>
-        <div className={classes.contentDirection}>
-          <div className={classes.imageContainer}>
-            <img src={props.image} />
+    // component={Link} to={`/events/location/${city.id}`}
+    <>
+      <Card className="card-event">
+        <CardActionArea onClick={goToEvent}>
+          <CardMedia className="card-media" component="img" height="160" image={event.image} />
+        </CardActionArea>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {event.title}
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            {event.description}
+          </Typography>
+
+          <p>{event.city}</p>
+          <p>{event.address}</p>
+          <p>{date}</p>
+          <div className={classes.buttonListItem}>
+            <button onClick={toggleFavoriteStatusHandler}>{favorite ? 'Favorite' : 'UnFavorite'}</button>
+            <button onClick={goToEvent}>Go To Event</button>
           </div>
-          <div className={classes.textContainer}>
-            <h2>{props.title}</h2>
-            <div>{props.description}</div>
-            <p>{props.city}</p>
-            <p>{props.address}</p>
-            <p>{props.planned}</p>
-          </div>
-        </div>
-        <div className={classes.buttonListItem}>
-          <button onClick={toggleFavoriteStatusHandler}>
-            {favorite ? 'Favorite' : 'UnFavorite'}
-          </button>
-          <button onClick={goToEvent}>Go To Event</button>
-        </div>
-      </div>
-    </li>
+        </CardContent>
+
+        <CardActions disableSpacing>
+          <IconButton onClick={toggleFavoriteStatusHandler} aria-label="add to favorites">
+            <FavoriteIcon color={favorite ? 'primary' : 'disabled'} />
+          </IconButton>
+          <Button size="small" onClick={goToEvent}>
+            Go to event
+          </Button>
+        </CardActions>
+      </Card>
+    </>
 
     // <section>
     //
@@ -92,7 +115,7 @@ function AppEventsItem(props) {
     //             <h2>24 <br /><span>June</span></h2>
     //           </div>
     //           <div className={classes.details}>
-    //             <h3>{props.title}</h3>
+    //             <h3>{event.title}</h3>
     //             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
     //               Aperiam consectetur excepturi incidunt labore, mollitia
     //               natus
@@ -111,7 +134,7 @@ function AppEventsItem(props) {
     //   </div>
     //   {/*<div className={classes.events}>*/}
     //   {/*  <div className={classes.content}>*/}
-    //   {/*    <h1>{props.title}</h1>*/}
+    //   {/*    <h1>{event.title}</h1>*/}
     //   {/*    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis*/}
     //   {/*      fugit magnam maxime minus praesentium sequi sunt? Accusantium alias,*/}
     //   {/*      distinctio error odio omnis optio quam vero. Ad ea harum iure*/}
@@ -120,19 +143,18 @@ function AppEventsItem(props) {
     //   {/*</div>*/}
     // </section>
 
-
     // <li className={classes.listItem}>
     //   {/*<AppCard>*/}
     //   <li className={classes.innerItem}>
     //     <div className={classes.image}>
-    //       <img src={props.image} alt={props.title} />
+    //       <img src={event.image} alt={event.title} />
     //     </div>
     //     <div className={classes.textContent}>
     //       <div className={classes.content}>
-    //         <h3>Title: {props.title}</h3>
-    //         <address>Address: {props.address}</address>
-    //         <p>City: {props.city}</p>
-    //         <p> Description: {props.description}</p>
+    //         <h3>Title: {event.title}</h3>
+    //         <address>Address: {event.address}</address>
+    //         <p>City: {event.city}</p>
+    //         <p> Description: {event.description}</p>
     //       </div>
     //     </div>
     //   </li>
@@ -150,27 +172,27 @@ export default AppEventsItem;
 
 //
 // const goToActivity = () => {
-//   // console.log(props);
+//   // console.log(event);
 //   selectedActivityCtx.activitySelected({
-//     id: props.id,
-//     title: props.title,
-//     description: props.description,
-//     image: props.image,
-//     address: props.address,
-//     city: props.city,
-//     rating: props.rating,
+//     id: event.id,
+//     title: event.title,
+//     description: event.description,
+//     image: event.image,
+//     address: event.address,
+//     city: event.city,
+//     rating: event.rating,
 //   });
 //   navigateTo('/event');
 // };
 // if (itemIsFavorite) {
-//   favoritesCtx.removeFavorite(props.id);
+//   favoritesCtx.removeFavorite(event.id);
 // } else {
 //   favoritesCtx.addFavorite({
-//     id: props.id,
-//     title: props.title,
-//     description: props.description,
-//     image: props.image,
-//     address: props.address,
-//     city: props.city,
+//     id: event.id,
+//     title: event.title,
+//     description: event.description,
+//     image: event.image,
+//     address: event.address,
+//     city: event.city,
 //   });
 // }
