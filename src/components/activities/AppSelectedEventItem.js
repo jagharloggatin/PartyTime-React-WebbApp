@@ -98,9 +98,11 @@ function AppSelectedEventItem(props) {
         <div className={classes.innerItem}>
           <h2>{selectedId.title}</h2>
           <div className={classes.placeInfo}>
-            <address>{selectedId.address}</address>
             <DateRange fontSize="large" />
             <p style={{ marginLeft: '5px' }}>{selectedId.planned}</p>
+          </div>
+          <div>
+            <address>{selectedId.address}</address>
           </div>
           <div className={classes.placeInfo}>{selectedId.description}</div>
         </div>

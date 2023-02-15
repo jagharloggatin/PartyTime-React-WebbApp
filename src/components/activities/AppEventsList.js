@@ -21,7 +21,9 @@ function AppEventsList() {
       setIsLoading(false);
     };
     conv();
+
   }, []);
+
 
   if (isLoading) {
     return (
@@ -30,16 +32,23 @@ function AppEventsList() {
       </div>
     );
   }
+  console.log(loadedEvents);
+
   return (
     <ul className={classes.list}>
-      {loadedEvents.map((event) => (
+
+      {/*{loadedEvents.location.map((location) => (*/}
+
+      {/*))*/}
+
+        {loadedEvents.map((event) => (
         <AppEventsItem
           key={uniqId()}
           id={event.id}
           image={event.image}
           title={event.title}
           city={event.city}
-          address={event.address}
+          address={event.location.address}
           planned={event.planned}
           description={event.description}
           comment={[event.comments]}

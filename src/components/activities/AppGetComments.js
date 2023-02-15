@@ -17,12 +17,7 @@ function AppGetComments() {
     const conv = async () => {
       setIsLoading(true);
       const response = await reqCtx.getRequest(`https://localhost:7215/events/${selectedId.id}`);
-      // console.log("HEJ");
-      // console.log(response);
       const converted = await response.json();
-      // console.log("HEJ");
-      // console.log(converted);
-
       setLoadedComments(converted);
       setIsLoading(false);
     };
