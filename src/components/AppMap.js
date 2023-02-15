@@ -10,6 +10,7 @@ import RequestContext from 'store/RequestContext';
 import gridIcon from '../icons/grid.svg';
 import plusIcon from '../icons/plus.svg';
 import searchIcon from '../icons/search.svg';
+import AppFavoriteEventsList from './activities/AppGetReviews';
 import AppNewEvent from './activities/AppNewEvent';
 import AppSelectedEventItem from './activities/AppSelectedEventItem';
 import Logo from './AppLogo';
@@ -19,51 +20,56 @@ const AppMap = () => {
   const reqCtx = useContext(RequestContext);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [predictionsResult, setPredictionsResult] = useState([]);
-  const [inputText, setInputText] = useState("");
-  const [mapState, setMapState] = useState({center:{lat: 59.330936, lng: 18.071644}, zoom: 14 });
-  const [modalOpen, setModalOpen] = useState(false)
-  const [modalContent, setModalContent] = useState("");
+  const [inputText, setInputText] = useState('');
+  const [mapState, setMapState] = useState({ center: { lat: 59.330936, lng: 18.071644 }, zoom: 14 });
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState('');
   const [map, setMap] = useState({});
-  const [eventID, setEventID] = useState("apa")
-  
+  const [eventID, setEventID] = useState('apa');
 
   const CustomButton = (props) => {
     return (
-      <div onClick={() => {setModalOpen(true); setModalContent(props.modal)}} className={classes.custombutton} style={{ width: `${props.size}px`, height: `${props.size}px`, ...props.style }}>
+      <div
+        onClick={() => {
+          setModalOpen(true);
+          setModalContent(props.modal);
+        }}
+        className={classes.custombutton}
+        style={{ width: `${props.size}px`, height: `${props.size}px`, ...props.style }}
+      >
         {props.children}
       </div>
     );
   };
 
-
   useEffect(() => {
-    const newmap = new window.google.maps.Map(document.getElementById("mapDiv"), {
+    const newmap = new window.google.maps.Map(document.getElementById('mapDiv'), {
       zoom: mapState.zoom,
       center: mapState.center,
       disableDefaultUI: true,
-      mapId:'bd0bdf809da55ccb',
+      mapId: 'bd0bdf809da55ccb',
     });
 
-    setMap(newmap)
-      
+    setMap(newmap);
 
     const showMarkers = async () => {
-      const req  = await reqCtx.getRequest(ENDPOINTS.getEvents)
-      const res = await req.json()
+      const req = await reqCtx.getRequest(ENDPOINTS.getEvents);
+      const res = await req.json();
 
-      res.forEach(x => {
-        const contentString = `<div class="infoWindow">` +
+      res.forEach((x) => {
+        const contentString =
+          `<div class="infoWindow">` +
           `<div class='infoWindow-left'><img src='${x.image}' alt='${x.title}'/></div>` +
           `<div class='infoWindow-right'>` +
-            `<h2>${x.title}</h2>`+
-            `<div>${x.description}</div>` +
+          `<h2>${x.title}</h2>` +
+          `<div>${x.description}</div>` +
           `</div>` +
-          `</div>`
+          `</div>`;
 
-        const pos = {lat: x.location.latitude, lng: x.location.longitude} 
+        const pos = { lat: x.location.latitude, lng: x.location.longitude };
 
         const popUp = new window.google.maps.InfoWindow({
-          content: contentString
+          content: contentString,
         });
         const marker = new window.google.maps.Marker({
           position: pos,
@@ -71,64 +77,68 @@ const AppMap = () => {
           map: newmap,
           icon: './assets/party.png',
         });
-  
+
         // Add a click listener for each marker, and set up the info window.
         marker.addListener('mouseover', () => {
           popUp.setContent(contentString);
           popUp.open(marker.getMap(), marker);
         });
-  
+
         marker.addListener('mouseout', () => {
           popUp.close();
         });
-  
+
         // start modal
         marker.addListener('click', () => {
-          localStorage.setItem('selectedId', JSON.stringify(x))
-          setModalContent("selected");
-          setModalOpen(true)
+          localStorage.setItem('selectedId', JSON.stringify(x));
+          setModalContent('selected');
+          setModalOpen(true);
         });
       });
-    }
+    };
 
-    showMarkers()
-  }, [mapState, modalOpen])
+    showMarkers();
+  }, [mapState, modalOpen]);
 
   const displaySuggestions = function (predictions, status) {
     if (status != window.google.maps.places.PlacesServiceStatus.OK || !predictions) {
       alert(status);
       return;
     }
-    console.log(predictions)
-    setPredictionsResult(predictions)
+    console.log(predictions);
+    setPredictionsResult(predictions);
   };
 
   return (
     <div>
       <Modal
         open={modalOpen}
-        onClose={() => {setModalOpen(false)}}
+        onClose={() => {
+          setModalOpen(false);
+        }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <div className={classes.modalcontainer}>
-            {modalContent === "grid" ? <HomeRoute/> : null}
-            {modalContent === "add" ? <AppNewEvent  setMapState={setMapState} setModalOpen={setModalOpen} gmap={map}/> : null}
-            {modalContent === "search" ? <div/> : null}
-            {modalContent === "selected" ? <AppSelectedEventItem/> : null}
+          {modalContent === 'grid' ? <HomeRoute /> : null}
+          {modalContent === 'add' ? (
+            <AppNewEvent setMapState={setMapState} setModalOpen={setModalOpen} gmap={map} />
+          ) : null}
+          {modalContent === 'search' ? <AppFavoriteEventsList /> : null}
+          {modalContent === 'selected' ? <AppSelectedEventItem /> : null}
         </div>
       </Modal>
       <div className={classes.autocompletewrapper}>
-        <AutoCompleteInput gmap={map} disabled={false} setMapState={setMapState}/>
-        </div>
+        <AutoCompleteInput gmap={map} disabled={false} setMapState={setMapState} />
+      </div>
       <div className={classes['control-container']}>
-        <CustomButton size={40} modal={"grid"}>
+        <CustomButton size={40} modal={'grid'}>
           <img src={gridIcon} alt={'grid-view'} />
         </CustomButton>
-        <CustomButton size={80} modal={"add"} style={{ margin: '0 40px' }}>
+        <CustomButton size={80} modal={'add'} style={{ margin: '0 40px' }}>
           <img src={plusIcon} alt={'AddActivity'} />
         </CustomButton>
-        <CustomButton size={40} modal={"search"}>
+        <CustomButton size={40} modal={'search'}>
           <img src={searchIcon} alt={'Search'} />
         </CustomButton>
       </div>
