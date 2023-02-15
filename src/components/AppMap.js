@@ -109,7 +109,7 @@ const AppMap = () => {
     }
 
     showMarkers()
-  }, [mapState])
+  }, [mapState, modalOpen])
 
   const displaySuggestions = function (predictions, status) {
     if (status != window.google.maps.places.PlacesServiceStatus.OK || !predictions) {
@@ -130,7 +130,7 @@ const AppMap = () => {
       >
         <div className={classes.modalcontainer}>
             {modalContent === "grid" ? <HomeRoute/> : null}
-            {modalContent === "add" ? <AppNewEvent  setMapState={setMapState} gmap={map}/> : null}
+            {modalContent === "add" ? <AppNewEvent  setMapState={setMapState} setModalOpen={setModalOpen} gmap={map}/> : null}
             {modalContent === "search" ? <div/> : null}
             {modalContent === "selected" ? <AppSelectedEventItem/> : null}
         </div>
