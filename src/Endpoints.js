@@ -9,6 +9,8 @@ const ENDPOINTS = {
   
   getEvent: (id) => `https://${HOST}:${PORT}/events/${id}`,
   getEvents: `https://${HOST}:${PORT}/events`,
+  getEventReviews: (id) => `${URL}/reviews/event/${id}`,
+
   getLocationEvents: (location, locationId) => `https://${HOST}:${PORT}/events/${location}/${locationId}`,
   postEvent: `https://${HOST}:${PORT}/events`,
   getUserReviews: (userId) => `https://${HOST}:${PORT}/reviews/${userId}`,
