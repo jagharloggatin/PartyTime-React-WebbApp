@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import RequestContext, { convertResponse } from 'store/RequestContext';
+import { convertResponse, default as RequestContext, default as requestContext } from 'store/RequestContext';
+import ENDPOINTS from '../../Endpoints';
+import userContext from '../../store/UserContext';
 import classes from '../styles/AppSelectedEvent.module.css';
 import AppGetComments from './AppGetComments';
-import userContext from '../../store/UserContext';
-import requestContext from 'store/RequestContext';
-import ENDPOINTS from '../../Endpoints';
 
 function AppSelectedEventItem(props) {
   
@@ -15,7 +14,7 @@ function AppSelectedEventItem(props) {
   const [comment, setComment] = useState();
   const [comments, setComments] = useState([]);
   const selectedId = JSON.parse(localStorage.getItem('selectedId')) || [];
-  const [event, setEvent] = useState({});
+  const [event, setEvent] = useState({title: "", description: "", planned: "", address: "", image: ""});
 
   
 
@@ -31,32 +30,32 @@ function AppSelectedEventItem(props) {
     const event = async () => {
       const req = await reqCtx.getRequest(ENDPOINTS.getEvent(props.eventID))
       const json = await req.json()
-      console.log(json);
+      setEvent(json)
     }
 
     event();
 
+    
 
 
-
-    const conv = async () => {
-      const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
-      console.log(response);
-      const converted = await response.json();
-      for (let i = 0; i < converted.length; i++) {
-        // console.log(converted[i].title);
-        // console.log(converted[i].comment);
-        if (converted[i].id === selectedId.id) {
-          setComments(converted[i].comment);
-          if (converted[i].likes === 1) {
-            setFavorite(true);
-          } else {
-            setFavorite(false);
-          }
-        }
-      }
-    };
-    conv();
+    // const conv = async () => {
+    //   const response = await reqCtx.getRequest(ENDPOINTS.getEventReviews(props.eventID))
+    //   console.log(response);
+    //   const converted = await response.json();
+    //   for (let i = 0; i < converted.length; i++) {
+    //     // console.log(converted[i].title);
+    //     // console.log(converted[i].comment);
+    //     if (converted[i].id === selectedId.id) {
+    //       setComments(converted[i].comment);
+    //       if (converted[i].likes === 1) {
+    //         setFavorite(true);
+    //       } else {
+    //         setFavorite(false);
+    //       }
+    //     }
+    //   }
+    // };
+    // conv();
   }, []);
 
   const toggleFavoriteStatusHandler = async () => {
@@ -109,16 +108,16 @@ function AppSelectedEventItem(props) {
     <div className={classes.listItem}>
       <div>
         <div className={classes.imageContainer}>
-          <img src={selectedId.image} alt={selectedId.title} />
+          <img src={event.image} alt={event.title} />
         </div>
         {
           show ? <div className={classes.innerItem}>
-            <h2>{selectedId.title}</h2>
+            <h2>{event.title}</h2>
             <div className={classes.placeInfo}>
-              <address>{selectedId.address}</address>
-              <p>{selectedId.planned}</p>
+              <address>{event.address}</address>
+              <p>{event.planned}</p>
             </div>
-            <div className={classes.description}>{selectedId.description}</div>
+            <div className={classes.description}>{event.description}</div>
           </div> : null
         }
         {

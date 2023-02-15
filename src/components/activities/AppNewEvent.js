@@ -135,4 +135,4 @@ function AppNewEvent(props) {
   </div>;
 }
 
-export default AppNewEvent;
+export default AppNewEvent

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import RequestContext from '../../store/RequestContext';
 import uniqId from '../../uniq';
 import classes from '../styles/AppEventsList.module.css';
 import AppEventsItem from './AppEventsItem';
-import RequestContext from '../../store/RequestContext';
-import { useParams } from 'react-router-dom';
 
 function AppEventsList() {
 
