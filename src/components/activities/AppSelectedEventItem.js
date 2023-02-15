@@ -104,6 +104,9 @@ function AppSelectedEventItem(props) {
     setComment(e.target.value);
   };
 
+  const date = selectedId.planned.split("T")
+  const newdate = date[0];
+
   return (
     <div className={classes.listItem}>
       <div className={classes.description}>
@@ -118,7 +121,7 @@ function AppSelectedEventItem(props) {
             <div className={classes.upperInfo}>
               <div className={classes.placeInfo}>
                 <DateRange fontSize='large' />
-                <p style={{ marginLeft: '5px' }}>{selectedId.planned}</p>
+                <p style={{ marginLeft: '5px' }}>{newdate}</p>
               </div>
               <div className={classes.placeInfo}>
                 <Place fontSize='large' />

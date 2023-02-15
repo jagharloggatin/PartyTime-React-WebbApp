@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import LocationContext from 'store/LocationContext';
 import RequestContext from 'store/RequestContext';
 import ENDPOINTS from '../../Endpoints';
-import classes from '../styles/AppNewEvent.module.css';
 import ErrorAlert from '../ErrorAlert';
+import classes from '../styles/AppNewEvent.module.css';
 import SuccessAlert from '../SuccessAlert';
 
 
@@ -80,12 +80,12 @@ function AppNewEvent(props) {
         <AppLogo />
       </div>
       <div className={classes.addactivityinnerwrapper}>
-        <div className={classes.addactivityleft}>
+        {/* <div className={classes.addactivityleft}>
           <div className={classes.addactivityleftinner}>
             <div className={classes.chosenimage}></div>
             <input type="file" />
           </div>
-        </div>
+        </div> */}
         <div className={classes.addactivityright}>
           <form className={classes.form} onSubmit={submitHandler}>
             <div className={classes.control}>
@@ -110,7 +110,7 @@ function AppNewEvent(props) {
             </div>
 
             <div className={classes.control}>
-              <label htmlFor="description">Description</label>z
+              <label htmlFor="description">Description</label>
               <textarea className={classes.description} id="description" required rows="5" ref={descriptionInputRef} />
             </div>
             <div className={classes.actions}></div>

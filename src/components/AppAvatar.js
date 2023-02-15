@@ -40,14 +40,13 @@ export default function AppAvatar() {
   const getImage = async () => {
     if (userCtx.IsLoggedIn()) {
       const res = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userID))
-    const json = await res.json()
+      const json = await res.json()
 
-    if (res.ok) {
-      setUser(json)
-    } else {
-    }
-    } else {
-    }
+      if (res.ok) {
+        setUser(json)
+      } 
+    } 
+    
   }
 
   useEffect(() => {
