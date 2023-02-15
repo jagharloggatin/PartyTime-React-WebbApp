@@ -33,7 +33,6 @@ function AppSelectedEventItem(props) {
   const reqCtx = useContext(RequestContext);
   const navigateTo = useNavigate();
 
-
   useEffect(() => {
     const conv = async () => {
       const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));

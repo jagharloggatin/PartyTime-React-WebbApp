@@ -7,6 +7,10 @@ import LocationContext from 'store/LocationContext';
 import RequestContext from 'store/RequestContext';
 import ENDPOINTS from '../../Endpoints';
 import classes from '../styles/AppNewEvent.module.css';
+import ErrorAlert from '../ErrorAlert';
+import SuccessAlert from '../SuccessAlert';
+
+
 
 function AppNewEvent(props) {
   const locCtx = useContext(LocationContext);
@@ -14,6 +18,8 @@ function AppNewEvent(props) {
   const imageInputRef = useRef(null);
   const descriptionInputRef = useRef(null);
   const dateInputRef = useRef(null);
+  const errorAlertRef = useRef(null);
+  const successAlertRef = useRef(null);
   // const ratingInputRef = useRef(null);
   const navigateTo = useNavigate();
 
@@ -24,6 +30,15 @@ function AppNewEvent(props) {
 
   async function submitHandler(e) {
     e.preventDefault();
+
+    if(titleInputRef ||
+      imageInputRef ||
+      descriptionInputRef ||
+      dateInputRef ||
+      errorAlertRef ||
+      successAlertRef === null){
+      errorAlertRef.current.update('You need to fill in the required fields');
+    }
 
     // const plan = new Date(dateInputRef)
     // const planned = dateInputRef.toISIOstring();
@@ -46,16 +61,21 @@ function AppNewEvent(props) {
     }; // End of event to be posted
 
     const res = await reqCtx.postRequest(ENDPOINTS.postEvent, event);
+
     if (res.ok) {
-      alert("Added new event");
+      successAlertRef.current.update('Congratulations Your New Event Has Been Created!');
+      // alert("Added new event");
       props.setModalOpen(false)
     } else {
-      alert("Error adding event")
+      errorAlertRef.current.update('Something Went Wrong!');
+      // alert("Error adding event")
     }
   }
 
   return (
     <div className={classes.addactivityouterwrapper}>
+      <ErrorAlert ref={errorAlertRef}></ErrorAlert>
+      <SuccessAlert ref={successAlertRef}></SuccessAlert>
       <div className={classes.topbar}>
         <AppLogo />
       </div>
