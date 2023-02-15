@@ -34,7 +34,7 @@ export default function AppAvatar() {
   const navigateTo = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({profileImage: ""});
 
 
   const getImage = async () => {
@@ -45,10 +45,8 @@ export default function AppAvatar() {
     if (res.ok) {
       setUser(json)
     } else {
-      setUser(null)
     }
     } else {
-      setUser(null)
     }
   }
 
