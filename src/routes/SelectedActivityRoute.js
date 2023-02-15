@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import ENDPOINTS from '../Endpoints';
-import classes from '../components/styles/Headlines.module.css';
-import AppSelectedEventItem  from '../components/activities/AppSelectedEventItem';
+import React from 'react';
+import AppSelectedEventItem from '../components/activities/AppSelectedEventItem';
 
-function SelectedActivityRoute(){
-
-
-  return <section>
-    {/*<h1 className={classes.wrapper}>Selected Activity</h1>*/}
-    <AppSelectedEventItem/>
-    {/*<AppSelectedEventItem props={event}/>*/}
-  </section>
+function SelectedActivityRoute() {
+  return (
+    <section>
+      {/*<h1 className={classes.wrapper}>Selected Activity</h1>*/}
+      <AppSelectedEventItem />
+      {/*<AppSelectedEventItem props={event}/>*/}
+    </section>
+  );
 }
 
 export default SelectedActivityRoute;
-
 
 // fetch(
 //   `https://testfirebase-again-default-rtdb.firebaseio.com/meetups.json/${props}`,
@@ -28,7 +24,6 @@ export default SelectedActivityRoute;
 // console.log(selectedActivityCtx.activity);
 //
 //   content = <AppSelectedActivityList meetups={selectedActivityCtx.activity}/>;
-
 
 // const params = useParams();
 // const [event, setEvent] = useState(null);

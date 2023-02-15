@@ -1,10 +1,8 @@
 import { Card } from '@mui/material';
-import AppProfile from 'components/AppProfile';
 import ENDPOINTS from 'Endpoints';
 import React, { useContext, useEffect, useState } from 'react';
 import RequestContext from 'store/RequestContext';
 import UserContext from 'store/UserContext';
-import HomeRoute from './HomeRoute';
 
 function ProfileReviewsTab() {
   const reqCtx = useContext(RequestContext);

@@ -1,12 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import RequestContext from 'store/RequestContext';
-import ENDPOINTS from '../../Endpoints';
-import requestContext from '../../store/RequestContext';
 import userContext from '../../store/UserContext';
 import uniqId from '../../uniq';
 import classes from '../styles/Headlines.module.css';
 import AppCommentItem from './AppCommentItem';
-import AppEventsItem from './AppEventsItem';
 
 function AppGetComments() {
   const [isLoading, setIsLoading] = useState(false);

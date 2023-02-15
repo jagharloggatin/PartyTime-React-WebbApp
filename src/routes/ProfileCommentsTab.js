@@ -1,4 +1,3 @@
-import AppTab from 'components/AppTab';
 import ENDPOINTS from 'Endpoints';
 import React, { useContext, useEffect, useState } from 'react';
 import RequestContext from 'store/RequestContext';

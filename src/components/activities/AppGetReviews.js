@@ -1,38 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react';
 import RequestContext from 'store/RequestContext';
-import FavoritesContext from '../../store/FavoritesContext';
 import uniqId from '../../uniq';
 import classes from '../styles/Headlines.module.css';
 import AppEventsItem from './AppEventsItem';
-import AppEventsList from './AppEventsList';
-import AppSelectedEventItem from './AppSelectedEventItem';
 
-function AppGetReviews(){
-
-  const reqCtx = useContext(RequestContext)
-  const[isLoading, setIsLoading] = useState(true);
-  const[loadedFavorites, setLoadedFavorites] = useState([]);
+function AppGetReviews() {
+  const reqCtx = useContext(RequestContext);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadedFavorites, setLoadedFavorites] = useState([]);
 
   useEffect(() => {
     const conv = async () => {
       setIsLoading(true);
-      const response = await reqCtx.getRequest("https://localhost:7215/reviews/1")
+      const response = await reqCtx.getRequest('https://localhost:7215/reviews/1');
       console.log(response);
-      const converted = await reqCtx.convertResponse(response)
+      const converted = await reqCtx.convertResponse(response);
       console.log(converted);
       setLoadedFavorites(converted);
       setIsLoading(false);
-    }
+    };
     conv();
   }, []);
   // console.log("HAR AER FALOAD");
   //
   console.log(loadedFavorites);
   // console.log("HAR AER FALOAD");
-  if(isLoading){
-    return <div className={classes.wrapper}>
-      <h2 className={classes.content}>Loading...</h2>
-    </div>
+  if (isLoading) {
+    return (
+      <div className={classes.wrapper}>
+        <h2 className={classes.content}>Loading...</h2>
+      </div>
+    );
   }
 
   return (

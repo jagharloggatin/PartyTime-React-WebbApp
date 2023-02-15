@@ -1,7 +1,6 @@
 import { Comment, CommentsDisabled, DateRange, Favorite, HeartBroken, Send } from '@mui/icons-material';
 import { Button, TextField } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import RequestContext from 'store/RequestContext';
 import ENDPOINTS from '../../Endpoints';
 import userContext from '../../store/UserContext';
