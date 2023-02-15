@@ -3,6 +3,7 @@ import Card from '@mui/material/Card';
 import React from 'react';
 import classes from '../styles/AppEvents.module.css';
 import AppCard from '../ui/AppCard';
+import { Remove } from '@mui/icons-material';
 
 function AppCommentItem(props) {
   // console.log(props);
@@ -13,6 +14,7 @@ function AppCommentItem(props) {
           <Avatar sx={{ marginRight: '5px' }}></Avatar>
           <span style={{ marginRight: '1rem', color: 'gray', fontSize: '16px' }}>{props.comment.username}</span>
           <span style={{ fontSize: '16px' }}>{props.comment.comment}</span>
+          <span><Remove/></span>
         </div>
       </Card>
     </AppCard>
