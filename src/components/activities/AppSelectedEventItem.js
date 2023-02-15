@@ -9,23 +9,30 @@ import {
 } from '@mui/icons-material';
 
 import { Button, TextField } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import RequestContext from 'store/RequestContext';
 import ENDPOINTS from '../../Endpoints';
 import userContext from '../../store/UserContext';
 import classes from '../styles/AppSelectedEvent.module.css';
 import AppGetComments from './AppGetComments';
 import { useNavigate } from 'react-router-dom';
+import ErrorAlert from '../SuccessAlert';
+import SuccessAlert from '../ErrorAlert';
+
 
 function AppSelectedEventItem(props) {
   const [show, setShow] = useState(true);
   const [favorite, setFavorite] = useState(false);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
   const selectedId = JSON.parse(localStorage.getItem('selectedId')) || [];
-
+  let content = <AppGetComments />;
+  const successAlertRef = useRef(null);
+  const errorAlertRef = useRef(null);
   const userCtx = useContext(userContext);
   const reqCtx = useContext(RequestContext);
+  const navigateTo = useNavigate();
+
 
   useEffect(() => {
     const conv = async () => {
@@ -62,6 +69,14 @@ function AppSelectedEventItem(props) {
   };
 
   async function onCommentSubmit(e) {
+
+    if(!userCtx.IsLoggedIn()){
+      successAlertRef.current.update('You are not logged in and will be transferred to login page');
+      setTimeout(() => {
+      navigateTo('/login')
+      },1500)
+    }
+
     e.preventDefault();
     setComments((comments) => [...comments, comment]);
 
@@ -70,9 +85,15 @@ function AppSelectedEventItem(props) {
       Comment: comment,
       Created: new Date(Date.now()).toISOString(),
     };
-
     const res = await reqCtx.postRequest(ENDPOINTS.postReview(selectedId.id), data);
+
     console.log(res.status);
+
+    if(res.status !== 200){
+      successAlertRef.current.update('Something Went Wrong! Hehe');
+    }else {
+      errorAlertRef.current.update('You Posted a Comment, What A Lad :O');
+    }
   }
 
   const getComments = () => {
@@ -91,6 +112,8 @@ function AppSelectedEventItem(props) {
           <div className={classes.imageContainer}>
             <img src={selectedId.image} alt={selectedId.title} />
           </div>
+          <SuccessAlert ref={successAlertRef}></SuccessAlert>
+          <ErrorAlert ref={errorAlertRef}></ErrorAlert>
           <div className={classes.innerItem}>
             <h2>{selectedId.title}</h2>
             <div style={{ marginTop: '.2rem' }}>
@@ -133,7 +156,6 @@ function AppSelectedEventItem(props) {
                 marginTop: '1rem',
                 marginBottom: '1rem',
               }}
-
             >
 
               <TextField onChange={onCommentChange} variant='filled'
@@ -142,7 +164,7 @@ function AppSelectedEventItem(props) {
                 <Send />
               </Button>
             </div>
-            <AppGetComments />
+            {content}
           </div>
         )}
       </div>
@@ -154,27 +176,4 @@ function AppSelectedEventItem(props) {
 
 export default AppSelectedEventItem;
 
-/* await fetch(
-      `https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      },
-    );*/
 
-// if (itemIsFavorite) {
-//   favoritesCtx.removeFavorite(props.id);
-// } else {
-//   favoritesCtx.addFavorite({
-//     id: props.id,
-//     title: props.title,
-//     description: props.description,
-//     image: props.image,
-//     address: props.address,
-//     city: props.city,
-//     // rating: props.rating,
-//   });
-// }
