@@ -11,19 +11,19 @@ import { FavoritesContextProvider } from './store/FavoritesContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <LocationContextProvider>
-    <StorageContextProvider>
-      <UserContextProvider>
-        <RequestContextProvider>
-          <FavoritesContextProvider>
-            <BrowserRouter>
+  <BrowserRouter>
+    <LocationContextProvider>
+      <StorageContextProvider>
+        <UserContextProvider>
+          <RequestContextProvider>
+            <FavoritesContextProvider>
               <App />
-            </BrowserRouter>
-          </FavoritesContextProvider>
-        </RequestContextProvider>
-      </UserContextProvider>
-    </StorageContextProvider>
-  </LocationContextProvider>
+            </FavoritesContextProvider>
+          </RequestContextProvider>
+        </UserContextProvider>
+      </StorageContextProvider>
+    </LocationContextProvider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

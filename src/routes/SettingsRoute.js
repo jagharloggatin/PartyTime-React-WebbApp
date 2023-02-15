@@ -2,13 +2,14 @@ import AppEditPassword from 'components/AppEditPassword';
 import AppEditProfile from 'components/AppEditProfile';
 import ErrorAlert from 'components/ErrorAlert';
 import SuccessAlert from 'components/SuccessAlert';
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import UserContext from 'store/UserContext';
 
 function SettingsRoute() {
   const successAlertRef = useRef(null);
   const errorAlertRef = useRef(null);
   const userCtx = useContext(UserContext);
+
   return (
     <div className="page">
       <SuccessAlert ref={successAlertRef} />
@@ -17,15 +18,15 @@ function SettingsRoute() {
       <h2>Profile settings</h2>
       <AppEditProfile
         userId={userCtx.ReadJWT().userID}
-        displaySuccess={successAlertRef.current}
-        displayError={errorAlertRef.current}
+        displaySuccess={successAlertRef}
+        displayError={errorAlertRef}
       ></AppEditProfile>
 
       <h2>Change password</h2>
       <AppEditPassword
         userId={userCtx.ReadJWT().userID}
-        displaySuccess={successAlertRef.current}
-        displayError={errorAlertRef.current}
+        displaySuccess={successAlertRef}
+        displayError={errorAlertRef}
       ></AppEditPassword>
     </div>
   );

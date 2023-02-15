@@ -1,4 +1,5 @@
 import React, { createContext, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import UserContext from './UserContext';
 
 //Refrenace methods to be shown in intellisense
@@ -13,6 +14,7 @@ const RequestContext = createContext({
 
 export function RequestContextProvider(props) {
   const userCtx = useContext(UserContext);
+  const navigateTo = useNavigate();
 
   async function postRequestNoJwt(endpoint, body) {
     const headers = { 'content-type': 'application/json' };
@@ -35,18 +37,33 @@ export function RequestContextProvider(props) {
       headers: headers,
       body: JSON.stringify(body),
     });
+
+    // Unauthorized - Redirect to login
+    if (response.status === 401) {
+      userCtx.LogOutUser();
+      navigateTo('/login');
+      return;
+    }
     return response;
   }
 
-  async function putRequest(endpoint, body) {
-    const headers = { 'content-type': 'application/json' };
-    if (userCtx.IsLoggedIn) headers.Authorization = `Bearer ${userCtx.ReadJWT().jwt}`;
+  async function putRequest(endpoint, body, enforceLogout = true) {
+    const headers = new Headers({ 'content-type': 'application/json' });
 
-    await fetch(endpoint, {
+    if (userCtx.IsLoggedIn) headers.append('authorization', `Bearer ${userCtx.ReadJWT().jwt}`);
+
+    const response = await fetch(endpoint, {
       method: 'put',
-      headers: new Headers(headers),
+      headers: headers,
       body: JSON.stringify(body),
     });
+    // Unauthorized - Redirect to login
+    if (enforceLogout && response.status === 401) {
+      userCtx.LogOutUser();
+      navigateTo('/login');
+      return;
+    }
+    return response;
   }
 
   async function getRequest(endpoint) {
@@ -57,10 +74,19 @@ export function RequestContextProvider(props) {
     const headers = { 'content-type': 'application/json' };
     if (userCtx.IsLoggedIn) headers.Authorization = `Bearer ${userCtx.ReadJWT().jwt}`;
 
-    return await fetch(endpoint, {
+    const response = await fetch(endpoint, {
       method: 'post',
       headers: new Headers(headers),
     });
+
+    // Unauthorized - Redirect to login
+    if (response.status === 401) {
+      userCtx.LogOutUser();
+      navigateTo('/login');
+      return;
+    }
+
+    return response;
   }
 
   async function convertResponse(response) {

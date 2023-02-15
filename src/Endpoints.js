@@ -6,7 +6,7 @@ const ENDPOINTS = {
   login: `https://${HOST}:${PORT}/auth/login`,
   register: `https://${HOST}:${PORT}/users`,
   checkUsername: (un) => `https://${HOST}:${PORT}/check/username/${un}`,
-  
+
   getEvent: (id) => `https://${HOST}:${PORT}/events/${id}`,
   getEvents: `https://${HOST}:${PORT}/events`,
   getEventReviews: (id) => `${URL}/reviews/event/${id}`,
@@ -21,7 +21,7 @@ const ENDPOINTS = {
   getUser: (id) => `${URL}/users/${id}`,
 
   editUser: (id) => `${URL}/users/${id}`,
-  changePassword: `${URL}/users/password`,
+  changePassword: `${URL}/users/password/update`,
 };
 
 export default ENDPOINTS;
