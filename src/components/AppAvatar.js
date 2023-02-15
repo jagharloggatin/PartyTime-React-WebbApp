@@ -28,28 +28,27 @@ const style = {
 export default function AppAvatar() {
   const reqCtx = useContext(RequestContext)
   const userCtx = useContext(UserContext)
-  const [image, setImage] = useState();
-
 
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const navigateTo = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [user, setUser] = useState({});
+
 
   const getImage = async () => {
     if (userCtx.IsLoggedIn()) {
       const res = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userID))
     const json = await res.json()
-    const image = json.profileImage
 
     if (res.ok) {
-      setImage(image)
+      setUser(json)
     } else {
-      setImage(null)
+      setUser(null)
     }
     } else {
-      setImage(null)
+      setUser(null)
     }
   }
 
@@ -67,7 +66,8 @@ export default function AppAvatar() {
     <SwipeableDrawer anchor="right" open={open} onClose={handleClose} onOpen={handleOpen}>
       <div className={styles.drawer}>
         <List>
-        <div className="flyoutimage" style={{backgroundImage: `url(${image})`}}/>
+        <div className="flyoutimage" style={{backgroundImage: `url(${user.profileImage})`}}/>
+        <p>{}</p>
 
           {userCtx.IsLoggedIn() && (
             <div>
@@ -85,7 +85,7 @@ export default function AppAvatar() {
         {userCtx.IsLoggedIn() && (
           <div>
             <List>
-              <AppMenuItem sx={{backgroundColor: '#d60000'}} icon={<LogoutIcon />} name="Logout" onClick={logout}></AppMenuItem>
+              <AppMenuItem icon={<LogoutIcon />} name="Logout" onClick={logout}></AppMenuItem>
             </List>
           </div>
         )}
@@ -95,7 +95,7 @@ export default function AppAvatar() {
 
   return (
     <>
-      <Avatar src={image} onClick={handleOpen}></Avatar>
+      <Avatar src={user.profileImage} onClick={handleOpen}></Avatar>
       {drawer}
     </>
   );

@@ -111,7 +111,11 @@ const AppMap = () => {
 
   return (
     <div>
-      <Modal
+      <Modal 
+        sx={{
+          backgroundImage: "linear-gradient(#1976d2 80, #ff9900 80)"
+
+        }}
         open={modalOpen}
         onClose={() => {
           setModalOpen(false);

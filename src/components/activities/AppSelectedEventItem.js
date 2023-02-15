@@ -5,19 +5,19 @@ import {
   DateRange, Description, EighteenUpRatingRounded,
   Favorite,
   HeartBroken, LocationCity, Pin, PinRounded, Place,
-  Send,
+  Send
 } from '@mui/icons-material';
 
 import { Button, TextField } from '@mui/material';
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import RequestContext from 'store/RequestContext';
 import ENDPOINTS from '../../Endpoints';
 import userContext from '../../store/UserContext';
-import classes from '../styles/AppSelectedEvent.module.css';
-import AppGetComments from './AppGetComments';
-import { useNavigate } from 'react-router-dom';
-import ErrorAlert from '../SuccessAlert';
 import SuccessAlert from '../ErrorAlert';
+import classes from '../styles/AppSelectedEvent.module.css';
+import ErrorAlert from '../SuccessAlert';
+import AppGetComments from './AppGetComments';
 
 
 function AppSelectedEventItem(props) {
@@ -114,7 +114,22 @@ function AppSelectedEventItem(props) {
           <SuccessAlert ref={successAlertRef}></SuccessAlert>
           <ErrorAlert ref={errorAlertRef}></ErrorAlert>
           <div className={classes.innerItem}>
-            <h2>{selectedId.title}</h2>
+            <h1>{selectedId.title}</h1>
+            <div className={classes.upperInfo}>
+              <div className={classes.placeInfo}>
+                <DateRange fontSize='large' />
+                <p style={{ marginLeft: '5px' }}>{selectedId.planned}</p>
+              </div>
+              <div className={classes.placeInfo}>
+                <Place fontSize='large' />
+                <address>{selectedId.location.address}</address>
+              </div>
+            </div>
+            
+            <div className={classes.placeInfo}>
+              <Description fontSize='large' />
+              <div className={classes.placeInfo}>{selectedId.description}</div>
+            </div>
             <div style={{ marginTop: '.2rem' }}>
               <Button
                 onClick={toggleFavoriteStatusHandler}
@@ -128,18 +143,6 @@ function AppSelectedEventItem(props) {
                 {show ? <Comment></Comment> :
                   <CommentsDisabled></CommentsDisabled>}
               </Button>
-            </div>
-            <div className={classes.placeInfo}>
-              <DateRange fontSize='large' />
-              <p style={{ marginLeft: '5px' }}>{selectedId.planned}</p>
-            </div>
-            <div className={classes.placeInfo}>
-              <Place fontSize='large' />
-              <address>{selectedId.location.address}</address>
-            </div>
-            <div className={classes.placeInfo}>
-              <Description fontSize='large' />
-              <div className={classes.placeInfo}>{selectedId.description}</div>
             </div>
           </div>
         </div>
