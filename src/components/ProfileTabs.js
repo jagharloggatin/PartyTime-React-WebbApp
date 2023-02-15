@@ -24,8 +24,8 @@ export default function ProfileTabs() {
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange}>
-            <LinkTab value="1" icon={<ThumbUp />} label="Liked" to="/profile/comments" />
-            <LinkTab value="2" icon={<CommentIcon />} label="Comments" to="/profile/review" />
+            <LinkTab value="1" icon={<ThumbUp />} label="Favorites" to="/profile" />
+            <LinkTab value="2" icon={<CommentIcon />} label="Reviews" to="/profile/reviews" />
           </TabList>
         </Box>
         <Outlet></Outlet>
