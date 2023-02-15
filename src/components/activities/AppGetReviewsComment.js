@@ -4,6 +4,7 @@ import RequestContext from 'store/RequestContext';
 import UserContext from 'store/UserContext';
 import uniqId from '../../uniq';
 import classes from '../styles/Headlines.module.css';
+import AppCommentItem from './AppCommentItem';
 import AppEventsItem from './AppEventsItem';
 
 function AppFavoriteEventsList({ variant }) {
@@ -40,7 +41,7 @@ function AppFavoriteEventsList({ variant }) {
   return (
     <div className="card-wrapper">
       {loadedFavorites.map((event) => (
-        <AppEventsItem key={uniqId()} event={event} variant={variant} />
+        <AppCommentItem key={uniqId()} event={event} variant={variant} />
       ))}
     </div>
   );
