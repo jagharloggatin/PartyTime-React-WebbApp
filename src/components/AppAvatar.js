@@ -5,8 +5,10 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Avatar, Divider, List, SwipeableDrawer } from '@mui/material';
+import ENDPOINTS from 'Endpoints';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import RequestContext from 'store/RequestContext';
 import UserContext from 'store/UserContext';
 import AppMenuItem from './AppMenuItem';
 import styles from './styles/AppAvatar.module.scss';
@@ -24,14 +26,35 @@ const style = {
 };
 
 export default function AppAvatar() {
+  const reqCtx = useContext(RequestContext)
+  const userCtx = useContext(UserContext)
+  const [image, setImage] = useState();
+
+
   const [open, setOpen] = useState(false);
-  const userCtx = useContext(UserContext);
   const location = useLocation();
   const navigateTo = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const getImage = async () => {
+    if (userCtx.IsLoggedIn()) {
+      const res = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userID))
+    const json = await res.json()
+    const image = json.profileImage
+
+    if (res.ok) {
+      setImage(image)
+    } else {
+      setImage(null)
+    }
+    } else {
+      setImage(null)
+    }
+  }
+
   useEffect(() => {
+    getImage();
     handleClose();
   }, [location]);
 
@@ -71,7 +94,7 @@ export default function AppAvatar() {
 
   return (
     <>
-      <Avatar onClick={handleOpen}></Avatar>
+      <Avatar src={image} onClick={handleOpen}></Avatar>
       {drawer}
     </>
   );

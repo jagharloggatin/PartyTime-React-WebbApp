@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import RequestContext from 'store/RequestContext';
-import userContext from '../../store/UserContext';
 import uniqId from '../../uniq';
 import classes from '../styles/Headlines.module.css';
 import AppCommentItem from './AppCommentItem';
@@ -8,9 +7,7 @@ import AppCommentItem from './AppCommentItem';
 function AppGetComments() {
   const [isLoading, setIsLoading] = useState(false);
   const [loadedComments, setLoadedComments] = useState(null);
-
   const reqCtx = useContext(RequestContext);
-  const userCtx = useContext(userContext);
   const selectedId = JSON.parse(localStorage.getItem('selectedId')) || [];
 
   useEffect(() => {

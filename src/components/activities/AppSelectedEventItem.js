@@ -15,14 +15,14 @@ import ENDPOINTS from '../../Endpoints';
 import userContext from '../../store/UserContext';
 import classes from '../styles/AppSelectedEvent.module.css';
 import AppGetComments from './AppGetComments';
+import { useNavigate } from 'react-router-dom';
 
 function AppSelectedEventItem(props) {
   const [show, setShow] = useState(true);
   const [favorite, setFavorite] = useState(false);
-  const [comment, setComment] = useState();
+  const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const selectedId = JSON.parse(localStorage.getItem('selectedId')) || [];
-
 
   const userCtx = useContext(userContext);
   const reqCtx = useContext(RequestContext);
@@ -30,11 +30,9 @@ function AppSelectedEventItem(props) {
   useEffect(() => {
     const conv = async () => {
       const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
-      console.log(response);
       const converted = await response.json();
       for (let i = 0; i < converted.length; i++) {
         if (converted[i].id === selectedId.id) {
-          setComments(converted[i].comment);
           if (converted[i].likes === 1) {
             setFavorite(true);
           } else {
@@ -89,49 +87,55 @@ function AppSelectedEventItem(props) {
   return (
     <div className={classes.listItem}>
       <div className={classes.description}>
-        <div className={classes.imageContainer}>
-          <img src={selectedId.image} alt={selectedId.title} />
-        </div>
-        <div className={classes.innerItem}>
-          <h2>{selectedId.title}</h2>
-          <div className={classes.placeInfo}>
-            <DateRange fontSize='large' />
-            <p style={{ marginLeft: '5px' }}>{selectedId.planned}</p>
+        <div className={classes.infoContainer}>
+          <div className={classes.imageContainer}>
+            <img src={selectedId.image} alt={selectedId.title} />
           </div>
-          <div className={classes.placeInfo}>
-            <Place fontSize='large' />
-            <address>{selectedId.location.address}</address>
-          </div>
-          <div className={classes.placeInfo}>
-            <Description fontSize='large' />
-            <div className={classes.placeInfo}>{selectedId.description}</div>
+          <div className={classes.innerItem}>
+            <h2>{selectedId.title}</h2>
+            <div style={{ marginTop: '.2rem' }}>
+              <Button
+                onClick={toggleFavoriteStatusHandler}
+                variant='contained'
+                style={{ marginRight: '1rem' }}
+                color='error'
+              >
+                {favorite ? <Favorite></Favorite> : <HeartBroken></HeartBroken>}
+              </Button>
+              <Button onClick={getComments} variant='contained'>
+                {show ? <Comment></Comment> :
+                  <CommentsDisabled></CommentsDisabled>}
+              </Button>
+            </div>
+            <div className={classes.placeInfo}>
+              <DateRange fontSize='large' />
+              <p style={{ marginLeft: '5px' }}>{selectedId.planned}</p>
+            </div>
+            <div className={classes.placeInfo}>
+              <Place fontSize='large' />
+              <address>{selectedId.location.address}</address>
+            </div>
+            <div className={classes.placeInfo}>
+              <Description fontSize='large' />
+              <div className={classes.placeInfo}>{selectedId.description}</div>
+            </div>
           </div>
         </div>
-        <div style={{ marginTop: '1rem' }}>
-          <Button
-            onClick={toggleFavoriteStatusHandler}
-            variant='contained'
-            style={{ marginRight: '1rem' }}
-            color='error'
-          >
-            {favorite ? <Favorite></Favorite> : <HeartBroken></HeartBroken>}
-          </Button>
-          <Button onClick={getComments} variant='contained'>
-            {show ? <Comment></Comment> : <CommentsDisabled></CommentsDisabled>}
-          </Button>
-        </div>
+
         {!show && (
-          <div>
+          <div className={classes.commentsContainer}>
             <div
               style={{
                 display: 'flex',
-                // flexDirection: 'row',
+                flexDirection: 'row',
                 flexWrap: 'wrap',
                 justifyContent: 'space-between',
                 marginTop: '1rem',
                 marginBottom: '1rem',
               }}
+
             >
+
               <TextField onChange={onCommentChange} variant='filled'
                          sx={{ width: '85%' }}></TextField>
               <Button onClick={onCommentSubmit} variant='contained'>
