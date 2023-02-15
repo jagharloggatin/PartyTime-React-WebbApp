@@ -1,4 +1,13 @@
-import { Comment, CommentsDisabled, DateRange, Favorite, HeartBroken, Send } from '@mui/icons-material';
+import {
+  Comment,
+  CommentsDisabled,
+  DataUsageSharp,
+  DateRange, Description, EighteenUpRatingRounded,
+  Favorite,
+  HeartBroken, LocationCity, Pin, PinRounded, Place,
+  Send,
+} from '@mui/icons-material';
+
 import { Button, TextField } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import RequestContext from 'store/RequestContext';
@@ -9,12 +18,11 @@ import AppGetComments from './AppGetComments';
 
 function AppSelectedEventItem(props) {
   const [show, setShow] = useState(true);
-  const [review, setReview] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [comment, setComment] = useState();
   const [comments, setComments] = useState([]);
   const selectedId = JSON.parse(localStorage.getItem('selectedId')) || [];
-  
+
 
   const userCtx = useContext(userContext);
   const reqCtx = useContext(RequestContext);
@@ -80,31 +88,35 @@ function AppSelectedEventItem(props) {
 
   return (
     <div className={classes.listItem}>
-      <div>
+      <div className={classes.description}>
         <div className={classes.imageContainer}>
           <img src={selectedId.image} alt={selectedId.title} />
         </div>
         <div className={classes.innerItem}>
           <h2>{selectedId.title}</h2>
           <div className={classes.placeInfo}>
-            <DateRange fontSize="large" />
+            <DateRange fontSize='large' />
             <p style={{ marginLeft: '5px' }}>{selectedId.planned}</p>
           </div>
-          <div>
-            <address>{selectedId.address}</address>
+          <div className={classes.placeInfo}>
+            <Place fontSize='large' />
+            <address>{selectedId.location.address}</address>
           </div>
-          <div className={classes.placeInfo}>{selectedId.description}</div>
+          <div className={classes.placeInfo}>
+            <Description fontSize='large' />
+            <div className={classes.placeInfo}>{selectedId.description}</div>
+          </div>
         </div>
         <div style={{ marginTop: '1rem' }}>
           <Button
             onClick={toggleFavoriteStatusHandler}
-            variant="contained"
+            variant='contained'
             style={{ marginRight: '1rem' }}
-            color="error"
+            color='error'
           >
             {favorite ? <Favorite></Favorite> : <HeartBroken></HeartBroken>}
           </Button>
-          <Button onClick={getComments} variant="contained">
+          <Button onClick={getComments} variant='contained'>
             {show ? <Comment></Comment> : <CommentsDisabled></CommentsDisabled>}
           </Button>
         </div>
@@ -113,14 +125,16 @@ function AppSelectedEventItem(props) {
             <div
               style={{
                 display: 'flex',
+                // flexDirection: 'row',
                 flexWrap: 'wrap',
                 justifyContent: 'space-between',
                 marginTop: '1rem',
                 marginBottom: '1rem',
               }}
             >
-              <TextField onChange={onCommentChange} variant="filled" sx={{ width: '85%' }}></TextField>
-              <Button onClick={onCommentSubmit} variant="contained">
+              <TextField onChange={onCommentChange} variant='filled'
+                         sx={{ width: '85%' }}></TextField>
+              <Button onClick={onCommentSubmit} variant='contained'>
                 <Send />
               </Button>
             </div>
