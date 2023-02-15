@@ -25,12 +25,11 @@ export default function AppEditPassword({ userId, displaySuccess, displayError }
         newPassword,
       };
 
-      const res = await reqCtx.putRequest(ENDPOINTS.changePassword, body);
-
-      if (res.ok) {
-        displaySuccess('Successfully changed password!');
+      const res = await reqCtx.putRequest(ENDPOINTS.changePassword, body, false);
+      if (res?.ok) {
+        displaySuccess.current.update((await res.json()).msg);
       } else {
-        displayError('Failed to change password!');
+        displayError.current.update((await res.json()).msg);
       }
     } finally {
       setIsLoading(false);

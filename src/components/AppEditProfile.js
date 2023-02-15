@@ -40,13 +40,10 @@ export default function AppEditProfile({ userId, displaySuccess, displayError })
     e.preventDefault();
     console.log(tempUser);
     let resp = await reqCtx.putRequest(ENDPOINTS.editUser(tempUser.id), tempUser);
-    let result = await resp.json();
-
-    console.log(result);
-    if (resp.ok === 200) {
-      displaySuccess('Successfully updated profile!');
+    if (resp.status === 200) {
+      displaySuccess.current.update((await resp.json()).msg);
     } else {
-      displayError('Failed to update profile!');
+      displayError.current.update((await resp.json()).msg);
     }
   };
 
