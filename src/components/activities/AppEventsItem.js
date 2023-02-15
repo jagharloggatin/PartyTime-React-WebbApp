@@ -17,8 +17,9 @@ import FavoritesContext from '../../store/FavoritesContext';
 import requestContext from '../../store/RequestContext';
 import userContext from '../../store/UserContext';
 import classes from '../styles/AppEvents.module.css';
+import AppGetComments from './AppGetComments';
 
-function AppEventsItem({ event }) {
+function AppEventsItem({ event, variant }) {
   const favoritesCtx = useContext(FavoritesContext);
   const itemIsFavorite = favoritesCtx.itemIsFavorite(event.id);
   const navigateTo = useNavigate();
@@ -90,24 +91,31 @@ function AppEventsItem({ event }) {
           <Typography variant="body1" color="text.secondary">
             {event.description}
           </Typography>
-
           <p>{event.city}</p>
           <p>{event.address}</p>
           <p>{date}</p>
-          <div className={classes.buttonListItem}>
-            <button onClick={toggleFavoriteStatusHandler}>{favorite ? 'Favorite' : 'UnFavorite'}</button>
-            <button onClick={goToEvent}>Go To Event</button>
-          </div>
         </CardContent>
-
-        <CardActions disableSpacing>
-          <IconButton onClick={toggleFavoriteStatusHandler} aria-label="add to favorites">
-            <FavoriteIcon color={favorite ? 'error' : 'disabled'} />
-          </IconButton>
-          <Button size="small" onClick={goToEvent}>
-            Go to event
-          </Button>
-        </CardActions>
+        {variant == 'favorite' ? (
+          <CardActions disableSpacing>
+            <IconButton onClick={toggleFavoriteStatusHandler} aria-label="add to favorites">
+              <FavoriteIcon color={'error'} />
+            </IconButton>
+            <Button size="small" onClick={goToEvent}>
+              Go to event
+            </Button>
+          </CardActions>
+        ) : (
+          <div>
+            {event.comments.map((event) => {
+              return (
+                <div className="card-review-comment">
+                  <p className="card-review-comment-title">{event.username}</p>
+                  <p className="card-review-comment">{event.comment}</p>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </Card>
     </>
 
