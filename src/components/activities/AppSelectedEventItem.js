@@ -1,13 +1,14 @@
+import { Comment, CommentsDisabled, DateRange, Favorite, HeartBroken, Send } from '@mui/icons-material';
+import { Button, TextField } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { convertResponse, default as RequestContext, default as requestContext } from 'store/RequestContext';
+import RequestContext from 'store/RequestContext';
 import ENDPOINTS from '../../Endpoints';
 import userContext from '../../store/UserContext';
 import classes from '../styles/AppSelectedEvent.module.css';
 import AppGetComments from './AppGetComments';
 
 function AppSelectedEventItem(props) {
-  
   const [show, setShow] = useState(true);
   const [review, setReview] = useState(false);
   const [favorite, setFavorite] = useState(false);
@@ -19,14 +20,12 @@ function AppSelectedEventItem(props) {
   
 
   const userCtx = useContext(userContext);
-  const reqCtx = useContext(requestContext);
-
-  
+  const reqCtx = useContext(RequestContext);
 
   useEffect(() => {
-    console.log("eventid");
+    console.log('eventid');
     console.log(props.eventID);
-    
+
     const event = async () => {
       const req = await reqCtx.getRequest(ENDPOINTS.getEvent(props.eventID))
       const json = await req.json()
@@ -35,38 +34,31 @@ function AppSelectedEventItem(props) {
 
     event();
 
-    
-
-
-    // const conv = async () => {
-    //   const response = await reqCtx.getRequest(ENDPOINTS.getEventReviews(props.eventID))
-    //   console.log(response);
-    //   const converted = await response.json();
-    //   for (let i = 0; i < converted.length; i++) {
-    //     // console.log(converted[i].title);
-    //     // console.log(converted[i].comment);
-    //     if (converted[i].id === selectedId.id) {
-    //       setComments(converted[i].comment);
-    //       if (converted[i].likes === 1) {
-    //         setFavorite(true);
-    //       } else {
-    //         setFavorite(false);
-    //       }
-    //     }
-    //   }
-    // };
-    // conv();
+    const conv = async () => {
+      const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
+      console.log(response);
+      const converted = await response.json();
+      for (let i = 0; i < converted.length; i++) {
+        if (converted[i].id === selectedId.id) {
+          setComments(converted[i].comment);
+          if (converted[i].likes === 1) {
+            setFavorite(true);
+          } else {
+            setFavorite(false);
+          }
+        }
+      }
+    };
+    conv();
   }, []);
 
   const toggleFavoriteStatusHandler = async () => {
-    if(favorite){
-      setFavorite(false)
+    if (favorite) {
+      setFavorite(false);
+    } else {
+      setFavorite(true);
     }
-    else {
-      setFavorite(true)
-    }
-    const timeElapsed = Date.now();
-    const today = new Date(timeElapsed);
+    const today = new Date(Date.now());
 
     const data = {
       like: favorite,
@@ -74,25 +66,21 @@ function AppSelectedEventItem(props) {
       created: today.toISOString(),
     };
     const res = await reqCtx.postRequest(ENDPOINTS.postReview(selectedId.id), data);
-    console.log(res);
+    console.log(res.status);
   };
 
   async function onCommentSubmit(e) {
-
     e.preventDefault();
     setComments((comments) => [...comments, comment]);
-    // console.log(Params.id);
-
-    const timeElapsed = Date.now();
-    const today = new Date(timeElapsed);
 
     const data = {
-      comment: comment,
-      created: today.toISOString(),
+      Like: favorite,
+      Comment: comment,
+      Created: new Date(Date.now()).toISOString(),
     };
-    console.log(data);
+
     const res = await reqCtx.postRequest(ENDPOINTS.postReview(selectedId.id), data);
-    console.log(res);
+    console.log(res.status);
   }
 
   const getComments = () => {
@@ -110,46 +98,47 @@ function AppSelectedEventItem(props) {
         <div className={classes.imageContainer}>
           <img src={event.image} alt={event.title} />
         </div>
-        {
-          show ? <div className={classes.innerItem}>
-            <h2>{event.title}</h2>
-            <div className={classes.placeInfo}>
-              <address>{event.address}</address>
-              <p>{event.planned}</p>
-            </div>
-            <div className={classes.description}>{event.description}</div>
-          </div> : null
-        }
-        {
-          !show ? <div>
-            <h4>Comments</h4>
-            <AppGetComments/>
-            {/*{() => comments.map((text) => {*/}
-            {/*  return <div>HEJ</div>*/}
-            {/*})};*/}
-            <div className={classes.commentsContainer}>
-              <div>
-                {/*<p>{selectedId.comment}</p>*/}
-                <textarea
-                  value={comment}
-                  onChange={onCommentChange}
-                />
-              </div>
-              <button onClick={(e) => {
-                return onCommentSubmit(e);
-              }}>Submit Comment
-              </button>
-            </div>
-          </div> : null
-        }
-        <li>
-        </li>
-        <div className={classes.actions}>
-          <button onClick={toggleFavoriteStatusHandler}>
-            {favorite ? 'Favorite' : 'UnFavorite'}
-          </button>
-          <button onClick={getComments}>Comments</button>
+        <div className={classes.innerItem}>
+          <h2>{selectedId.title}</h2>
+          <div className={classes.placeInfo}>
+            <address>{selectedId.address}</address>
+            <DateRange fontSize="large" />
+            <p style={{ marginLeft: '5px' }}>{selectedId.planned}</p>
+          </div>
+          <div className={classes.placeInfo}>{selectedId.description}</div>
         </div>
+        <div style={{ marginTop: '1rem' }}>
+          <Button
+            onClick={toggleFavoriteStatusHandler}
+            variant="contained"
+            style={{ marginRight: '1rem' }}
+            color="error"
+          >
+            {favorite ? <Favorite></Favorite> : <HeartBroken></HeartBroken>}
+          </Button>
+          <Button onClick={getComments} variant="contained">
+            {show ? <Comment></Comment> : <CommentsDisabled></CommentsDisabled>}
+          </Button>
+        </div>
+        {!show && (
+          <div>
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                marginTop: '1rem',
+                marginBottom: '1rem',
+              }}
+            >
+              <TextField onChange={onCommentChange} variant="filled" sx={{ width: '85%' }}></TextField>
+              <Button onClick={onCommentSubmit} variant="contained">
+                <Send />
+              </Button>
+            </div>
+            <AppGetComments />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -158,7 +147,6 @@ function AppSelectedEventItem(props) {
 // setShow(!show)
 
 export default AppSelectedEventItem;
-
 
 /* await fetch(
       `https://testagain-d4b54-default-rtdb.firebaseio.com/review.json`,

@@ -6,7 +6,6 @@ import classes from '../styles/AppEventsList.module.css';
 import AppEventsItem from './AppEventsItem';
 
 function AppEventsList() {
-
   const reqCtx = useContext(RequestContext);
   const [isLoading, setIsLoading] = useState(false);
   const [loadedEvents, setLoadedEvents] = useState([]);
@@ -15,28 +14,25 @@ function AppEventsList() {
   useEffect(() => {
     const conv = async () => {
       setIsLoading(true);
-      const response = await reqCtx.getRequest(`https://localhost:7215/events/location/${Params.id}`)
-      const converted = await reqCtx.convertResponse(response)
+      const response = await reqCtx.getRequest(`https://localhost:7215/events/location/${Params.id}`);
+      const converted = await reqCtx.convertResponse(response);
       setLoadedEvents(converted);
       // console.log(converted);
       setIsLoading(false);
-    }
+    };
     conv();
   }, []);
 
   if (isLoading) {
-    return <div >
-      <h2>Loading...</h2>
-    </div>;
+    return (
+      <div>
+        <h2>Loading...</h2>
+      </div>
+    );
   }
-
-  console.log(loadedEvents);
   return (
-
-  <ul className={classes.list}>
-    {loadedEvents.map((event) => (
-      // console.log("here"),
-      // console.log(event),
+    <ul className={classes.list}>
+      {loadedEvents.map((event) => (
         <AppEventsItem
           key={uniqId()}
           id={event.id}
@@ -54,7 +50,6 @@ function AppEventsList() {
 }
 
 export default AppEventsList;
-
 
 // useEffect(() => {
 //   const getData = async () => {
