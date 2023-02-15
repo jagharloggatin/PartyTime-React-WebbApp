@@ -10,7 +10,7 @@
 }
 
 .autocompleteinput {
-  width: 100%;
+  width: 60vw;
   height: 30px;
   border-radius: 5px;
   border: rgb(213, 213, 213) solid 1px;
@@ -18,11 +18,11 @@
   font-size: 15px;
   font-family: 'SeoulHangang';
   transition: ease-in-out 0.25s;
+  margin-top: 1vw;
 
 }
 
 .autocompleteinputsmall {
-  width: 100%;
   height: 30px;
   border-radius: 5px;
   border: rgb(213, 213, 213) solid 1px;
@@ -34,11 +34,14 @@
 }
 
 .autocompleteinput:focus {
+  width: 80vw;
+
   outline: 0;
   height: 45px;
   transform: translateY(5px);
   transition: ease-in-out 0.3s;
   font-size: 20px;
+  width: 70%;
 }
 
 .autocompletepredictions {

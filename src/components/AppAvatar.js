@@ -67,6 +67,8 @@ export default function AppAvatar() {
     <SwipeableDrawer anchor="right" open={open} onClose={handleClose} onOpen={handleOpen}>
       <div className={styles.drawer}>
         <List>
+        <div className="flyoutimage" style={{backgroundImage: `url(${image})`}}/>
+
           {userCtx.IsLoggedIn() && (
             <div>
               <AppMenuItem icon={<PersonIcon />} name="Profile" url="/profile"></AppMenuItem>
@@ -82,9 +84,8 @@ export default function AppAvatar() {
         </List>
         {userCtx.IsLoggedIn() && (
           <div>
-            <Divider />
             <List>
-              <AppMenuItem icon={<LogoutIcon />} name="Logout" onClick={logout}></AppMenuItem>
+              <AppMenuItem sx={{backgroundColor: '#d60000'}} icon={<LogoutIcon />} name="Logout" onClick={logout}></AppMenuItem>
             </List>
           </div>
         )}

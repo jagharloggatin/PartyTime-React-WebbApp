@@ -86,6 +86,37 @@ code {
   }
 }
 
+.header {
+  background-color: #ffffff00;
+  background: #d60000;
+}
+
+.apaapa {
+  background-color: aqua;
+}
+.menubutton * {
+  color: white;
+}
+
+.menubuttontext * {
+  color: white;
+}
+
+.flyoutimage {
+  width: 10vw;
+  height: 10vw;
+  border-radius: 5vw;
+  overflow: hidden;
+  background-position: center;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+}
+
+.flyoutimage img {
+  object-fit: contain
+  
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

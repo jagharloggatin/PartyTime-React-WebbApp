@@ -7,7 +7,7 @@ import styles from './styles/AppHeader.module.scss';
 
 const AppHeader = (props) => {
   return (
-    <AppBar position="sticky">
+    <AppBar  sx={{ bgcolor: "#ffffff00" }} position="sticky">
       <Toolbar className={styles.header}>
         <AppMenu />
         <AppLogo />
