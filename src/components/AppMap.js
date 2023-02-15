@@ -23,7 +23,7 @@ const AppMap = () => {
   const [mapState, setMapState] = useState({center:{lat: 59.330936, lng: 18.071644}, zoom: 14 });
   const [modalOpen, setModalOpen] = useState(false)
   const [modalContent, setModalContent] = useState("");
-  const [map, setMap] = useState(null);
+  const [map, setMap] = useState({});
   const [eventID, setEventID] = useState("apa")
   
 
@@ -44,25 +44,8 @@ const AppMap = () => {
       mapId:'bd0bdf809da55ccb',
     });
 
-    setMap(newmap);
+    setMap(newmap)
       
-    // const events = [
-    //   {
-    //     title: 'SvettigApa',
-    //     description: 'balle',
-    //     map: newmap,
-    //     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-    //     position: {lat: 59.3294, lng: 18.0686},
-    //   },
-    //   {
-    //     title: 'Borderdell',
-    //     description: 'Kom hit och sug',
-    //     map: newmap,
-    //     image: "https://cdn.pixabay.com/photo/2016/03/26/22/47/motion-blur-1281675_960_720.jpg",
-    //     position: {lat: 59.3192, lng: 18.0686},
-    //   },
-    // ];
-
 
     const showMarkers = async () => {
       const req  = await reqCtx.getRequest(ENDPOINTS.getEvents)
