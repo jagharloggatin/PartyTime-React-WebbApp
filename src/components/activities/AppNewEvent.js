@@ -1,3 +1,4 @@
+import { Alert } from '@mui/material';
 import AppLogo from 'components/AppLogo';
 import AutoCompleteInput from 'components/AutoCompleteInput';
 import React, { useContext, useRef } from 'react';
@@ -44,38 +45,13 @@ function AppNewEvent(props) {
       location: locCtx.location,
     }; // End of event to be posted
 
-    // const event =
-    // {
-    //   title: "string",
-    //   description: "string",
-    //   image: "string",
-    //   planned: "2023-02-14T12:26:53.475Z",
-    //   likes: 0,
-    //   comments: [
-    //     {}
-    //   ],
-    //   location: {
-    //     id: 0,
-    //     name: "string",
-    //     address: "string",
-    //     latitude: 0,
-    //     longitude: 0,
-    //     city: {
-    //       id: 0,
-    //       name: "string",
-    //       country: {
-    //         id: 0,
-    //         name: "string",
-    //         countryCode: "string"
-    //       }
-    //     }
-    //   }
-    // }
-
-    console.log(event);
-
     const res = await reqCtx.postRequest(ENDPOINTS.postEvent, event);
-    console.log(res);
+    if (res.ok) {
+      alert("Added new event");
+      props.setModalOpen(false)
+    } else {
+      alert("Error adding event")
+    }
   }
 
   return (

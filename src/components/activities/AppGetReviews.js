@@ -1,10 +1,11 @@
+import ENDPOINTS from 'Endpoints';
 import React, { useContext, useEffect, useState } from 'react';
 import RequestContext from 'store/RequestContext';
 import uniqId from '../../uniq';
 import classes from '../styles/Headlines.module.css';
 import AppEventsItem from './AppEventsItem';
 
-function AppGetReviews() {
+function AppFavoriteEventsList() {
   const reqCtx = useContext(RequestContext);
   const [isLoading, setIsLoading] = useState(true);
   const [loadedFavorites, setLoadedFavorites] = useState([]);
@@ -12,7 +13,8 @@ function AppGetReviews() {
   useEffect(() => {
     const conv = async () => {
       setIsLoading(true);
-      const response = await reqCtx.getRequest('https://localhost:7215/reviews/1');
+      const userId = 1;
+      const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userId));
       console.log(response);
       const converted = await reqCtx.convertResponse(response);
       console.log(converted);
@@ -34,22 +36,12 @@ function AppGetReviews() {
   }
 
   return (
-    <ul>
+    <div className="card-wrapper">
       {loadedFavorites.map((event) => (
-        <AppEventsItem
-          key={uniqId()}
-          id={event.id}
-          image={event.image}
-          title={event.title}
-          city={event.city}
-          address={event.address}
-          description={event.description}
-          comment={[event.comment]}
-          date={[event.date]}
-        />
+        <AppEventsItem key={uniqId()} event={event} />
       ))}
-    </ul>
+    </div>
   );
 }
 
-export default AppGetReviews;
+export default AppFavoriteEventsList;

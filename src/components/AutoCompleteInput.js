@@ -30,8 +30,7 @@ function AutoCompleteInput(props) {
   //that is provided when clicked on a prediction in the autocomplete list
   async function getPlaceResult(place_id) {
 
-    const newmap = props.gmap
-    const servicex = new window.google.maps.places.PlacesService(newmap)
+    const servicex = new window.google.maps.places.PlacesService(props.gmap)
 
     const request = {
       placeId: place_id,
