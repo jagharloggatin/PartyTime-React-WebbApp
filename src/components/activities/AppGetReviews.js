@@ -1,11 +1,14 @@
 import ENDPOINTS from 'Endpoints';
 import React, { useContext, useEffect, useState } from 'react';
 import RequestContext from 'store/RequestContext';
+import UserContext from 'store/UserContext';
 import uniqId from '../../uniq';
 import classes from '../styles/Headlines.module.css';
 import AppEventsItem from './AppEventsItem';
 
 function AppFavoriteEventsList() {
+  const userCtx = useContext(UserContext);
+  console.log(userCtx.ReadJWT().userID);
   const reqCtx = useContext(RequestContext);
   const [isLoading, setIsLoading] = useState(true);
   const [loadedFavorites, setLoadedFavorites] = useState([]);
@@ -13,8 +16,7 @@ function AppFavoriteEventsList() {
   useEffect(() => {
     const conv = async () => {
       setIsLoading(true);
-      const userId = 1;
-      const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userId));
+      const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
       console.log(response);
       const converted = await reqCtx.convertResponse(response);
       console.log(converted);
