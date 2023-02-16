@@ -13,6 +13,7 @@ import searchIcon from '../icons/search.svg';
 import AppFavoriteEventsList from './activities/AppGetReviews';
 import AppNewEvent from './activities/AppNewEvent';
 import AppSelectedEventItem from './activities/AppSelectedEventItem';
+import AppEvents from './AppEvents';
 import Logo from './AppLogo';
 import AutoCompleteInput from './AutoCompleteInput';
 
@@ -111,10 +112,9 @@ const AppMap = () => {
 
   return (
     <div>
-      <Modal 
+      <Modal
         sx={{
-          backgroundImage: "linear-gradient(#1976d2 80, #ff9900 80)"
-
+          backgroundImage: 'linear-gradient(#1976d2 80, #ff9900 80)',
         }}
         open={modalOpen}
         onClose={() => {
@@ -124,11 +124,11 @@ const AppMap = () => {
         aria-describedby="modal-modal-description"
       >
         <div className={classes.modalcontainer}>
-          {modalContent === 'grid' ? <HomeRoute /> : null}
+          {modalContent === 'grid' ? <AppEvents></AppEvents> : null}
           {modalContent === 'add' ? (
             <AppNewEvent setMapState={setMapState} setModalOpen={setModalOpen} gmap={map} />
           ) : null}
-          {modalContent === 'search' ? <AppFavoriteEventsList /> : null}
+          {modalContent === 'search' ? <AppFavoriteEventsList variant={'all'} /> : null}
           {modalContent === 'selected' ? <AppSelectedEventItem /> : null}
         </div>
       </Modal>

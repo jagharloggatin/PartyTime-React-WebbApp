@@ -37,8 +37,6 @@ function AppEventsItem({ event, variant }) {
       const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
       const converted = await reqCtx.convertResponse(response);
 
-      console.log('CONVERTERD', converted);
-
       for (let i = 0; i < converted.length; i++) {
         if (converted[i].id === selectedId.id) {
           if (converted[i].likes === 1) {
@@ -53,9 +51,12 @@ function AppEventsItem({ event, variant }) {
   }, []);
 
   const goToEvent = () => {
-    console.log(event);
     localStorage.setItem('selectedId', JSON.stringify(event));
     navigateTo(`/events/selected`);
+  };
+
+  const capText = (input, maxLength) => {
+    return input.length > maxLength ? `${input.substring(0, maxLength - 3)}...` : input;
   };
 
   const toggleFavoriteStatusHandler = async () => {
@@ -73,112 +74,46 @@ function AppEventsItem({ event, variant }) {
     const res = await reqCtx.postRequest(ENDPOINTS.postReview(selectedId.id), data);
 
     setFavorite(favorite ? false : true);
-
-    // console.log(res);
   };
 
   return (
-    // component={Link} to={`/events/location/${city.id}`}
-    <>
-      <Card className="card-event">
-        <CardActionArea onClick={goToEvent}>
-          <CardMedia className="card-media" component="img" height="160" image={event.image} />
-        </CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {event.title}
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            {event.description}
-          </Typography>
-          <p>{event.city}</p>
-          <p>{event.address}</p>
-          <p>{date}</p>
-        </CardContent>
-        {variant == 'favorite' ? (
-          <CardActions disableSpacing>
-            <IconButton onClick={toggleFavoriteStatusHandler} aria-label="add to favorites">
-              <FavoriteIcon color={'error'} />
-            </IconButton>
-            <Button size="small" onClick={goToEvent}>
-              Go to event
-            </Button>
-          </CardActions>
-        ) : (
-          <div>
-            {event.comments.map((event) => {
-              return (
-                <div className="card-review-comment">
-                  <p className="card-review-comment-title">{event.username}</p>
-                  <p className="card-review-comment">{event.comment}</p>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </Card>
-    </>
-
-    // <section>
-    //
-    //   <div className={classes.events}>
-    //     <ul>
-    //       <li>
-    //         <div>
-    //           <div className={classes.time}>
-    //             <h2>24 <br /><span>June</span></h2>
-    //           </div>
-    //           <div className={classes.details}>
-    //             <h3>{event.title}</h3>
-    //             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-    //               Aperiam consectetur excepturi incidunt labore, mollitia
-    //               natus
-    //               numquam obcaecati odio odit optio ratione rem sed vero.
-    //               Blanditiis nisi sapiente tempore vero voluptate.</p>
-    //
-
-    //             <a href='/events'>Favorite</a>
-    //             <a href='/events'>Favorite</a>
-    //
-    //
-    //           </div>
-    //         </div>
-    //       </li>
-    //     </ul>
-    //   </div>
-    //   {/*<div className={classes.events}>*/}
-    //   {/*  <div className={classes.content}>*/}
-    //   {/*    <h1>{event.title}</h1>*/}
-    //   {/*    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis*/}
-    //   {/*      fugit magnam maxime minus praesentium sequi sunt? Accusantium alias,*/}
-    //   {/*      distinctio error odio omnis optio quam vero. Ad ea harum iure*/}
-    //   {/*      non.</p>*/}
-    //   {/*  </div>*/}
-    //   {/*</div>*/}
-    // </section>
-
-    // <li className={classes.listItem}>
-    //   {/*<AppCard>*/}
-    //   <li className={classes.innerItem}>
-    //     <div className={classes.image}>
-    //       <img src={event.image} alt={event.title} />
-    //     </div>
-    //     <div className={classes.textContent}>
-    //       <div className={classes.content}>
-    //         <h3>Title: {event.title}</h3>
-    //         <address>Address: {event.address}</address>
-    //         <p>City: {event.city}</p>
-    //         <p> Description: {event.description}</p>
-    //       </div>
-    //     </div>
-    //   </li>
-    //   <div className={classes.actions}>
-    //     <button
-    //       onClick={toggleFavoriteStatusHandler}>{itemIsFavorite ? '♥' : '♡'}</button>
-    //     <button onClick={goToEvent}>Go To Activity</button>
-    //   </div>
-    //   {/*</AppCard>*/}
-    // </li>
+    <Card className="card-event">
+      <CardActionArea onClick={goToEvent}>
+        <CardMedia className="card-media" component="img" height="160" image={event.image} />
+      </CardActionArea>
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {event.title}
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          {capText(event.description, 40)}
+        </Typography>
+        <p>{event.city}</p>
+        <p>{event.address}</p>
+        <p>{date}</p>
+      </CardContent>
+      {variant === 'favorite' ? (
+        <CardActions disableSpacing>
+          <IconButton onClick={toggleFavoriteStatusHandler} aria-label="add to favorites">
+            <FavoriteIcon color={'error'} />
+          </IconButton>
+          <Button size="small" onClick={goToEvent}>
+            Go to event
+          </Button>
+        </CardActions>
+      ) : (
+        <div>
+          {event.comments.map((event) => {
+            return (
+              <div className="card-review-comment">
+                <p className="card-review-comment-title">{event.username}</p>
+                <p className="card-review-comment">{event.comment}</p>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </Card>
   );
 }
 

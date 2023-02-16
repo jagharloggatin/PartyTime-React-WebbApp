@@ -1,5 +1,5 @@
 import ENDPOINTS from 'Endpoints';
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 
 //Refrenace methods to be shown in intellisense
 const UserContext = createContext({
@@ -52,8 +52,6 @@ export function UserContextProvider(props) {
     // console.log(JWTInfo)
     return JWTInfo;
   }
-
-  
 
   //Reference methods in this object to be passed as value
   const context = {

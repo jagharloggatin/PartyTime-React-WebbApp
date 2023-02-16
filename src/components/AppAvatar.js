@@ -26,28 +26,28 @@ const style = {
 };
 
 export default function AppAvatar() {
-  const reqCtx = useContext(RequestContext)
-  const userCtx = useContext(UserContext)
+  const reqCtx = useContext(RequestContext);
+  const userCtx = useContext(UserContext);
 
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const navigateTo = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [user, setUser] = useState({profileImage: ""});
-
+  const [user, setUser] = useState({ profileImage: '' });
 
   const getImage = async () => {
     if (userCtx.IsLoggedIn()) {
-      const res = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userID))
-      const json = await res.json()
+      const res = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userID));
+      const json = await res.json();
 
       if (res.ok) {
-        setUser(json)
-      } 
-    } 
-    
-  }
+        setUser(json);
+      }
+    } else {
+      setUser({ profileImage: '' });
+    }
+  };
 
   useEffect(() => {
     getImage();
@@ -56,6 +56,7 @@ export default function AppAvatar() {
 
   const logout = () => {
     userCtx.LogOutUser();
+    getImage();
     navigateTo('/');
   };
 
@@ -63,8 +64,8 @@ export default function AppAvatar() {
     <SwipeableDrawer anchor="right" open={open} onClose={handleClose} onOpen={handleOpen}>
       <div className={styles.drawer}>
         <List>
-        <div className="flyoutimage" style={{backgroundImage: `url(${user.profileImage})`}}/>
-        <p>{}</p>
+          <div className="flyoutimage" style={{ backgroundImage: `url(${user.profileImage})` }} />
+          <p>{}</p>
 
           {userCtx.IsLoggedIn() && (
             <div>
