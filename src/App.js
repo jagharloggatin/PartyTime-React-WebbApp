@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import UserList from 'routes/apiTest';
 import ProfileActivitiesTab from 'routes/ProfileActivitiesTab';
 import ProfileFavoritesTab from 'routes/ProfileFavoritesTab';
 import ProfileReviewsTab from 'routes/ProfileReviewsTab';
@@ -34,7 +33,6 @@ function App() {
       <AppHeader></AppHeader>
       <Routes>
         <Route path="/" element={<HomeRoute />} />
-        <Route path="/api" element={<UserList />} />
         <Route path="/map" element={<MapRoute />} />
         <Route path="/profile" element={<ProfileRoute />}>
           <Route index element={<ProfileFavoritesTab />} />

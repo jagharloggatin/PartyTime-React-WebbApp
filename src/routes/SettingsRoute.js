@@ -1,3 +1,5 @@
+import { Divider } from '@mui/material';
+import AppDeleteAccount from 'components/AppDeleteAccount';
 import AppEditPassword from 'components/AppEditPassword';
 import AppEditProfile from 'components/AppEditProfile';
 import ErrorAlert from 'components/ErrorAlert';
@@ -15,19 +17,19 @@ function SettingsRoute() {
       <SuccessAlert ref={successAlertRef} />
       <ErrorAlert ref={errorAlertRef} />
       <h1>Settings</h1>
-      <h2>Profile settings</h2>
       <AppEditProfile
         userId={userCtx.ReadJWT().userID}
         displaySuccess={successAlertRef}
         displayError={errorAlertRef}
       ></AppEditProfile>
-
-      <h2>Change password</h2>
+      <Divider sx={{ mt: '2rem' }}></Divider>
       <AppEditPassword
         userId={userCtx.ReadJWT().userID}
         displaySuccess={successAlertRef}
         displayError={errorAlertRef}
       ></AppEditPassword>
+      <Divider sx={{ mt: '2rem' }}></Divider>
+      <AppDeleteAccount user={userCtx} displaySuccess={successAlertRef} displayError={errorAlertRef}></AppDeleteAccount>
     </div>
   );
 }

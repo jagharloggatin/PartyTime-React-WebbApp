@@ -38,7 +38,6 @@ export default function AppEditProfile({ userId, displaySuccess, displayError })
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(tempUser);
     let resp = await reqCtx.putRequest(ENDPOINTS.editUser(tempUser.id), tempUser);
     if (resp.status === 200) {
       displaySuccess.current.update((await resp.json()).msg);
@@ -58,6 +57,7 @@ export default function AppEditProfile({ userId, displaySuccess, displayError })
   return (
     <>
       <form onSubmit={onSubmit}>
+        <h2 style={{ marginTop: '2rem' }}>Profile</h2>
         <Box>
           <TextField
             id="username"
