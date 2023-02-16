@@ -21,11 +21,11 @@ export default function ProfileTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%', typography: 'body1' }}>
+    <Box sx={{ width: '100%', typography: 'body1', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
       <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Box>
           <TabList onChange={handleChange}>
-            <LinkTab value="1" icon={<ThumbUp />} label="Favorites" to="/profile" />
+            <LinkTab value="1" icon={<ThumbUp color='white'/>} label="Favorites" to="/profile" />
             <LinkTab value="2" icon={<CommentIcon />} label="Reviews" to="/profile/reviews" />
             <LinkTab value="3" icon={<EventIcon />} label="Created events" to="/profile/created" />
           </TabList>

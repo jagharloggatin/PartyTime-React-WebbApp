@@ -44,22 +44,16 @@ export default function AppProfile() {
   const firstLetterILastnName = user.lastName.charAt(0);
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <div style={{backgroundImage: `url(${user.profileImage})`}} 
       className="profile-background">
       </div>
       <div className={styles.header}>
-        <div className={styles.headerAvatar}>
-          <Avatar sx={{ bgcolor: deepOrange[500], width: 120, height: 120 }}>
-            {firstLetterInFirstName}
-            {firstLetterILastnName}
-          </Avatar>
-        </div>
         <div className={styles.headerContent}>
           <h2>
             {user.firstName} {user.lastName}
           </h2>
-          <h3>@{user.username}</h3>
+          <h4>@{user.username}</h4>
         </div>
       </div>
       <div></div>
