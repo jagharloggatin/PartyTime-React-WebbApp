@@ -48,14 +48,10 @@ export default function AppProfile() {
       <div style={{backgroundImage: `url(${user.profileImage})`}} 
       className="profile-background">
       </div>
-      <div className={styles.header}>
         <div className={styles.headerContent}>
-          <h2>
-            {user.firstName} {user.lastName}
-          </h2>
-          <h4>@{user.username}</h4>
+            <p className={styles.flname}>{user.firstName} {user.lastName}</p>
+            <p className={styles.username}>@{user.username}</p>
         </div>
-      </div>
       <div></div>
 
       <div className="test">

@@ -107,12 +107,16 @@ function AppSelectedEventItem(props) {
   const date = selectedId.planned.split("T")
   const newdate = date[0];
 
+  const image = selectedId.image === "" ? "icons/logo.svg" : selectedId.image
+
+  console.log(image);
+
   return (
     <div className={classes.listItem}>
       <div className={classes.description}>
         <div className={classes.infoContainer}>
           <div className={classes.imageContainer}>
-            <img src={selectedId.image} alt={selectedId.title} />
+            <img src={image} alt={selectedId.title} />
           </div>
           <SuccessAlert ref={successAlertRef}></SuccessAlert>
           <ErrorAlert ref={errorAlertRef}></ErrorAlert>
