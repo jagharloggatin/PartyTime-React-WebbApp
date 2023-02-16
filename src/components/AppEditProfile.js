@@ -38,7 +38,6 @@ export default function AppEditProfile({ userId, displaySuccess, displayError })
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(tempUser);
     let resp = await reqCtx.putRequest(ENDPOINTS.editUser(tempUser.id), tempUser);
     if (resp.status === 200) {
       displaySuccess.current.update((await resp.json()).msg);

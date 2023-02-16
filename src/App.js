@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import UserList from 'routes/apiTest';
 import ProfileActivitiesTab from 'routes/ProfileActivitiesTab';
 import ProfileFavoritesTab from 'routes/ProfileFavoritesTab';
 import ProfileReviewsTab from 'routes/ProfileReviewsTab';
