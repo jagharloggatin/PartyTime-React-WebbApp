@@ -34,7 +34,6 @@ function App() {
       <AppHeader></AppHeader>
       <Routes>
         <Route path="/" element={<HomeRoute />} />
-        <Route path="/api" element={<UserList />} />
         <Route path="/map" element={<MapRoute />} />
         <Route path="/profile" element={<ProfileRoute />}>
           <Route index element={<ProfileFavoritesTab />} />
