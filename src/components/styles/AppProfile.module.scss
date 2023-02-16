@@ -1,4 +1,8 @@
 
+.wrapper {
+  margin-top: 50px;
+}
+
 .header {
   display: flex;
   justify-content: center;
@@ -20,8 +24,7 @@
   align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
-  gap: 0.01;
-  margin-top: -20px;
+  margin-top: 30px;
 }
 
 .flname {

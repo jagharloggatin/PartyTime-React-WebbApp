@@ -96,7 +96,7 @@ function AppEvents() {
   const filteredCities = inputText === '' ? cities : getFilteredCities();
 
   return (
-    <>
+    <div>
       <div className="page">
         <div className="search">
           <TextField
@@ -115,7 +115,7 @@ function AppEvents() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

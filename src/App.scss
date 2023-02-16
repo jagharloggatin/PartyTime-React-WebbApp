@@ -3,10 +3,13 @@
   src: url(../fonts/SeoulHangangCBL.ttf);
 }
 
+body {
+  background-color: #ff9900;
+}
+
 .wrapper {
-  min-height: 100vh;
-  background: linear-gradient(0deg, #1976d2 0%, rgba(255,153,0,1) 100%);
-  background-color: white;
+  height: 100vh;
+  background: linear-gradient(0deg, #ff9900 10%, #1976d2 100%);
   color: white;
 }
 

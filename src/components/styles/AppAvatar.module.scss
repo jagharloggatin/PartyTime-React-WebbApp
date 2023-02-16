@@ -6,17 +6,17 @@
 }
 
 .drawer {
-  min-width: 100px;
-  max-width: 300px;
+  min-width: 10vw;
+  max-width: 15vw;
   height: 100%;
   z-index: 1000000;
   width: 50vw;
-  background: linear-gradient(0deg, #1976d2 0%, #ff9900 100%);
+  background: linear-gradient(0deg, #ff9900 10%, #1976d2 100%);
   display: flex;
   color: rgba(255, 255, 255, 0.525);
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  
+  padding: 5vw;
 
 }
