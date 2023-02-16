@@ -22,6 +22,7 @@ const ENDPOINTS = {
 
   editUser: (id) => `${URL}/users/${id}`,
   changePassword: `${URL}/users/password/update`,
+  deleteUser: `${URL}/users/`,
 };
 
 export default ENDPOINTS;

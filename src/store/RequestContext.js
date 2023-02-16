@@ -10,6 +10,7 @@ const RequestContext = createContext({
   convertResponse: null,
   getRequestJWT: null,
   postRequestNoJwt: null,
+  deleteRequest: null,
 });
 
 export function RequestContextProvider(props) {
@@ -89,6 +90,24 @@ export function RequestContextProvider(props) {
     return response;
   }
 
+  async function deleteRequest(endpoint) {
+    const headers = { Authorization: `Bearer ${userCtx.ReadJWT().jwt}` };
+
+    const response = await fetch(endpoint, {
+      method: 'delete',
+      headers: new Headers(headers),
+    });
+
+    // Unauthorized - Redirect to login
+    if (response.status === 401) {
+      userCtx.LogOutUser();
+      navigateTo('/login');
+      return;
+    }
+
+    return response;
+  }
+
   async function convertResponse(response) {
     var json = await response.json();
 
@@ -112,6 +131,7 @@ export function RequestContextProvider(props) {
     convertResponse: convertResponse,
     getRequestJWT: getRequestJWT,
     postRequestNoJwt: postRequestNoJwt,
+    deleteRequest: deleteRequest,
   };
 
   return <RequestContext.Provider value={context}>{props.children}</RequestContext.Provider>;

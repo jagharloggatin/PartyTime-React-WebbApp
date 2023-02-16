@@ -38,6 +38,7 @@ export default function AppEditPassword({ userId, displaySuccess, displayError }
 
   return (
     <form onSubmit={onSubmit}>
+      <h2 style={{ marginTop: '2rem' }}>Password</h2>
       <Box>
         <TextField id="password" label="Old password" type="password" margin="normal" fullWidth />
       </Box>
