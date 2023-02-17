@@ -160,6 +160,7 @@ function AutoCompleteInput(props) {
                   placeholder="Search address"
                   className={props.size === "small" ? classes.autocompleteinputsmall : classes.autocompleteinput}
                   disabled={props.disabled}
+                  autoComplete="off"
                 />
                 <Predictionsarea size={props.size}/>
             </div>

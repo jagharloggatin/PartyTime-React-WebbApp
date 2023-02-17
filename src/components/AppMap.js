@@ -8,6 +8,7 @@ import React from 'react';
 import HomeRoute from 'routes/HomeRoute';
 import RequestContext from 'store/RequestContext';
 import gridIcon from '../icons/grid.svg';
+import likeIcon from '../icons/heart.svg';
 import plusIcon from '../icons/plus.svg';
 import searchIcon from '../icons/search.svg';
 import AppFavoriteEventsList from './activities/AppGetReviews';
@@ -128,7 +129,7 @@ const AppMap = () => {
           {modalContent === 'add' ? (
             <AppNewEvent setMapState={setMapState} setModalOpen={setModalOpen} gmap={map} />
           ) : null}
-          {modalContent === 'search' ? <AppFavoriteEventsList variant={'all'} /> : null}
+          {modalContent === 'likes' ? <AppFavoriteEventsList variant={'all'} /> : null}
           {modalContent === 'selected' ? <AppSelectedEventItem /> : null}
         </div>
       </Modal>
@@ -136,14 +137,14 @@ const AppMap = () => {
         <AutoCompleteInput gmap={map} disabled={false} setMapState={setMapState} />
       </div>
       <div className={classes['control-container']}>
-        <CustomButton size={40} modal={'grid'}>
+        <CustomButton size={55} modal={'grid'}>
           <img src={gridIcon} alt={'grid-view'} />
         </CustomButton>
         <CustomButton size={80} modal={'add'} style={{ margin: '0 40px' }}>
           <img src={plusIcon} alt={'AddActivity'} />
         </CustomButton>
-        <CustomButton size={40} modal={'search'}>
-          <img src={searchIcon} alt={'Search'} />
+        <CustomButton size={55} modal={'likes'}>
+          <img src={likeIcon} alt={'likes'} />
         </CustomButton>
       </div>
       <div id="mapDiv" className={classes.mapcontainer}></div>
