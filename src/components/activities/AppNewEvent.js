@@ -89,28 +89,28 @@ function AppNewEvent(props) {
         <div className={classes.addactivityright}>
           <form className={classes.form} onSubmit={submitHandler}>
             <div className={classes.control}>
-              <label htmlFor="title">Title</label>
+            <p className={classes.label}>Title</p>
               <input type="text" required id="title" ref={titleInputRef} />
             </div>
             <div className={classes.control}>
-              <label htmlFor="city">Planned Date</label>
+            <p className={classes.label}>Planned Date</p>
               <input type="date" required id="date" ref={dateInputRef} />
             </div>
 
             <div className={classes.control}>
-              <p>Address</p>
+              <p className={classes.label}>Address</p>
               <div className={classes.autoinput}>
                 <AutoCompleteInput gmap={props.gmap} setMapState={props.setMapState} size="small" />
               </div>
             </div>
 
             <div className={classes.control}>
-              <label htmlFor="image">Image</label>
+            <p className={classes.label}>Image</p>
               <input type="text" required id="image" ref={imageInputRef} />
             </div>
 
             <div className={classes.control}>
-              <label htmlFor="description">Description</label>
+            <p className={classes.label}>Description</p>
               <textarea className={classes.description} id="description" required rows="5" ref={descriptionInputRef} />
             </div>
             <div className={classes.actions}></div>

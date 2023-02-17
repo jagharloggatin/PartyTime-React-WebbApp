@@ -12,6 +12,7 @@
 .autocompleteinput {
   width: 60vw;
   height: 30px;
+  background-color: white;
   border-radius: 5px;
   border: rgb(213, 213, 213) solid 1px;
   text-align: center;
@@ -30,6 +31,7 @@
   font-size: 15px;
   font-family: 'SeoulHangang';
   transition: ease-in-out 0.25s;
+  width: 100%;
 
 }
 
@@ -45,13 +47,15 @@
 }
 
 .autocompletepredictions {
-  width: auto;
+  width: 70vw;
   backdrop-filter: blur;
   padding: 20px;
   margin-top: 20px;
   border-radius: 5px;
   text-align: center;
   font-size: 15px;
+  margin: 0 auto;
+  color: rgb(18, 18, 18);
 }
 
 .autocompletepredictionssmall {
