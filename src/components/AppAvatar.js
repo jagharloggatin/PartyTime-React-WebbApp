@@ -64,8 +64,10 @@ export default function AppAvatar() {
     <SwipeableDrawer anchor="right" open={open} onClose={handleClose} onOpen={handleOpen}>
       <div className={styles.drawer}>
         <List>
-          <div className="flyoutimage" style={{ backgroundImage: `url(${user.profileImage})` }} />
-          <p>{}</p>
+          <div className={styles.flyoutinfo}>
+            <div className={styles.flyoutimage} style={{ backgroundImage: `url(${user.profileImage})` }} />
+            <p className={styles.flyoutusername}>{user.username}</p>
+          </div>
 
           {userCtx.IsLoggedIn() && (
             <div>

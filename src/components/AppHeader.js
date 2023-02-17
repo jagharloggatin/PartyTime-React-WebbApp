@@ -1,4 +1,4 @@
-import { AppBar, Toolbar } from '@mui/material';
+import { AppBar, Box, Toolbar } from '@mui/material';
 import React from 'react';
 import AppAvatar from './AppAvatar';
 import AppLogo from './AppLogo';
@@ -9,7 +9,7 @@ const AppHeader = (props) => {
   return (
     <AppBar sx={{ bgcolor: '#ffffff00', boxShadow: '1px 5px 20px rgba(21, 103, 185, 0.57)' }} position="sticky">
       <Toolbar className={styles.header}>
-        <div></div>
+        <div className={styles.filler}/>
         <AppLogo />
         <AppAvatar />
       </Toolbar>
