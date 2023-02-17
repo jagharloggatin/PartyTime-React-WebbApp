@@ -36,14 +36,27 @@ export default function AppEditPassword({ userId, displaySuccess, displayError }
     }
   };
 
+  const buttonStyle = {
+    color: 'white',
+    display: 'flex',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    marginBottom: '1vh',
+    borderRadius: '5px',
+    border: '0px',
+
+    "&:hover": {
+      backgroundColor: '#ffffff70',
+    },
+  };
+
   return (
     <form onSubmit={onSubmit}>
-      <h2 style={{ marginTop: '2rem' }}>Password</h2>
+        <p style={{ marginTop: '2rem', color: 'rgba(255, 255, 255, 0.8)', fontSize: '2vw' }}>Password</p>
       <Box>
-        <TextField id="password" label="Old password" type="password" margin="normal" fullWidth />
+        <TextField sx={buttonStyle} id="password" label="Old password" type="password" margin="normal" fullWidth />
       </Box>
       <Box>
-        <TextField id="newpassword" label="New password" type="password" margin="normal" fullWidth />
+        <TextField sx={buttonStyle} id="newpassword" label="New password" type="password" margin="normal" fullWidth />
       </Box>
       <Box>
         <Button disabled={isLoading} variant="contained" type="submit" size="large" sx={{ mt: 2 }}>

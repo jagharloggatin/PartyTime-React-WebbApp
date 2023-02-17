@@ -62,19 +62,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-.page {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.search {
-  padding: 150px 50px;
-  background-image: url('../public/assets/Images/la.png');
-  background-size: cover;
-  background-position: center;
-}
-
 .MuiTextField-root {
   background: white;
   border-radius: 10px;
@@ -136,6 +123,11 @@ code {
   }
 }
 
+.page {
+  width: 80vw;
+  margin: 0 auto;
+}
+
 .profile-background {
   background-position: center;
   background-repeat: no-repeat;
@@ -145,6 +137,7 @@ code {
   height: 100px;
   margin: 10px 0;
   border-radius: 20px;
+  width: 80%;
 }
 
 .card-wrapper {

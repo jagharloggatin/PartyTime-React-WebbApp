@@ -54,12 +54,27 @@ export default function AppEditProfile({ userId, displaySuccess, displayError })
     return <div>No user</div>;
   }
 
+
+  const buttonStyle = {
+    color: 'white',
+    display: 'flex',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    marginBottom: '1vh',
+    borderRadius: '5px',
+    border: '0px',
+
+    "&:hover": {
+      backgroundColor: '#ffffff70',
+    },
+  };
+
   return (
     <>
       <form onSubmit={onSubmit}>
-        <h2 style={{ marginTop: '2rem' }}>Profile</h2>
+        <p style={{ marginTop: '2rem', color: 'rgba(255, 255, 255, 0.8)', fontSize: '2vw' }}>Profile</p>
         <Box>
           <TextField
+            sx={buttonStyle}
             id="username"
             value={tempUser.username}
             label="Username"
@@ -73,6 +88,7 @@ export default function AppEditProfile({ userId, displaySuccess, displayError })
         </Box>
         <Box>
           <TextField
+            sx={buttonStyle}
             id="firstname"
             value={tempUser.firstName}
             label="Firstname"
@@ -85,6 +101,7 @@ export default function AppEditProfile({ userId, displaySuccess, displayError })
         </Box>
         <Box>
           <TextField
+            sx={buttonStyle}         
             id="lastname"
             value={tempUser.lastName}
             label="Last name"
@@ -97,6 +114,7 @@ export default function AppEditProfile({ userId, displaySuccess, displayError })
         </Box>
         <Box>
           <TextField
+            sx={buttonStyle}
             id="email"
             value={tempUser.email}
             label="Email"

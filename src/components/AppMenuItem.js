@@ -8,9 +8,9 @@ const buttonStyle = {
     display: 'flex',
     fontWeight: 'bold',
     fontSize: 20,
-    backgroundColor: '#ffffff40;',
+    backgroundColor: 'rgba(255, 255, 255, 0.114)',
     marginBottom: '1vh',
-    borderRadius: '10px',
+    borderRadius: '5px',
 
     "&:hover": {
       backgroundColor: '#ffffff70;'

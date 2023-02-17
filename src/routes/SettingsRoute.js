@@ -16,7 +16,6 @@ function SettingsRoute() {
     <div className="page">
       <SuccessAlert ref={successAlertRef} />
       <ErrorAlert ref={errorAlertRef} />
-      <h1>Settings</h1>
       <AppEditProfile
         userId={userCtx.ReadJWT().userID}
         displaySuccess={successAlertRef}
