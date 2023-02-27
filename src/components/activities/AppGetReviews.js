@@ -37,6 +37,14 @@ function AppFavoriteEventsList({ variant }) {
     );
   }
 
+  if (loadedFavorites.length === 0) {
+    return (
+      <div className={classes.wrapper}>
+        <h2 className={classes.content}>You have no reviews</h2>
+      </div>
+    );
+  }
+
   return (
     <div className="card-wrapper">
       {loadedFavorites.map((event) => (

@@ -14,27 +14,39 @@ function AppEvents() {
   const [cities, setCities] = useState([]);
 
   useEffect(() => {
-    
     const cities = async () => {
-      const res = await reqCtx.getRequest(ENDPOINTS.getCities)
-      const json = await res.json()
-      setCities(json)
-    }
-
+      const res = await reqCtx.getRequest(ENDPOINTS.getCities);
+      const json = await res.json();
+      setCities(json);
+    };
     cities();
-  })
+  }, []);
+
+  const getEventsInCity = async (cityId) => {
+    const res = await reqCtx.getRequest(ENDPOINTS.getEventsInCity(cityId));
+    const json = await res.json();
+    return json;
+  };
 
   function ShowCities() {
-    const c = cities.map(city => {
-      return <div className={styles.citywrapper}>
-         <div className={styles.cityimage} style={{backgroundImage: 'url("https://upload.wikimedia.org/wikipedia/commons/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg")'}}/>
-         <div className={styles.citynamewrapper}>
+    const c = cities.map((city) => {
+      return (
+        <div className={styles.citywrapper}>
+          <div
+            className={styles.cityimage}
+            style={{
+              backgroundImage:
+                'url("https://upload.wikimedia.org/wikipedia/commons/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg")',
+            }}
+          />
+          <div className={styles.citynamewrapper}>
             <p className={styles.cityname}>{city.name}</p>
-         </div>
+          </div>
         </div>
-    })
-    
-    return <div className={styles.citieswrapper}>{c}</div>
+      );
+    });
+
+    return <div className={styles.citieswrapper}>{c}</div>;
   }
 
   const inputHandler = (event) => {
@@ -54,14 +66,9 @@ function AppEvents() {
   return (
     <div className={styles.appeventswrapper}>
       <div className={styles.search}>
-        <TextField
-          onChange={inputHandler}
-          color="primary"
-          fullWidth
-          label="Where to?"
-        />
+        <TextField onChange={inputHandler} color="primary" fullWidth label="Where to?" />
       </div>
-        <ShowCities/>
+      <ShowCities />
     </div>
   );
 }

@@ -11,11 +11,11 @@ const ENDPOINTS = {
   //EVENTS
   getEvent: (id) => `https://${HOST}:${PORT}/events/${id}`,
   getEvents: `https://${HOST}:${PORT}/events`,
+  getEventsByCity: (cityId) => `https://${HOST}:${PORT}/events/city/${cityId}`,
   getLocationEvents: (location, locationId) => `https://${HOST}:${PORT}/events/${location}/${locationId}`,
   postEvent: `https://${HOST}:${PORT}/events`,
   putEvent: (id) => `https://${HOST}:${PORT}/events/${id}`,
   deleteEvent: (id) => `https://${HOST}:${PORT}/events/${id}`,
-  
 
   //REVIEWS
   getEventReviews: (id) => `${URL}/reviews/event/${id}`,
@@ -32,7 +32,6 @@ const ENDPOINTS = {
   //CITIES
   getCities: `${URL}/cities`,
   getCity: (id) => `${URL}/cities/${id}`,
-
 };
 
 export default ENDPOINTS;
