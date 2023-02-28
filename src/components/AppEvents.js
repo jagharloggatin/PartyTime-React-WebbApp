@@ -29,7 +29,7 @@ function AppEvents() {
   };
 
   function ShowCities() {
-    const c = cities.map((city) => {
+    const c = filteredCities.map((city) => {
       return (
         <div className={styles.citywrapper}>
           <div
@@ -55,13 +55,14 @@ function AppEvents() {
     setInputText(lowerCase);
   };
 
-  // const getFilteredCities = () => {
-  //   return cities.filter((city) => {
-  //     return city.text.toLowerCase().includes(inputText.toLowerCase());
-  //   });
-  // };
+  const getFilteredCities = () => {
+    return cities.filter((city) => {
+      console.log(city);
+      return city?.name?.toLowerCase().includes(inputText);
+    });
+  };
 
-  // const filteredCities = inputText === '' ? cities : getFilteredCities();
+  const filteredCities = inputText === '' ? cities : getFilteredCities();
 
   return (
     <div className={styles.appeventswrapper}>
