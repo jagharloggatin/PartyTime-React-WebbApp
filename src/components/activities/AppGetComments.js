@@ -32,7 +32,7 @@ function AppGetComments() {
   if (!loadedComments?.comments ?? false) return <div>No data..</div>;
 
   return (
-    <div>
+    <div className={classes.commentsarea}>
       {loadedComments.comments.map((c) => (
         <AppCommentItem key={uniqId()} id={c.id} comment={c} />
       ))}

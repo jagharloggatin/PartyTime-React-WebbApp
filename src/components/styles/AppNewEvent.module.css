@@ -6,30 +6,30 @@
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+  height: 100%;
 }
 
 .topbar {
   height: 150px;
-  margin-top: 4vh;
 }
 
 .lower {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px;
 }
 
 .addbutton {
   background-color: #1976d2;
   color: white;
-  width: 300px;
-  height: 70px;
+  width: 15rem;
+  height: 4rem;
   border-radius: 5px;
   border: none;
   font-family: 'SeoulHangang', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 25px;
   transition: ease-in-out 0.1s;
+  margin: 1rem;
 }
 
 .addbutton:hover {
@@ -39,6 +39,7 @@
 }
 
 .addactivityinnerwrapper {
+  height: 100%;
   width: 90%;
   display: flex;
   flex-direction: row;
@@ -71,26 +72,29 @@
 }
 
 .addactivityright {
-  width: 0;
-  flex-grow: 1;
+  width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
+  padding-right: 1.7rem;
+
 }
 
 .form {
-    display: flex;
-    width: 100%;
-    align-items: start;
-    justify-content: start;
-    flex-direction: column;
-    color: white;;
-    width: 400px;
+  display: flex;
+  width: 100%;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+  color: white;
+
 }
 
 .control {
-    margin-bottom: 0.5rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
 }
 
 .control label {
@@ -107,11 +111,12 @@
     border: 1px solid #ffffff30;
     height: 25px;
     padding: 0.25rem;
-    width: 400px;
     transition: ease-in-out 0.1s;
     outline: none;
     background-color: rgba(255, 255, 255, 0.171);
     color: white;
+    width: 100%;
+
 }
 
 .control input:focus {
@@ -121,16 +126,15 @@
 
 .control textarea {
   resize: none;
-  height: 150px;
+  height: 8rem;
 }
 
 .actions {
-    margin-top: 1rem;
     text-align: right;
 }
 
 .label {
-  font-size: 1vw;
+  font-size: 1.2rem;
   margin-bottom: 2px;
 }
 
@@ -139,7 +143,6 @@
     cursor: pointer;
     background-color: #77002e;
     color: white;
-    padding: 0.5rem 1.5rem;
     border: 1px solid #77002e;
     border-radius: 4px;
     font-weight: bold;

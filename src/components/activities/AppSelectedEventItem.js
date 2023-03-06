@@ -25,21 +25,24 @@ function AppSelectedEventItem(props) {
   const [favorite, setFavorite] = useState(false);
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
-  const selectedId = JSON.parse(localStorage.getItem('selectedId')) || [];
-  let content = <AppGetComments />;
   const successAlertRef = useRef(null);
   const errorAlertRef = useRef(null);
   const userCtx = useContext(userContext);
   const reqCtx = useContext(RequestContext);
   const navigateTo = useNavigate();
 
+  const selectedId = JSON.parse(localStorage.getItem('selectedId'));
+  console.log(selectedId);
+
   useEffect(() => {
     const conv = async () => {
       const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
       const converted = await response.json();
+      console.log(converted);
+
       for (let i = 0; i < converted.length; i++) {
         if (converted[i].id === selectedId.id) {
-          if (converted[i].likes === 1) {
+          if (converted[i].comments[0].liked === true) {
             setFavorite(true);
           } else {
             setFavorite(false);
@@ -109,75 +112,64 @@ function AppSelectedEventItem(props) {
 
   const image = selectedId.image === "" ? "icons/logo.svg" : selectedId.image
 
-  console.log(image);
+  let content = <AppGetComments />;
 
   return (
-    <div className={classes.listItem}>
-      <div className={classes.description}>
-        <div className={classes.infoContainer}>
-          <div className={classes.imageContainer}>
-            <img src={image} alt={selectedId.title} />
-          </div>
+        <div className={classes.infocontainer}>
+          <div className={classes.imageContainer} style={{ backgroundImage: `url(${image})` }}/>
           <SuccessAlert ref={successAlertRef}></SuccessAlert>
           <ErrorAlert ref={errorAlertRef}></ErrorAlert>
           <div className={classes.innerItem}>
-            <h1>{selectedId.title}</h1>
+            <p className={classes.title}>{selectedId.title}</p>
             <div className={classes.upperInfo}>
+              
+            
               <div className={classes.placeInfo}>
-                <DateRange fontSize='large' />
-                <p style={{ marginLeft: '5px' }}>{newdate}</p>
-              </div>
-              <div className={classes.placeInfo}>
-                <Place fontSize='large' />
-                <address>{selectedId.location.address}</address>
+                <div className={classes.infosec}>
+                <DateRange/>
+                <p>{newdate}</p>
+                </div>
+                <div className={classes.infosec}>
+                <Place  />
+                  <p>{selectedId.location.address}</p>
+                </div>
+                <Button
+                  onClick={toggleFavoriteStatusHandler}
+                  variant='contained'
+                  style={{ marginRight: '1rem' }}
+                  color='error'
+                >
+                  {favorite ? <Favorite></Favorite> : <HeartBroken></HeartBroken>}
+                </Button>
               </div>
             </div>
             
-            <div className={classes.placeInfo}>
-              <Description fontSize='large' />
-              <div className={classes.placeInfo}>{selectedId.description}</div>
+            <div className={classes.desc}>
+              <p>{selectedId.description}</p>
             </div>
-            <div style={{ marginTop: '.2rem' }}>
-              <Button
-                onClick={toggleFavoriteStatusHandler}
-                variant='contained'
-                style={{ marginRight: '1rem' }}
-                color='error'
-              >
-                {favorite ? <Favorite></Favorite> : <HeartBroken></HeartBroken>}
-              </Button>
+
+            
+            <div style={{ marginTop: '1rem' }}>
+              
               <Button onClick={getComments} variant='contained'>
-                {show ? <Comment></Comment> :
-                  <CommentsDisabled></CommentsDisabled>}
+                {show ? <a>Show comments</a> :
+                  <a>Dont show comments</a>}
               </Button>
             </div>
-          </div>
         </div>
 
         {!show && (
           <div className={classes.commentsContainer}>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between',
-                marginTop: '1rem',
-                marginBottom: '1rem',
-              }}
-            >
-
+              {content}
               <TextField onChange={onCommentChange} variant='filled'
-                         sx={{ width: '85%' }}></TextField>
+                         sx={{ width: '85%', marginTop: '2rem' }}></TextField>
               <Button onClick={onCommentSubmit} variant='contained'>
                 <Send />
               </Button>
-            </div>
-            {content}
+            
           </div>
         )}
       </div>
-    </div>
   );
 }
 

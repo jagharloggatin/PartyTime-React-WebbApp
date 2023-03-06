@@ -8,7 +8,7 @@ import UserContext from 'store/UserContext';
 function ProfileReviewsTab() {
   return (
     <div className="tab">
-      <AppFavoriteEventsList variant={'event'} />
+      <AppFavoriteEventsList mode={'reviews'} variant={'event'} />
     </div>
   );
 }

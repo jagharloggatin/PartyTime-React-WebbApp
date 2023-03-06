@@ -7,7 +7,7 @@ import {
   CardContent,
   CardMedia,
   IconButton,
-  Typography,
+  Typography
 } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -19,7 +19,7 @@ import userContext from '../../store/UserContext';
 import classes from '../styles/AppEvents.module.css';
 import AppGetComments from './AppGetComments';
 
-function AppEventsItem({ event, variant }) {
+function AppEventsItem({ event, variant, mode}) {
   const favoritesCtx = useContext(FavoritesContext);
   const itemIsFavorite = favoritesCtx.itemIsFavorite(event.id);
   const navigateTo = useNavigate();
@@ -118,30 +118,3 @@ function AppEventsItem({ event, variant }) {
 }
 
 export default AppEventsItem;
-
-//
-// const goToActivity = () => {
-//   // console.log(event);
-//   selectedActivityCtx.activitySelected({
-//     id: event.id,
-//     title: event.title,
-//     description: event.description,
-//     image: event.image,
-//     address: event.address,
-//     city: event.city,
-//     rating: event.rating,
-//   });
-//   navigateTo('/event');
-// };
-// if (itemIsFavorite) {
-//   favoritesCtx.removeFavorite(event.id);
-// } else {
-//   favoritesCtx.addFavorite({
-//     id: event.id,
-//     title: event.title,
-//     description: event.description,
-//     image: event.image,
-//     address: event.address,
-//     city: event.city,
-//   });
-// }

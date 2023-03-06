@@ -6,7 +6,7 @@ import uniqId from '../../uniq';
 import classes from '../styles/Headlines.module.css';
 import AppEventsItem from './AppEventsItem';
 
-function AppFavoriteEventsList({ variant }) {
+function AppFavoriteEventsList({ variant, mode }) {
   const userCtx = useContext(UserContext);
   console.log(userCtx.ReadJWT().userID);
   const reqCtx = useContext(RequestContext);
@@ -16,23 +16,30 @@ function AppFavoriteEventsList({ variant }) {
   useEffect(() => {
     const conv = async () => {
       setIsLoading(true);
-      const response = await reqCtx.getRequest(ENDPOINTS.getUserReviews(userCtx.ReadJWT().userID));
-      console.log(response);
-      const converted = await reqCtx.convertResponse(response);
-      console.log(converted);
-      setLoadedFavorites(converted);
-      setIsLoading(false);
+      let response;
+
+
+      if (mode === "favorites") {
+        const response = await reqCtx.getRequest(ENDPOINTS.getFavoriteEvents(userCtx.ReadJWT().userID))
+        const converted = await reqCtx.convertResponse(response);
+        setLoadedFavorites(converted);
+        setIsLoading(false);
+      }
+
+      if (mode === "reviews") {
+        const response = await reqCtx.getRequest(ENDPOINTS.getReviewedEvents(userCtx.ReadJWT().userID))
+        const converted = await reqCtx.convertResponse(response);
+        setLoadedFavorites(converted);
+        setIsLoading(false);
+      }
     };
     conv();
   }, []);
-  // console.log("HAR AER FALOAD");
-  //
-  console.log(loadedFavorites);
-  // console.log("HAR AER FALOAD");
+
   if (isLoading) {
     return (
       <div className={classes.wrapper}>
-        <h2 className={classes.content}>Loading...</h2>
+        <p className={classes.content}>Loading...</p>
       </div>
     );
   }
@@ -40,7 +47,7 @@ function AppFavoriteEventsList({ variant }) {
   if (loadedFavorites.length === 0) {
     return (
       <div className={classes.wrapper}>
-        <h2 className={classes.content}>You have no reviews</h2>
+        <p className={classes.content}>You have no favorites</p>
       </div>
     );
   }
@@ -48,7 +55,7 @@ function AppFavoriteEventsList({ variant }) {
   return (
     <div className="card-wrapper">
       {loadedFavorites.map((event) => (
-        <AppEventsItem key={uniqId()} event={event} variant={variant} />
+        <AppEventsItem mode={mode} key={uniqId()} event={event} variant={variant} />
       ))}
     </div>
   );

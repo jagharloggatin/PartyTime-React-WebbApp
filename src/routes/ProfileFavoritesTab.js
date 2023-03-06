@@ -5,7 +5,7 @@ import React from 'react';
 function ProfileFavoritesTab() {
   return (
     <div className="tab">
-      <AppFavoriteEventsList variant={'favorite'} />
+      <AppFavoriteEventsList mode={'favorites'} variant={'favorite'} />
     </div>
   );
 }

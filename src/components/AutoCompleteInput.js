@@ -1,30 +1,23 @@
-import { Box, Button, Modal, TextField, Typography } from '@mui/material';
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import LocationContext from 'store/LocationContext';
 import classes from './styles/AutoCompleteInput.module.scss';
 
-import LocationContext from 'store/LocationContext';
-import RequestContext from 'store/RequestContext';
-import gridIcon from '../icons/grid.svg';
-import plusIcon from '../icons/plus.svg';
-import searchIcon from '../icons/search.svg';
-import AppNewEvent from './activities/AppNewEvent';
-import AppSelectedEventItem from './activities/AppSelectedEventItem';
-import Logo from './AppLogo';
-
-
 function AutoCompleteInput(props) {
+  //Contexts
   const locCtx = useContext(LocationContext)
 
+  //States
   const [predictionsResult, setPredictionsResult] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [inputText, setInputText] = useState("");
+  const [service, setService] = useState({});
 
-
-  const autoCompleteRef = useRef();
+  //Refs
   const inputRef = useRef();
 
-  const service = new window.google.maps.places.AutocompleteService();
-
+  useEffect(() => {
+    setService(new window.google.maps.places.AutocompleteService())
+  }, [])
 
   //Get place result from specific place id 
   //that is provided when clicked on a prediction in the autocomplete list

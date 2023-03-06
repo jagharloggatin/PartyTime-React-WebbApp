@@ -45,16 +45,14 @@ export default function AppProfile() {
 
   return (
     <div className={styles.wrapper}>
-      <div style={{backgroundImage: `url(${user.profileImage})`}} 
-      className="profile-background">
-      </div>
+      <div style={{backgroundImage: `url(${user.profileImage})`}} className="profile-background"/>
         <div className={styles.headerContent}>
             <p className={styles.flname}>{user.firstName} {user.lastName}</p>
             <p className={styles.username}>@{user.username}</p>
         </div>
       <div></div>
 
-      <div className="test">
+      <div>
         <ProfileTabs></ProfileTabs>
       </div>
     </div>

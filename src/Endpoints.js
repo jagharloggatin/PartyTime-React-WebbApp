@@ -10,12 +10,16 @@ const ENDPOINTS = {
 
   //EVENTS
   getEvent: (id) => `https://${HOST}:${PORT}/events/${id}`,
-  getEvents: `https://${HOST}:${PORT}/events`,
+  getEvents: `https://${HOST}:${PORT}/events/`,
+  getEventsByUser: (id) => `https://${HOST}:${PORT}/events/user/${id}`,
   getEventsByCity: (cityId) => `https://${HOST}:${PORT}/events/city/${cityId}`,
   getLocationEvents: (location, locationId) => `https://${HOST}:${PORT}/events/${location}/${locationId}`,
   postEvent: `https://${HOST}:${PORT}/events`,
   putEvent: (id) => `https://${HOST}:${PORT}/events/${id}`,
   deleteEvent: (id) => `https://${HOST}:${PORT}/events/${id}`,
+  getFavoriteEvents:(id) => `https://${HOST}:${PORT}/events/favorites/${id}`,
+  getReviewedEvents:(id) => `https://${HOST}:${PORT}/events/reviewed/${id}`,
+
 
   //REVIEWS
   getEventReviews: (id) => `${URL}/reviews/event/${id}`,

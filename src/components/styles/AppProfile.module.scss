@@ -1,9 +1,8 @@
 
 .wrapper {
-  margin-top: 50px;
+  margin-top: 2rem;
   display: flex;
   align-items: center;
-
   flex-direction: column;
 }
 
@@ -12,13 +11,17 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  font-size: 2vw;
+  font-size: 1rem;
   color: white;
   margin: 0 auto;
 }
 
 .headerAvatar {
   flex-grow: 0;
+}
+
+.profile-background {
+  width: 2rem;
 }
 
 .headerContent {
@@ -28,17 +31,18 @@
   align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
-  margin-top: 30px;
+  margin-top: 1rem;
 }
 
 .flname {
-  font-size: 3vw;
+  margin-top: -0.5rem;
+  font-size: 3rem;
 }
 
 .username {
-  font-size: 1.5vw;
-  margin-top: -40px;
-  margin-bottom: 30px;
+  font-size: 1.5rem;
+  margin: 1rem;
+  margin-top: -2rem;
 }
 
 h3 {

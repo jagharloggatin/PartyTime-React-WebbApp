@@ -32,8 +32,11 @@ export function UserContextProvider(props) {
   }
 
   function IsLoggedIn() {
-    if (sessionStorage.getItem('JWT')) return true;
-    return false;
+    if (sessionStorage.getItem('JWT')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   function SaveJWT(JWT, userID) {

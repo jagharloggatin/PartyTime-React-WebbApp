@@ -6,7 +6,9 @@ import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import ENDPOINTS from 'Endpoints';
 import React from 'react';
 import HomeRoute from 'routes/HomeRoute';
+import GMapContext from 'store/GMapContext';
 import RequestContext from 'store/RequestContext';
+import UserContext from 'store/UserContext';
 import gridIcon from '../icons/grid.svg';
 import likeIcon from '../icons/heart.svg';
 import plusIcon from '../icons/plus.svg';
@@ -20,6 +22,9 @@ import AutoCompleteInput from './AutoCompleteInput';
 
 const AppMap = () => {
   const reqCtx = useContext(RequestContext);
+  const gmapCtx = useContext(GMapContext);
+  const userCtx = useContext(UserContext)
+  
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [predictionsResult, setPredictionsResult] = useState([]);
   const [inputText, setInputText] = useState('');
@@ -27,24 +32,34 @@ const AppMap = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState('');
   const [map, setMap] = useState({});
-  const [eventID, setEventID] = useState('apa');
 
   const CustomButton = (props) => {
+    const style = () => {
+      if (userCtx.IsLoggedIn()) {
+        return  { width: `${props.size}px`, height: `${props.size}px`, ...props.style }
+      } else {
+        return { filter: "grayscale(100%)", width: `${props.size}px`, height: `${props.size}px`, ...props.style }
+
+      }
+    }
     return (
       <div
         onClick={() => {
-          setModalOpen(true);
-          setModalContent(props.modal);
+          if (userCtx.IsLoggedIn()) {
+            setModalOpen(true);
+            setModalContent(props.modal);
+          }      
         }}
         className={classes.custombutton}
-        style={{ width: `${props.size}px`, height: `${props.size}px`, ...props.style }}
+        style={style()}
       >
         {props.children}
+        {userCtx.IsLoggedIn() === false && props.modal === "add" ? <p className={classes.loginprompt}>Log in to use these functions</p> : null}
       </div>
     );
   };
 
-  useEffect(() => {
+  function loadMap() {
     const newmap = new window.google.maps.Map(document.getElementById('mapDiv'), {
       zoom: mapState.zoom,
       center: mapState.center,
@@ -100,7 +115,14 @@ const AppMap = () => {
     };
 
     showMarkers();
-  }, [mapState, modalOpen]);
+  }
+
+  useEffect(() => {
+    if (gmapCtx.map === true) {
+      loadMap();
+    }
+    
+  }, [mapState, modalOpen, gmapCtx.map]);
 
   const displaySuggestions = function (predictions, status) {
     if (status != window.google.maps.places.PlacesServiceStatus.OK || !predictions) {
@@ -129,13 +151,15 @@ const AppMap = () => {
           {modalContent === 'add' ? (
             <AppNewEvent setMapState={setMapState} setModalOpen={setModalOpen} gmap={map} />
           ) : null}
-          {modalContent === 'likes' ? <AppFavoriteEventsList variant={'all'} /> : null}
+          {modalContent === 'likes' ? <AppFavoriteEventsList mode={'favorites'} variant={'all'} /> : null}
           {modalContent === 'selected' ? <AppSelectedEventItem /> : null}
         </div>
       </Modal>
-      <div className={classes.autocompletewrapper}>
+      
+      {gmapCtx.map === true ? <div className={classes.autocompletewrapper}>
         <AutoCompleteInput gmap={map} disabled={false} setMapState={setMapState} />
-      </div>
+      </div> : null }
+      
       <div className={classes['control-container']}>
         <CustomButton size={55} modal={'grid'}>
           <img src={gridIcon} alt={'grid-view'} />

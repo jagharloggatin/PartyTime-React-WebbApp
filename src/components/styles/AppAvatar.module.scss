@@ -6,7 +6,7 @@
 }
 
 .drawer {
-  max-width: 10vw;
+  max-width: 100%;
   height: 100%;
   z-index: 1000000;
   width: 50vw;
@@ -22,12 +22,12 @@
 }
 
 .flyoutimage {
-  width: 12vw;
-  height: 12vw;
-  border-radius: 7.5vw;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 3.5rem;
   overflow: hidden;
   background-position: center;
-  margin-bottom: 2vw;
+  margin: 1rem;
   background-size: contain;
 }
 
@@ -41,6 +41,6 @@
 
 .flyoutusername {
   color: white;
-  font-size: 2vw;
-  margin-top: -2vh;
+  font-size: 1.5rem;
+  margin-top: 0rem;
 }

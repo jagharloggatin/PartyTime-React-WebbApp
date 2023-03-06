@@ -105,7 +105,7 @@ function AppNewEvent(props) {
             </div>
 
             <div className={classes.control}>
-            <p className={classes.label}>Image</p>
+            <p className={classes.label}>Image (Url)</p>
               <input type="text" required id="image" ref={imageInputRef} />
             </div>
 

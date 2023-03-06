@@ -1,4 +1,4 @@
-import { ThumbUp } from '@mui/icons-material';
+import { Favorite, ThumbUp } from '@mui/icons-material';
 import CommentIcon from '@mui/icons-material/Comment';
 import EventIcon from '@mui/icons-material/Event';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -25,7 +25,7 @@ export default function ProfileTabs() {
       <TabContext value={value}>
         <Box>
           <TabList onChange={handleChange}>
-            <LinkTab value="1" icon={<ThumbUp color='white'/>} label="Favorites" to="/profile" />
+            <LinkTab value="1" icon={<Favorite />} label="Favorites" to="/profile" />
             <LinkTab value="2" icon={<CommentIcon />} label="Reviews" to="/profile/reviews" />
             <LinkTab value="3" icon={<EventIcon />} label="Created events" to="/profile/created" />
           </TabList>

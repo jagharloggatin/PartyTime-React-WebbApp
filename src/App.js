@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import AppMap from 'components/AppMap';
+import React, { useContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import ProfileActivitiesTab from 'routes/ProfileActivitiesTab';
 import ProfileFavoritesTab from 'routes/ProfileFavoritesTab';
 import ProfileReviewsTab from 'routes/ProfileReviewsTab';
 import SettingsRoute from 'routes/SettingsRoute';
 import SignupRoute from 'routes/SignupRoute';
+import GMapContext from 'store/GMapContext';
 import './App.scss';
 import AppNewActivityForm from './components/activities/AppNewEvent';
 import AppHeader from './components/AppHeader';
@@ -16,24 +18,43 @@ import MapRoute from './routes/MapRoute';
 import ProfileRoute from './routes/ProfileRoute';
 import SelectedActivityRoute from './routes/SelectedActivityRoute';
 
+
+
 function App() {
+
+  const gmapCtx = useContext(GMapContext)
+
   function initMap() {
-    const map = new window.google.maps.Map(document.getElementById('map'), {
-      center: { lat: -34.397, lng: 150.644 },
-      zoom: 8,
-    });
+    gmapCtx.set(true)
+    console.log('loaded')
   }
 
-  window.initMap = initMap;
+  function loadScript() {
+    var url = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAY85IYZfPLkT6EyiauSREDkc7ZhYJCPys&libraries=places&callback=initMap"
+    var script = window.document.createElement("script")
+    script.src = url
+    script.defer = true
+    script.async = true
+    document.head.appendChild(script)
+  }
 
-  useEffect(() => {});
+
+  function renderMap() {
+    console.log("apPAsfpa");
+    loadScript()
+    window.initMap = initMap;
+
+  }
+
+  useEffect(() => {
+    renderMap();
+  }, [])
 
   return (
     <div className="wrapper">
       <AppHeader></AppHeader>
       <Routes>
-        <Route path="/" element={<HomeRoute />} />
-        <Route path="/map" element={<MapRoute />} />
+        <Route path="/" element={<AppMap/>} />
         <Route path="/profile" element={<ProfileRoute />}>
           <Route index element={<ProfileFavoritesTab />} />
           <Route path="/profile/reviews" element={<ProfileReviewsTab />} />

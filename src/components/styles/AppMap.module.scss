@@ -50,6 +50,8 @@
   align-items: center;
 }
 
+
+
 .custombutton {
   display: flex;
   flex-wrap: wrap;
@@ -69,8 +71,8 @@
 
 .mapcontainer {
   position: absolute;
-  height: 90.2vh;
-  width: 100vw;
+  height: 100dvh;
+  width: 100dvw;
 }
 
 .modalcontainer {
@@ -81,19 +83,34 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90vw;
-  height: 85vh;
+  width: 98%;
+  height: 96%;
   background-color: white;
   border-radius: 10px;
   outline: none;
   border-radius: 10px;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
+  overflow-y: scroll;
 }
 
 .custombutton img {
   width: 25px;
+}
+
+.loginprompt {
+  position: absolute;
+  width: 12rem;
+  margin-top: -9rem;
+  padding: 1rem;
+  background-color: #1976d279;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.custombutton:hover + .loginprompt {
+  display: block;
 }
 
 .autocompletewrapper {
