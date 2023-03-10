@@ -20,7 +20,7 @@ export default function AppProfile() {
       setIsLoading(true);
       console.log('ANVÄNDARE');
       console.log(userCtx.ReadJWT().userID);
-      const req = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userID));
+      const req = await reqCtx.getRequestJWT(ENDPOINTS.getUser(userCtx.ReadJWT().userID));
       const json = await req.json();
       setUser(json);
 

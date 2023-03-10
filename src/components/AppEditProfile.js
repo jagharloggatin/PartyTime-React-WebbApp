@@ -19,7 +19,7 @@ export default function AppEditProfile({ userId, displaySuccess, displayError })
     async function fetchData() {
       try {
         setIsLoading(true);
-        const res = await reqCtx.getRequest(ENDPOINTS.getUser(userId));
+        const res = await reqCtx.getRequestJWT(ENDPOINTS.getUser(userId));
         const data = await res.json();
 
         setUser(data);

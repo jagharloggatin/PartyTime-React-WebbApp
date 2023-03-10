@@ -38,7 +38,7 @@ export default function AppAvatar() {
 
   const getImage = async () => {
     if (userCtx.IsLoggedIn()) {
-      const res = await reqCtx.getRequest(ENDPOINTS.getUser(userCtx.ReadJWT().userID));
+      const res = await reqCtx.getRequestJWT(ENDPOINTS.getUser(userCtx.ReadJWT().userID));
       const json = await res.json();
 
       if (res.ok) {
