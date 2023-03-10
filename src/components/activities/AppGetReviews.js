@@ -18,16 +18,22 @@ function AppFavoriteEventsList({ variant, mode }) {
       setIsLoading(true);
       let response;
 
-
-      if (mode === "favorites") {
-        const response = await reqCtx.getRequest(ENDPOINTS.getFavoriteEvents(userCtx.ReadJWT().userID))
+      if (mode === 'favorites') {
+        const response = await reqCtx.getRequest(ENDPOINTS.getFavoriteEvents(userCtx.ReadJWT().userID));
         const converted = await reqCtx.convertResponse(response);
         setLoadedFavorites(converted);
         setIsLoading(false);
       }
 
-      if (mode === "reviews") {
-        const response = await reqCtx.getRequest(ENDPOINTS.getReviewedEvents(userCtx.ReadJWT().userID))
+      if (mode === 'reviews') {
+        const response = await reqCtx.getRequest(ENDPOINTS.getReviewedEvents(userCtx.ReadJWT().userID));
+        const converted = await reqCtx.convertResponse(response);
+        setLoadedFavorites(converted);
+        setIsLoading(false);
+      }
+
+      if (mode == 'activities') {
+        const response = await reqCtx.getRequest(ENDPOINTS.getEventsByUser(userCtx.ReadJWT().userID));
         const converted = await reqCtx.convertResponse(response);
         setLoadedFavorites(converted);
         setIsLoading(false);
