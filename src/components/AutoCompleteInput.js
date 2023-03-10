@@ -51,7 +51,7 @@ function AutoCompleteInput(props) {
             id: 0,
             name: null,
             country: {
-              id: g0,
+              id: 0,
               name: null,
               countryCode: null,
             },
