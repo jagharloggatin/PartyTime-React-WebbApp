@@ -2,10 +2,16 @@ import {
   Comment,
   CommentsDisabled,
   DataUsageSharp,
-  DateRange, Description, EighteenUpRatingRounded,
+  DateRange,
+  Description,
+  EighteenUpRatingRounded,
   Favorite,
-  HeartBroken, LocationCity, Pin, PinRounded, Place,
-  Send
+  HeartBroken,
+  LocationCity,
+  Pin,
+  PinRounded,
+  Place,
+  Send,
 } from '@mui/icons-material';
 
 import { Button, TextField } from '@mui/material';
@@ -18,7 +24,6 @@ import SuccessAlert from '../ErrorAlert';
 import classes from '../styles/AppSelectedEvent.module.css';
 import ErrorAlert from '../SuccessAlert';
 import AppGetComments from './AppGetComments';
-
 
 function AppSelectedEventItem(props) {
   const [show, setShow] = useState(true);
@@ -54,6 +59,13 @@ function AppSelectedEventItem(props) {
   }, []);
 
   const toggleFavoriteStatusHandler = async () => {
+    if (!userCtx.IsLoggedIn()) {
+      successAlertRef.current.update('You are not logged in and will be redirected to login page');
+      setTimeout(() => {
+        navigateTo('/login');
+      }, 2500);
+    }
+
     if (favorite) {
       setFavorite(false);
     } else {
@@ -71,12 +83,11 @@ function AppSelectedEventItem(props) {
   };
 
   async function onCommentSubmit(e) {
-
-    if(!userCtx.IsLoggedIn()){
+    if (!userCtx.IsLoggedIn()) {
       successAlertRef.current.update('You are not logged in and will be transferred to login page');
       setTimeout(() => {
-      navigateTo('/login')
-      },1500)
+        navigateTo('/login');
+      }, 2500);
     }
 
     e.preventDefault();
@@ -91,9 +102,9 @@ function AppSelectedEventItem(props) {
 
     console.log(res.status);
 
-    if(res.status !== 200){
+    if (res.status !== 200) {
       successAlertRef.current.update('Something Went Wrong! Hehe');
-    }else {
+    } else {
       errorAlertRef.current.update('You Posted a Comment, What A Lad :O');
     }
   }
@@ -107,74 +118,65 @@ function AppSelectedEventItem(props) {
     setComment(e.target.value);
   };
 
-  const date = selectedId.planned.split("T")
+  const date = selectedId.planned.split('T');
   const newdate = date[0];
 
-  const image = selectedId.image === "" ? "icons/logo.svg" : selectedId.image
+  const image = selectedId.image === '' ? 'icons/logo.svg' : selectedId.image;
 
   let content = <AppGetComments />;
 
   return (
-        <div className={classes.infocontainer}>
-          <div className={classes.imageContainer} style={{ backgroundImage: `url(${image})` }}/>
-          <SuccessAlert ref={successAlertRef}></SuccessAlert>
-          <ErrorAlert ref={errorAlertRef}></ErrorAlert>
-          <div className={classes.innerItem}>
-            <p className={classes.title}>{selectedId.title}</p>
-            <div className={classes.upperInfo}>
-              
-            
-              <div className={classes.placeInfo}>
-                <div className={classes.infosec}>
-                <DateRange/>
-                <p>{newdate}</p>
-                </div>
-                <div className={classes.infosec}>
-                <Place  />
-                  <p>{selectedId.location.address}</p>
-                </div>
-                <Button
-                  onClick={toggleFavoriteStatusHandler}
-                  variant='contained'
-                  style={{ marginRight: '1rem' }}
-                  color='error'
-                >
-                  {favorite ? <Favorite></Favorite> : <HeartBroken></HeartBroken>}
-                </Button>
-              </div>
+    <div className={classes.infocontainer}>
+      <div className={classes.imageContainer} style={{ backgroundImage: `url(${image})` }} />
+      <SuccessAlert ref={successAlertRef}></SuccessAlert>
+      <ErrorAlert ref={errorAlertRef}></ErrorAlert>
+      <div className={classes.innerItem}>
+        <p className={classes.title}>{selectedId.title}</p>
+        <div className={classes.upperInfo}>
+          <div className={classes.placeInfo}>
+            <div className={classes.infosec}>
+              <DateRange />
+              <p>{newdate}</p>
             </div>
-            
-            <div className={classes.desc}>
-              <p>{selectedId.description}</p>
+            <div className={classes.infosec}>
+              <Place />
+              <p>{selectedId.location.address}</p>
             </div>
-
-            
-            <div style={{ marginTop: '1rem' }}>
-              
-              <Button onClick={getComments} variant='contained'>
-                {show ? <a>Show comments</a> :
-                  <a>Dont show comments</a>}
-              </Button>
-            </div>
+            <Button
+              onClick={toggleFavoriteStatusHandler}
+              variant="contained"
+              style={{ marginRight: '1rem' }}
+              color="error"
+            >
+              {favorite ? <Favorite></Favorite> : <HeartBroken></HeartBroken>}
+            </Button>
+          </div>
         </div>
 
-        {!show && (
-          <div className={classes.commentsContainer}>
-              {content}
-              <TextField onChange={onCommentChange} variant='filled'
-                         sx={{ width: '85%', marginTop: '2rem' }}></TextField>
-              <Button onClick={onCommentSubmit} variant='contained'>
-                <Send />
-              </Button>
-            
-          </div>
-        )}
+        <div className={classes.desc}>
+          <p>{selectedId.description}</p>
+        </div>
+
+        <div style={{ marginTop: '1rem' }}>
+          <Button onClick={getComments} variant="contained">
+            {show ? <a>Show comments</a> : <a>Dont show comments</a>}
+          </Button>
+        </div>
       </div>
+
+      {!show && (
+        <div className={classes.commentsContainer}>
+          {content}
+          <TextField onChange={onCommentChange} variant="filled" sx={{ width: '85%', marginTop: '2rem' }}></TextField>
+          <Button onClick={onCommentSubmit} variant="contained">
+            <Send />
+          </Button>
+        </div>
+      )}
+    </div>
   );
 }
 
 // setShow(!show)
 
 export default AppSelectedEventItem;
-
-
