@@ -36,12 +36,6 @@ function AutoCompleteInput(props) {
         place.geometry &&
         place.geometry.location
       ) {
-        const lat = place.geometry.location.lat();
-        const lng = place.geometry.location.lng();
-        place.geometry.location){
-
-
-          console.log(place);
           
           const lat = place.geometry.location.lat();
           const lng = place.geometry.location.lng();
@@ -57,7 +51,7 @@ function AutoCompleteInput(props) {
             id: 0,
             name: null,
             country: {
-              id: 0,
+              id: g0,
               name: null,
               countryCode: null,
             },
